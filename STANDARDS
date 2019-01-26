@@ -1,5 +1,5 @@
 Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
-Copyright (C) 2010-2018 BUGSENG srl (http://bugseng.com)
+Copyright (C) 2010-2019 BUGSENG srl (http://bugseng.com)
 See below for the copying conditions.
 
 
@@ -708,7 +708,7 @@ o  Ideally the tests should exercise every line of code in the library.
 --------
 
 Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
-Copyright (C) 2010-2018 BUGSENG srl (http://bugseng.com)
+Copyright (C) 2010-2019 BUGSENG srl (http://bugseng.com)
 
 This document describes the Parma Polyhedra Library (PPL).
 

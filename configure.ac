@@ -1,6 +1,6 @@
 # Autoconf source file for the Parma Polyhedra Library.
 # Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
-# Copyright (C) 2010-2018 BUGSENG srl (http://bugseng.com)
+# Copyright (C) 2010-2019 BUGSENG srl (http://bugseng.com)
 #
 # This file is part of the Parma Polyhedra Library (PPL).
 #
@@ -67,10 +67,6 @@ AC_SUBST(PPL_VERSION_MAJOR)
 AC_SUBST(PPL_VERSION_MINOR)
 AC_SUBST(PPL_VERSION_REVISION)
 AC_SUBST(PPL_VERSION_BETA)
-
-AC_DEFINE_UNQUOTED(PPL_CONFIGURE_OPTIONS, "$ac_configure_args", [This contains the options with which `configure' was invoked.])
-PPL_CONFIGURE_OPTIONS="\"$ac_configure_args\""
-AC_SUBST(CONFIGURE_OPTIONS)
 
 # Generate a configuration header file.
 AC_CONFIG_HEADER([config.h])
@@ -290,6 +286,11 @@ AC_PROG_SED
 AC_PROG_CXXCPP
 AC_PROG_MAKE_SET
 AC_PROG_INSTALL
+
+AC_DEFINE_UNQUOTED(PPL_CONFIGURE_OPTIONS, "`echo $ac_configure_args | $SED -e 's/\\\\/\\\\\\\\/g'`", [This contains the options with which `configure' was invoked.])
+PPL_CONFIGURE_OPTIONS="\"$ac_configure_args\""
+AC_SUBST(CONFIGURE_OPTIONS)
+
 
 # Compilation flags.
 

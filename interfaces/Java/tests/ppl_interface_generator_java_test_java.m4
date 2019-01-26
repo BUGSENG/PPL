@@ -5,7 +5,7 @@ dnl This m4 file generates the file ppl_java_classes_test.java
 dnl using the code in ppl_interface_generator_java_test_code.m4.
 dnl
 dnl Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
-dnl Copyright (C) 2010-2018 BUGSENG srl (http://bugseng.com)
+dnl Copyright (C) 2010-2019 BUGSENG srl (http://bugseng.com)
 dnl
 dnl This file is part of the Parma Polyhedra Library (PPL).
 dnl

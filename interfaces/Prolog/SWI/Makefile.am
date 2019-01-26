@@ -1,6 +1,6 @@
 # Automake source file for the Parma Polyhedra Library.
 # Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
-# Copyright (C) 2010-2018 BUGSENG srl (http://bugseng.com)
+# Copyright (C) 2010-2019 BUGSENG srl (http://bugseng.com)
 #
 # This file is part of the Parma Polyhedra Library (PPL).
 #
@@ -71,6 +71,10 @@ ppl_swiprolog.cc: $(interface_generator_dependencies)
            $(srcdir)/ppl_interface_generator_swiprolog_cc.m4 > $@
 
 pkglib_LTLIBRARIES = libppl_swiprolog.la
+
+pkginclude_HEADERS = \
+$(SWI_CFLI_FILES) \
+ppl_swiprolog.hh
 
 libppl_swiprolog_la_SOURCES = \
 ppl_prolog_sysdep.hh \

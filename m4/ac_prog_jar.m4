@@ -36,7 +36,7 @@
 #
 #   Copyright (C) 2000      Egon Willighagen <e.willighagen@science.ru.nl>
 #   Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
-#   Copyright (C) 2010-2018 BUGSENG srl (http://bugseng.com)
+#   Copyright (C) 2010-2019 BUGSENG srl (http://bugseng.com)
 #
 #   Copying and distribution of this file, with or without
 #   modification, are permitted in any medium without royalty provided
