@@ -1,7 +1,7 @@
 /* Test Pointset_Powerset<PH>::total_memory_in_bytes().
         Pointset_Powerset<PH>::external_memory_in_bytes().
    Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
-   Copyright (C) 2010-2018 BUGSENG srl (http://bugseng.com)
+   Copyright (C) 2010-2019 BUGSENG srl (http://bugseng.com)
 
 This file is part of the Parma Polyhedra Library (PPL).
 

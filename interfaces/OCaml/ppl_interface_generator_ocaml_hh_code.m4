@@ -1,7 +1,7 @@
 dnl Used by ppl_interfaces_generator_ocaml_hh_files.m4
 dnl for generating the access code for the OCaml interface.
 dnl Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
-dnl Copyright (C) 2010-2018 BUGSENG srl (http://bugseng.com)
+dnl Copyright (C) 2010-2019 BUGSENG srl (http://bugseng.com)
 dnl
 dnl This file is part of the Parma Polyhedra Library (PPL).
 dnl

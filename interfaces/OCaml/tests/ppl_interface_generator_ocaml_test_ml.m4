@@ -1,7 +1,7 @@
 m4_define(`dnl', `m4_dnl')`'dnl
 m4_divert(-1)
 dnl Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
-dnl Copyright (C) 2010-2018 BUGSENG srl (http://bugseng.com)
+dnl Copyright (C) 2010-2019 BUGSENG srl (http://bugseng.com)
 dnl
 dnl This file is part of the Parma Polyhedra Library (PPL).
 dnl

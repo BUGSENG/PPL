@@ -2,7 +2,7 @@
 temp_file=`mktemp /tmp/bump_copyright_years.XXXXXXXXXX` || exit 1
 find . -type f -print0 | while read -d $'\0' file
 do
-  sed -e "s/Copyright (C) 2010-2018 BUGSENG srl/Copyright (C) 2010-2018 BUGSENG srl/g" <"${file}" >"${temp_file}"
+  sed -e "s/Copyright (C) 2010-2019 BUGSENG srl/Copyright (C) 2010-2019 BUGSENG srl/g" <"${file}" >"${temp_file}"
   chmod --reference="${file}" "${temp_file}"
   mv -f "${temp_file}" "${file}"
 done
