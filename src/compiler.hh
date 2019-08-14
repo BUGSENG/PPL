@@ -36,7 +36,7 @@ namespace Parma_Polyhedra_Library {
   the compiler.
 */
 #endif // defined(PPL_DOXYGEN_INCLUDE_IMPLEMENTATION_DETAILS)
-#define PPL_USED(v) (const void)(v)
+#define PPL_USED(v) (void)(v)
 
 #ifdef PPL_DOXYGEN_INCLUDE_IMPLEMENTATION_DETAILS
 /*! \brief
