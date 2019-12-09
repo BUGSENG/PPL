@@ -1717,6 +1717,7 @@ AC_CONFIG_FILES(Makefile
                 interfaces/Prolog/XSB/Makefile
                 interfaces/Prolog/YAP/Makefile
                 interfaces/Prolog/tests/Makefile
+                ECLAIR/analyze.sh
                 )
 #               tests/Ask_Tell/Makefile
 AC_OUTPUT
