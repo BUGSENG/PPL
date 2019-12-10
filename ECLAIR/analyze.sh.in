@@ -58,4 +58,4 @@ fi
 )
 
 eclair_report "-create_db='$PROJECT_ECD'" "$ECLAIR_DATA_DIR"/FRAME.*.ecb \
-              -load -reports1_txt=service,/dev/stdout
+              -load -reports1_txt=service,analysis.log
