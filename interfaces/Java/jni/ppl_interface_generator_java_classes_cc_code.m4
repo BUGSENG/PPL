@@ -4,7 +4,7 @@ m4_divert(-1)
 This m4 file contains the code for generating ppl_java_<CLASS_NAME>.cc
 
 Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
-Copyright (C) 2010-2019 BUGSENG srl (http://bugseng.com)
+Copyright (C) 2010-2020 BUGSENG srl (http://bugseng.com)
 
 This file is part of the Parma Polyhedra Library (PPL).
 

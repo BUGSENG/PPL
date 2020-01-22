@@ -1,6 +1,6 @@
 dnl A function to check whether the Java compiler supports enums.
 dnl Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
-dnl Copyright (C) 2010-2019 BUGSENG srl (http://bugseng.com)
+dnl Copyright (C) 2010-2020 BUGSENG srl (http://bugseng.com)
 dnl
 dnl This file is part of the Parma Polyhedra Library (PPL).
 dnl
@@ -98,7 +98,7 @@ AC_PROVIDE([$0])dnl
 #
 #   Copyright (c) 2000      Stephane Bortzmeyer <bortzmeyer@pasteur.fr>
 #   Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
-#   Copyright (C) 2010-2019 BUGSENG srl (http://bugseng.com)
+#   Copyright (C) 2010-2020 BUGSENG srl (http://bugseng.com)
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as

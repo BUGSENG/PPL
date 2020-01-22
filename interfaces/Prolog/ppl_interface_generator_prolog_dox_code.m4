@@ -3,7 +3,7 @@ m4_divert(-1)
 dnl This m4 file contains the program code for generating Prolog_interface.dox
 
 dnl Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
-dnl Copyright (C) 2010-2019 BUGSENG srl (http://bugseng.com)
+dnl Copyright (C) 2010-2020 BUGSENG srl (http://bugseng.com)
 dnl
 dnl This file is part of the Parma Polyhedra Library (PPL).
 dnl
