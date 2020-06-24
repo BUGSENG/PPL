@@ -31,9 +31,9 @@ main(int argc, char **argv) {
   PL_action(PL_GMP_SET_ALLOC_FUNCTIONS, FALSE);
 #endif
 
+  putenv("SWI_HOME_DIR=" SWI_PROLOG_BASE);
   if (!PL_initialise(argc, argv))
     PL_halt(1);
-  PL_install_readline();
 
   install_libppl_swiprolog();
   int ret_val = PL_toplevel();

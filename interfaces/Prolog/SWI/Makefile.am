@@ -53,6 +53,7 @@ AM_CPPFLAGS = \
 -I$(top_srcdir)/interfaces/Prolog \
 -I$(top_buildir)/interfaces/Prolog \
 -I$(top_builddir)/src \
+$(SWI_PROLOG_DEFINE_OPTIONS) \
 $(SWI_PROLOG_INCLUDE_OPTIONS) \
 @extra_includes@
 

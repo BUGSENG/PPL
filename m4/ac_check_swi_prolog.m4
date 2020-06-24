@@ -59,6 +59,7 @@ then
     AC_PATH_PROG(swi_prolog_ld, plld$EXEEXT)
   fi
 
+  SWI_PROLOG_DEFINE_OPTIONS="-DSWI_PROLOG_BASE='\"${swi_prolog_base}\"'"
   # In Fedora, SWI-Prolog.h is installed only in /usr/include/pl, which,
   # IMHO, is a bug (https://bugzilla.redhat.com/show_bug.cgi?id=471071).
   SWI_PROLOG_INCLUDE_OPTIONS="-I${swi_prolog_base}/include -I/usr/include/pl"
@@ -96,6 +97,7 @@ main() {
   SWI_PROLOG_LD="$swi_prolog_ld"
   AC_SUBST(SWI_PROLOG)
   AC_SUBST(SWI_PROLOG_LD)
+  AC_SUBST(SWI_PROLOG_DEFINE_OPTIONS)
   AC_SUBST(SWI_PROLOG_INCLUDE_OPTIONS)
   AC_SUBST(SWI_PROLOG_LD_OPTIONS)
 fi
