@@ -1,6 +1,6 @@
 dnl A function to check for the existence and usability of SWI-Prolog.
 dnl Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
-dnl Copyright (C) 2010-2019 BUGSENG srl (http://bugseng.com)
+dnl Copyright (C) 2010-2020 BUGSENG srl (http://bugseng.com)
 dnl
 dnl This file is part of the Parma Polyhedra Library (PPL).
 dnl
@@ -65,7 +65,7 @@ then
   # If SWI-Prolog was configured with `--disable-libdirversion', then
   # the files are not in the `${swi_prolog_arch}' subdirectory.  Since
   # currently there is no way to know that, we look in both places.
-  SWI_PROLOG_LD_OPTIONS="-L${swi_prolog_base}/lib/${swi_prolog_arch} -L${swi_prolog_base}/lib ${swi_prolog_lib} ${swi_prolog_libs}"
+  SWI_PROLOG_LD_OPTIONS="-L${swi_prolog_base}/lib/${swi_prolog_arch} -L${swi_prolog_base}/lib -L${swi_prolog_base}/bin ${swi_prolog_lib} ${swi_prolog_libs}"
   ac_save_CPPFLAGS="$CPPFLAGS"
   CPPFLAGS="$CPPFLAGS $SWI_PROLOG_INCLUDE_OPTIONS"
   AC_LANG_PUSH(C++)

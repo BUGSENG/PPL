@@ -1,0 +1,61 @@
+#!/bin/sh
+
+set -e
+
+usage() {
+    echo "Usage: analyze.sh ANALYSIS" 1>&2
+    echo "  where ANALYSIS = BUGFIND" 1>&2
+}
+
+if [ $# -ne 1 ]
+then
+    usage
+    exit 1
+fi
+
+case "$1" in
+    MC2|MC3|BUGFIND)
+    ;;
+*)
+    usage
+    exit 1
+esac
+
+ANALYSIS=$1
+
+export HERE="$(cd "$(dirname $0)" ; echo $PWD)"
+TOP="$(dirname "${HERE}")"
+
+export CC_ALIASES="@CC@"
+export CXX_ALIASES="@CXX@"
+
+export ECLAIR_PROJECT_NAME="PPL"
+export ECLAIR_PROJECT_ROOT="@abs_top_srcdir@"
+
+export ECLAIR_OUTPUT_DIR="${HERE}/out_${BUILD_ID}_${ANALYSIS}"
+export ECLAIR_DATA_DIR="${ECLAIR_OUTPUT_DIR}/.data"
+export PROJECT_ECD="${ECLAIR_DATA_DIR}/PROJECT.ecd"
+rm -rf "$ECLAIR_OUTPUT_DIR"
+mkdir -p "$ECLAIR_DATA_DIR"
+export ECLAIR_DIAGNOSTICS_OUTPUT="$ECLAIR_OUTPUT_DIR/DIAGNOSTICS.txt"
+
+(
+    cd "@abs_top_builddir@"
+    make clean
+)
+
+if [ -f /proc/cpuinfo ]
+then
+  PROCESSORS=$(grep -c ^processor /proc/cpuinfo)
+else
+  PROCESSORS=6
+fi
+
+(
+    cd "@abs_top_builddir@"
+    eclair_env "-eval_file='@abs_top_srcdir@/ECLAIR/analyze_${ANALYSIS}.ecl'" \
+               -- make -j${PROCESSORS}
+)
+
+eclair_report "-create_db='$PROJECT_ECD'" "$ECLAIR_DATA_DIR"/FRAME.*.ecb \
+              -load -reports1_txt=service,analysis.log

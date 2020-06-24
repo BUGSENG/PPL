@@ -1,6 +1,6 @@
 /* C++ compiler related stuff.
    Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
-   Copyright (C) 2010-2019 BUGSENG srl (http://bugseng.com)
+   Copyright (C) 2010-2020 BUGSENG srl (http://bugseng.com)
 
 This file is part of the Parma Polyhedra Library (PPL).
 
@@ -36,7 +36,7 @@ namespace Parma_Polyhedra_Library {
   the compiler.
 */
 #endif // defined(PPL_DOXYGEN_INCLUDE_IMPLEMENTATION_DETAILS)
-#define PPL_USED(v) (const void)(v)
+#define PPL_USED(v) (void)(v)
 
 #ifdef PPL_DOXYGEN_INCLUDE_IMPLEMENTATION_DETAILS
 /*! \brief

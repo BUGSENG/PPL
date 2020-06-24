@@ -1,6 +1,6 @@
 # Autoconf source file for the Parma Polyhedra Library.
 # Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
-# Copyright (C) 2010-2019 BUGSENG srl (http://bugseng.com)
+# Copyright (C) 2010-2020 BUGSENG srl (http://bugseng.com)
 #
 # This file is part of the Parma Polyhedra Library (PPL).
 #
@@ -1743,6 +1743,7 @@ AC_CONFIG_FILES(Makefile
                 interfaces/Prolog/XSB/Makefile
                 interfaces/Prolog/YAP/Makefile
                 interfaces/Prolog/tests/Makefile
+                ECLAIR/analyze.sh
                 )
 #               tests/Ask_Tell/Makefile
 AC_OUTPUT
