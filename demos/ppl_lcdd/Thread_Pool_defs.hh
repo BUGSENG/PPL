@@ -17,7 +17,7 @@
 
   Note: these are significantly abridged versions, removing all
   functionalities except those directly used in the multi-threaded
-  version of ppl_devel.
+  version of the PPL.
 */
 
 template <typename T>
