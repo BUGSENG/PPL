@@ -37,23 +37,25 @@ ppl_new_@TOPOLOGY@@CLASS@_from_space_dimension(Prolog_term_ref t_nd,
     @TOPOLOGY@@CPP_CLASS@* ph;
     Prolog_atom uoe = term_to_universe_or_empty(t_uoe, where);
 
-    if (uoe == a_empty)
+    if (uoe == a_empty) {
       ph = new @TOPOLOGY@@CPP_CLASS@(term_to_unsigned<dimension_type>(t_nd,
                                                                       where),
                                      EMPTY);
-    else
+    }
+    else {
       ph = new @TOPOLOGY@@CPP_CLASS@(term_to_unsigned<dimension_type>(t_nd,
                                                                       where),
                                      UNIVERSE);
-
-      Prolog_term_ref tmp = Prolog_new_term_ref();
-      Prolog_put_address(tmp, ph);
-      if (Prolog_unify(t_ph, tmp)) {
-        PPL_REGISTER(ph);
-        return PROLOG_SUCCESS;
-      }
-      else
-        delete ph;
+    }
+    Prolog_term_ref tmp = Prolog_new_term_ref();
+    Prolog_put_address(tmp, ph);
+    if (Prolog_unify(t_ph, tmp)) {
+      PPL_REGISTER(ph);
+      return PROLOG_SUCCESS;
+    }
+    else {
+      delete ph;
+    }
   }
   CATCH_ALL;
 }
