@@ -40,13 +40,13 @@ then
     (umask 077 && mkdir "$tmp")
   } || exit $?
   cat >$tmp/print_include_dir.pl <<_CIAO_PRINT_INCLUDE_DIR_EOF
+:- use_module(engine(system_info)).
+
 main(_) :-
-    ciaolibdir(Lib_Dir),
-    get_os(Os),
-    get_arch(Arch),
-    format("~p/include/~p~p", [[Lib_Dir, Os, Arch]]).
+    ciao_c_headers_dir(Dir),
+    format("~p", [Dir]).
 _CIAO_PRINT_INCLUDE_DIR_EOF
-  ciao_prolog_include_dir=`$ciao_prolog $tmp/print_include_dir.pl`
+  ciao_prolog_include_dir=`$ciao_prolog run $tmp/print_include_dir.pl`
   rm -rf $tmp
 
   CIAO_PROLOG_INCLUDE_OPTIONS="-I${ciao_prolog_include_dir}"
