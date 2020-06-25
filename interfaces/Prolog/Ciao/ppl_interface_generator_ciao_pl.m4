@@ -65,12 +65,12 @@ m4_define(`term', `Term$1')dnl
 m4_define(`anyterm', `any_term')dnl
 m4_define(`interm', `in(Term$1)')dnl
 m4_define(`m4_expanded_procedure_schema', `m4_ifelse(check_fail($3), nofail,
-  `:- true pred $1`'m4_ifelse(`$2', 0, ,(`'m4_term_sequence($2, `interm'))
+  `:- trust pred $1`'m4_ifelse(`$2', 0, ,(`'m4_term_sequence($2, `interm'))
           :: `'m4_term_sequence($2, `anyterm', ` *')) +  foreign.
 
 ',
-  `:- true pred $1_2(`'m4_term_sequence($2, `interm')`'m4_ifelse(`$2', 0, `go(Success)', `, go(Success)'))
-          :: `'m4_term_sequence($2, `anyterm', ` *')`'m4_ifelse(`$2', 0, ` int', ` * int')
+  `:- trust pred $1_2(`'m4_term_sequence($2, `interm')`'m4_ifelse(`$2', 0, `go(Success)', `, go(Success)'))
+          :: `'m4_term_sequence($2, `anyterm', ` *')`'m4_ifelse(`$2', 0, ` c_int', ` * c_int')
   + (returns(Success), foreign($1)).
 
 $1`'m4_ifelse(`$2', 0, ,`(m4_term_sequence($2, `term'))') :-
