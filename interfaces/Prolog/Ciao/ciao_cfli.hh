@@ -58,7 +58,7 @@ Prolog_put_term(Prolog_term_ref& t, Prolog_term_ref u) {
 */
 inline int
 Prolog_put_long(Prolog_term_ref& t, long l) {
-  t = ciao_integer(l);
+  t = ciao_mk_c_long(l);
   return 1;
 }
 
@@ -68,7 +68,7 @@ Prolog_put_long(Prolog_term_ref& t, long l) {
 inline int
 Prolog_put_ulong(Prolog_term_ref& t, unsigned long ul) {
   if (ul < INT_MAX)
-    t = ciao_integer(ul);
+    t = ciao_mk_c_long(ul);
   else {
     std::ostringstream s;
     s << ul;
@@ -99,11 +99,21 @@ Prolog_put_atom(Prolog_term_ref& t, Prolog_atom a) {
 }
 
 /*!
+  Assign to \p t the list terminator <CODE>[]</CODE> (which needs not
+  be an atom).
+*/
+inline int
+Prolog_put_nil(Prolog_term_ref& t) {
+  t = ciao_empty_list();
+  return 1;
+}
+
+/*!
   Assign to \p t a term representing the address contained in \p p.
 */
 inline int
 Prolog_put_address(Prolog_term_ref& t, void* p) {
-  t = ciao_pointer_to_address(ciao_implicit_state, p);
+  t = ciao_pointer_to_address(ciao_implicit_ctx, p);
   return 1;
 }
 
@@ -222,7 +232,7 @@ Prolog_is_integer(Prolog_term_ref t) {
 */
 inline int
 Prolog_is_address(Prolog_term_ref t) {
-  return ciao_is_address(ciao_implicit_state, t);
+  return ciao_is_address(ciao_implicit_ctx, t);
 }
 
 /*!
@@ -250,8 +260,8 @@ Prolog_is_cons(Prolog_term_ref t) {
 inline int
 Prolog_get_long(Prolog_term_ref t, long* lp) {
   assert(ciao_is_integer(t));
-  if (ciao_fits_in_int(t)) {
-    *lp = ciao_to_integer(t);
+  if (ciao_fits_in_c_long(t)) {
+    *lp = ciao_get_c_long(t);
     return 1;
   }
   else {
@@ -275,7 +285,7 @@ Prolog_get_long(Prolog_term_ref t, long* lp) {
 inline int
 Prolog_get_address(Prolog_term_ref t, void** vpp) {
   assert(Prolog_is_address(t));
-  *vpp = ciao_address_to_pointer(ciao_implicit_state, t);
+  *vpp = ciao_address_to_pointer(ciao_implicit_ctx, t);
   return 1;
 }
 
@@ -314,6 +324,15 @@ Prolog_get_arg(int i, Prolog_term_ref t, Prolog_term_ref& a) {
   assert(Prolog_is_compound(t));
   a = ciao_structure_arg(t, i);
   return 1;
+}
+
+/*!
+  Succeeds if and only if \p t represents the list terminator <CODE>[]</CODE>
+  (which needs not be an atom).
+*/
+inline int
+Prolog_get_nil(Prolog_term_ref t) {
+  return ciao_is_empty_list(t);
 }
 
 /*!
