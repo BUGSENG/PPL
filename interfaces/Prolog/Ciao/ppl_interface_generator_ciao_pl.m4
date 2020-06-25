@@ -32,11 +32,12 @@ m4_divert`'dnl
 m4_include(`ppl_interface_generator_copyright')dnl
 */
 
-:- module(ppl_ciao,
+:- export(
 [
 m4_divert(1)
-],
-[
+]).
+
+:- use_package([
         assertions,
         basicmodes,
         regtypes,
