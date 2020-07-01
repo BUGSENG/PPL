@@ -253,6 +253,9 @@ run_one(mip_problem) :-
 run_one(pip_problem) :-
    pip_problem.
 
+run_one(termination_test) :-
+   termination_test.
+
 % Checks how the PPL Prolog system performs with large integers
 % XSB has problems with large numbers - hence tests for XSB disallowed.
 % We catch the exception if it is caused by integer overflow in C++
@@ -1816,10 +1819,10 @@ ok(T) :-
   ppl_delete_Polyhedron(P3),
   ppl_delete_Polyhedron(P4).
 
-% Tests ppl_termination_test_C_Polyhedron_MS/2,
-%       ppl_termination_test_C_Polyhedron_PR/2.
-%       ppl_termination_test_NNC_Polyhedron_MS/2,
-%       ppl_termination_test_NNC_Polyhedron_PR/2.
+% Tests ppl_termination_test_MC_C_Polyhedron_MS/1,
+%       ppl_termination_test_MS_C_Polyhedron_PR/1.
+%       ppl_termination_test_MS_NNC_Polyhedron_MS/1,
+%       ppl_termination_test_MS_NNC_Polyhedron_PR/1.
 termination_test :-
   make_vars(4, [A, B, C, D]),
   clean_ppl_new_Polyhedron_from_constraints(c,
@@ -1828,16 +1831,16 @@ termination_test :-
                                              -B + D >= 1,
                                              B >= 0,
                                              A >= 1], P1),
-  ppl_termination_test_C_Polyhedron_MS(P1),
-  ppl_termination_test_C_Polyhedron_PR(P1),
+  ppl_termination_test_MS_C_Polyhedron(P1),
+  ppl_termination_test_PR_C_Polyhedron(P1),
   clean_ppl_new_Polyhedron_from_constraints(nnc,
                                             [A - C >= 0,
                                              -A + C >= 0,
                                              -B + D >= 1,
                                              B >= 0],
                                             P2),
-  ppl_termination_test_NNC_Polyhedron_MS(P2),
-  ppl_termination_test_NNC_Polyhedron_PR(P2),
+  ppl_termination_test_MS_NNC_Polyhedron(P2),
+  ppl_termination_test_PR_NNC_Polyhedron(P2),
   !,
   ppl_delete_Polyhedron(P1),
   ppl_delete_Polyhedron(P2).
@@ -3411,7 +3414,8 @@ list_groups( [
    transform_polyhedron,
    add_to_system,
    catch_time,
-   handle_exceptions
+   handle_exceptions,
+   termination_test
              ] ).
 
 % group_predicates(G, P)
