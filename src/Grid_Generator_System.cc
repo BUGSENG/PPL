@@ -138,20 +138,20 @@ PPL::Grid_Generator_System::ascii_load(std::istream& s) {
 }
 
 const PPL::Grid_Generator_System*
-PPL::Grid_Generator_System::zero_dim_univ_p = 0;
+PPL::Grid_Generator_System::zero_dim_univ_p = nullptr;
 
 void
 PPL::Grid_Generator_System::initialize() {
-  PPL_ASSERT(zero_dim_univ_p == 0);
+  PPL_ASSERT(zero_dim_univ_p == nullptr);
   zero_dim_univ_p
     = new Grid_Generator_System(Grid_Generator::zero_dim_point());
 }
 
 void
 PPL::Grid_Generator_System::finalize() {
-  PPL_ASSERT(zero_dim_univ_p != 0);
+  PPL_ASSERT(zero_dim_univ_p != nullptr);
   delete zero_dim_univ_p;
-  zero_dim_univ_p = 0;
+  zero_dim_univ_p = nullptr;
 }
 
 bool

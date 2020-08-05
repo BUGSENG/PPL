@@ -1418,7 +1418,7 @@ public:
     \exception std::invalid_argument
     Thrown if \p *this and \p y are dimension-incompatible.
   */
-  void widening_assign(const Affine_Space& y, unsigned* tp = NULL);
+  void widening_assign(const Affine_Space& y, unsigned* tp = nullptr);
 
   /*! \brief
     Does nothing, as the domain of affine spaces has finite height.
@@ -1437,7 +1437,7 @@ public:
   */
   void limited_extrapolation_assign(const Affine_Space& y,
                                     const Constraint_System& cs,
-                                    unsigned* tp = NULL);
+                                    unsigned* tp = nullptr);
 
   //@} // Space Dimension Preserving Member Functions that May Modify [...]
 

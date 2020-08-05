@@ -621,7 +621,7 @@ Linear_Expression
 inline
 Linear_Expression::const_iterator
 ::const_iterator()
-  : itr(NULL) {
+  : itr(nullptr) {
 }
 
 inline
@@ -633,7 +633,7 @@ Linear_Expression::const_iterator
 inline
 Linear_Expression::const_iterator
 ::~const_iterator() {
-  // Note that this does nothing if itr == NULL.
+  // Note that this does nothing if itr == nullptr.
   delete itr;
 }
 
@@ -655,7 +655,7 @@ Linear_Expression::const_iterator
 inline Linear_Expression::const_iterator&
 Linear_Expression::const_iterator
 ::operator++() {
-  PPL_ASSERT(itr != NULL);
+  PPL_ASSERT(itr != nullptr);
   ++(*itr);
   return *this;
 }
@@ -663,7 +663,7 @@ Linear_Expression::const_iterator
 inline Linear_Expression::const_iterator&
 Linear_Expression::const_iterator
 ::operator--() {
-  PPL_ASSERT(itr != NULL);
+  PPL_ASSERT(itr != nullptr);
   --(*itr);
   return *this;
 }
@@ -671,22 +671,22 @@ Linear_Expression::const_iterator
 inline Linear_Expression::const_iterator::reference
 Linear_Expression::const_iterator
 ::operator*() const {
-  PPL_ASSERT(itr != NULL);
+  PPL_ASSERT(itr != nullptr);
   return *(*itr);
 }
 
 inline Variable
 Linear_Expression::const_iterator
 ::variable() const {
-  PPL_ASSERT(itr != NULL);
+  PPL_ASSERT(itr != nullptr);
   return itr->variable();
 }
 
 inline bool
 Linear_Expression::const_iterator
 ::operator==(const const_iterator& i) const {
-  PPL_ASSERT(itr != NULL);
-  PPL_ASSERT(i.itr != NULL);
+  PPL_ASSERT(itr != nullptr);
+  PPL_ASSERT(i.itr != nullptr);
   return *itr == *(i.itr);
 }
 
@@ -700,7 +700,7 @@ inline
 Linear_Expression::const_iterator
 ::const_iterator(Linear_Expression_Interface::const_iterator_interface* i)
   : itr(i) {
-  PPL_ASSERT(i != NULL);
+  PPL_ASSERT(i != nullptr);
 }
 
 inline Linear_Expression::const_iterator
@@ -728,7 +728,7 @@ Linear_Expression
                     typename Enable_If<Is_Same_Or_Derived<Expression_Adapter_Base,
                                                           LE_Adapter>::value,
                                        void*>::type)
-  : impl(NULL) {
+  : impl(nullptr) {
   Linear_Expression tmp(e.representation());
   tmp.set_space_dimension(e.space_dimension());
   tmp.set_inhomogeneous_term(e.inhomogeneous_term());
@@ -748,7 +748,7 @@ Linear_Expression
                     typename Enable_If<Is_Same_Or_Derived<Expression_Adapter_Base,
                                                           LE_Adapter>::value,
                                        void*>::type)
-  : impl(NULL) {
+  : impl(nullptr) {
   Linear_Expression tmp(r);
   tmp.set_space_dimension(e.space_dimension());
   tmp.set_inhomogeneous_term(e.inhomogeneous_term());
@@ -768,7 +768,7 @@ Linear_Expression
                     typename Enable_If<Is_Same_Or_Derived<Expression_Adapter_Base,
                                                           LE_Adapter>::value,
                                        void*>::type)
-  : impl(NULL) {
+  : impl(nullptr) {
   Linear_Expression tmp(e.representation());
   tmp.set_space_dimension(space_dim);
   tmp.set_inhomogeneous_term(e.inhomogeneous_term());
@@ -796,7 +796,7 @@ Linear_Expression
                     typename Enable_If<Is_Same_Or_Derived<Expression_Adapter_Base,
                                                           LE_Adapter>::value,
                                        void*>::type)
-  : impl(NULL) {
+  : impl(nullptr) {
   Linear_Expression tmp(r);
   tmp.set_space_dimension(space_dim);
   tmp.set_inhomogeneous_term(e.inhomogeneous_term());

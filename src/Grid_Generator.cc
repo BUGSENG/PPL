@@ -331,19 +331,19 @@ PPL::Grid_Generator::check_strong_normalized() const {
   return compare(*this, tmp) == 0;
 }
 
-const PPL::Grid_Generator* PPL::Grid_Generator::zero_dim_point_p = 0;
+const PPL::Grid_Generator* PPL::Grid_Generator::zero_dim_point_p = nullptr;
 
 void
 PPL::Grid_Generator::initialize() {
-  PPL_ASSERT(zero_dim_point_p == 0);
+  PPL_ASSERT(zero_dim_point_p == nullptr);
   zero_dim_point_p = new Grid_Generator(grid_point());
 }
 
 void
 PPL::Grid_Generator::finalize() {
-  PPL_ASSERT(zero_dim_point_p != 0);
+  PPL_ASSERT(zero_dim_point_p != nullptr);
   delete zero_dim_point_p;
-  zero_dim_point_p = 0;
+  zero_dim_point_p = nullptr;
 }
 
 void
@@ -425,7 +425,7 @@ PPL::IO_Operators::operator<<(std::ostream& s, const Grid_Generator& g) {
 std::ostream&
 PPL::IO_Operators::operator<<(std::ostream& s,
                               const Grid_Generator::Type& t) {
-  const char* n = 0;
+  const char* n = nullptr;
   switch (t) {
   case Grid_Generator::LINE:
     n = "LINE";

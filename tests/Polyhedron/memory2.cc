@@ -77,7 +77,7 @@ cxx_malloc(size_t size) {
   }
 
   void* p = malloc(size);
-  if (p != 0 || size == 0) {
+  if (p != nullptr || size == 0) {
     if (!before_main)
       vnout << "allocated " << size << " @ " << p << endl;
     ++mallocated;
@@ -99,17 +99,18 @@ cxx_free(void* p, size_t) {
 
 extern "C" void*
 cxx_realloc(void* q, size_t old_size, size_t new_size) {
-  if (q == 0)
+  if (q == nullptr) {
     return cxx_malloc(new_size);
+  }
 
   if (new_size == 0) {
     cxx_free(q, old_size);
-    return 0;
+    return nullptr;
   }
 
   if (new_size <= old_size) {
     void* p = realloc(q, new_size);
-    if (p != 0 || new_size == 0) {
+    if (p != nullptr || new_size == 0) {
       if (!before_main)
         vnout << "reallocated " << old_size << " @ " << p
               << " down to " << new_size << " @ " << p
@@ -130,7 +131,7 @@ cxx_realloc(void* q, size_t old_size, size_t new_size) {
   }
 
   void* p = realloc(q, new_size);
-  if (p != 0 || new_size == 0) {
+  if (p != nullptr || new_size == 0) {
     if (!before_main)
       vnout << "reallocated " << old_size << " @ " << q
             << " up to " << new_size << " @ " << p

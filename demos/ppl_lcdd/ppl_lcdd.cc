@@ -148,17 +148,17 @@ namespace {
 
 #ifdef PPL_HAVE_GETOPT_H
 struct option long_options[] = {
-  {"max-cpu",        required_argument, 0, 'C'},
-  {"max-memory",     required_argument, 0, 'R'},
-  {"help",           no_argument,       0, 'h'},
-  {"output",         required_argument, 0, 'o'},
-  {"timings",        no_argument,       0, 't'},
-  {"verbose",        no_argument,       0, 'v'},
+  {"max-cpu",        required_argument, nullptr, 'C'},
+  {"max-memory",     required_argument, nullptr, 'R'},
+  {"help",           no_argument,       nullptr, 'h'},
+  {"output",         required_argument, nullptr, 'o'},
+  {"timings",        no_argument,       nullptr, 't'},
+  {"verbose",        no_argument,       nullptr, 'v'},
 #if defined(USE_PPL)
-  {"version",        no_argument,       0, 'V'},
-  {"check",          required_argument, 0, 'c'},
+  {"version",        no_argument,       nullptr, 'V'},
+  {"check",          required_argument, nullptr, 'c'},
 #endif
-  {0, 0, 0, 0}
+  {nullptr, 0, nullptr, 0}
 };
 #endif
 
@@ -198,7 +198,7 @@ usage(const char* const program) {
 #define OPTION_LETTERS "C:R:ho:tv"
 #endif
 
-const char* program_name = 0;
+const char* program_name = nullptr;
 
 #ifdef PPL_LCDD_SUPPORTS_LIMIT_ON_CPU_TIME
 unsigned long max_seconds_of_cpu_time = 0;
@@ -207,7 +207,7 @@ unsigned long max_seconds_of_cpu_time = 0;
 unsigned long max_bytes_of_virtual_memory = 0;
 bool print_timings = false;
 bool verbose = false;
-const char* check_file_name = 0;
+const char* check_file_name = nullptr;
 
 void
 fatal(const char* format, ...) {
@@ -221,8 +221,8 @@ fatal(const char* format, ...) {
 }
 
 
-const char* input_file_name = 0;
-std::istream* input_stream_p = 0;
+const char* input_file_name = nullptr;
+std::istream* input_stream_p = nullptr;
 
 void
 set_input(const char* const file_name) {
@@ -245,12 +245,12 @@ set_input(const char* const file_name) {
 
 std::istream&
 input() {
-  assert(input_stream_p != 0);
+  assert(input_stream_p != nullptr);
   return *input_stream_p;
 }
 
-const char* output_file_name = 0;
-std::ostream* output_stream_p = 0;
+const char* output_file_name = nullptr;
+std::ostream* output_stream_p = nullptr;
 
 void
 set_output(const char* const file_name) {
@@ -275,7 +275,7 @@ set_output(const char* const file_name) {
 
 std::ostream&
 output() {
-  assert(output_stream_p != 0);
+  assert(output_stream_p != nullptr);
   return *output_stream_p;
 }
 
@@ -482,7 +482,7 @@ process_options(const int argc, char* const argv[]) {
   }
   else {
     // If no input files have been specified: we will read from standard input.
-    assert(input_file_name == 0);
+    assert(input_file_name == nullptr);
   }
 }
 

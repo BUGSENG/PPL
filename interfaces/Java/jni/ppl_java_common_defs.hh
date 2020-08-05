@@ -241,14 +241,14 @@ public:
   //! Initializes all cache fields.
   void init_cache(JNIEnv* env);
 
-  //! Resets all fields to \c NULL.
+  //! Resets all fields to \c nullptr.
   void clear_cache(JNIEnv* env);
 
 private:
   //! Sets \p field to a global reference to Java class called \p name.
   void init_cache(JNIEnv* env, jclass& field, const char* name);
 
-  //! Resets \p field to \c NULL, deleting the global reference (if any).
+  //! Resets \p field to \c nullptr, deleting the global reference (if any).
   void clear_cache(JNIEnv* env, jclass& field);
 
   // Private and not implemented: copy construction not allowed.

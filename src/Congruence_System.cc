@@ -388,20 +388,20 @@ PPL::Congruence_System::ascii_load(std::istream& s) {
   return true;
 }
 
-const PPL::Congruence_System* PPL::Congruence_System::zero_dim_empty_p = 0;
+const PPL::Congruence_System* PPL::Congruence_System::zero_dim_empty_p = nullptr;
 
 void
 PPL::Congruence_System::initialize() {
-  PPL_ASSERT(zero_dim_empty_p == 0);
+  PPL_ASSERT(zero_dim_empty_p == nullptr);
   zero_dim_empty_p
     = new Congruence_System(Congruence::zero_dim_false());
 }
 
 void
 PPL::Congruence_System::finalize() {
-  PPL_ASSERT(zero_dim_empty_p != 0);
+  PPL_ASSERT(zero_dim_empty_p != nullptr);
   delete zero_dim_empty_p;
-  zero_dim_empty_p = 0;
+  zero_dim_empty_p = nullptr;
 }
 
 bool

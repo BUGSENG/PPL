@@ -98,7 +98,7 @@ Polyhedron::simplify(Linear_System1& sys, Bit_Matrix& sat) {
   // that saturate the constraint `sys[i]'.
   if (num_rows > simplify_num_saturators_size) {
     delete [] simplify_num_saturators_p;
-    simplify_num_saturators_p = 0;
+    simplify_num_saturators_p = nullptr;
     simplify_num_saturators_size = 0;
     const size_t max_size
       = std::numeric_limits<size_t>::max() / sizeof(dimension_type);

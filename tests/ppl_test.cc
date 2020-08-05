@@ -55,7 +55,7 @@ fpe_sigaction(int sig, siginfo_t* sip, void*) {
               << std::endl;
     exit(1);
   }
-  const char* s = 0;
+  const char* s = nullptr;
   switch (sip->si_code) {
   case FPE_INTDIV:
     s = "integer divide by zero";
@@ -84,7 +84,7 @@ fpe_sigaction(int sig, siginfo_t* sip, void*) {
   default:
     break;
   }
-  if (s != 0)
+  if (s != nullptr)
     std::cerr << "SIGFPE caught (cause: " << s << ")"
               << std::endl;
   else {
@@ -178,7 +178,7 @@ set_handlers() {
   action.sa_handler = fpe_handler;
   action.sa_flags = 0;
 #endif // !defined(PPL_HAVE_SIGINFO_T) || !defined(SA_SIGINFO)
-  if (sigaction(SIGFPE, &action, NULL) != 0) {
+  if (sigaction(SIGFPE, &action, nullptr) != 0) {
     std::cerr << "sigaction() failed"
               << std::endl;
     abort();
@@ -252,7 +252,7 @@ check_result(const Generator& computed_result,
              const char* max_e_d_s,
              const char* max_l_d_s) {
   // Handle in a more efficient way the case where equality is expected.
-  if (max_r_d_s == 0 && max_e_d_s == 0 && max_l_d_s == 0) {
+  if (max_r_d_s == nullptr && max_e_d_s == nullptr && max_l_d_s == nullptr) {
     if (computed_result != known_result) {
       using IO_Operators::operator<<;
       nout << "Equality does not hold:"
@@ -293,7 +293,7 @@ check_result(const Checked_Number<mpq_class, Extended_Number_Policy>& computed,
              const Checked_Number<mpq_class, Extended_Number_Policy>& known,
              const char* max_r_d_s) {
   // Handle in a more efficient way the case where equality is expected.
-  if (max_r_d_s == 0) {
+  if (max_r_d_s == nullptr) {
     if (computed != known) {
       using IO_Operators::operator<<;
       nout << "Equality does not hold:"

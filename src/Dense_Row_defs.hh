@@ -419,7 +419,7 @@ private:
     std::allocator<Coefficient> coeff_allocator;
 
     //! The vector of coefficients.
-    //! An empty vector may be stored as NULL instead of using a valid pointer.
+    //! An empty vector may be stored as nullptr instead of using a valid pointer.
     Coefficient* vec;
   };
 

@@ -282,7 +282,7 @@ test05() {
          << m_i << endl;
 
     m_i_next = aux_test05(++i, a, b, c);
-    TBD_Shape::coefficient_type_base* no_stop_points = 0;
+    TBD_Shape::coefficient_type_base* no_stop_points = nullptr;
     m_i_next.CC76_extrapolation_assign(m_i, no_stop_points, no_stop_points);
     m_i_next.upper_bound_assign(m_i);
     // Force closure.

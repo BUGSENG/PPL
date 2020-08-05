@@ -61,7 +61,7 @@ template <typename T>
 template <typename U>
 inline
 OR_Matrix<T>::Pseudo_Row<U>::Pseudo_Row()
-  : first(0)
+  : first(nullptr)
 #if PPL_OR_MATRIX_EXTRA_DEBUG
   , size_(0)
 #endif

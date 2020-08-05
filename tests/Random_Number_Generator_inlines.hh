@@ -61,7 +61,7 @@ inline
 Random_Number_Generator::Random_Number_Generator()
   : rand(gmp_randinit_default), max_bits(512) {
   // Seed the random number generator with the current time.
-  rand.seed((unsigned long) time(0));
+  rand.seed(static_cast<unsigned long>(time(nullptr)));
 }
 
 inline

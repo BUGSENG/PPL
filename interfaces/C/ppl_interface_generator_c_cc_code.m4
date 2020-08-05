@@ -675,7 +675,7 @@ m4_define(`ppl_@CLASS@_@WIDEN@_widening_assign_code',
 ppl_@CLASS@_@WIDEN@_widening_assign
 (ppl_@CLASS@_t x,
  ppl_const_@CLASS@_t y) try {
-  return ppl_@CLASS@_@WIDEN@_widening_assign_with_tokens(x, y, 0);
+  return ppl_@CLASS@_@WIDEN@_widening_assign_with_tokens(x, y, nullptr);
 }
 CATCH_ALL
 
@@ -701,7 +701,7 @@ m4_define(`ppl_@CLASS@_widening_assign_code',
 ppl_@CLASS@_widening_assign
 (ppl_@CLASS@_t x,
  ppl_const_@CLASS@_t y) try {
-  return ppl_@CLASS@_widening_assign_with_tokens(x, y, 0);
+  return ppl_@CLASS@_widening_assign_with_tokens(x, y, nullptr);
 }
 CATCH_ALL
 
@@ -732,7 +732,7 @@ ppl_@CLASS@_@LIMITEDBOUNDED@_@WIDENEXPN@_extrapolation_assign
  ppl_const_@!CONSTRAINER@_System_t cs) try {
   return
     ppl_@CLASS@_@LIMITEDBOUNDED@_@WIDENEXPN@_extrapolation_assign_with_tokens
-      (x, y, cs, 0);
+      (x, y, cs, nullptr);
 }
 CATCH_ALL
 
@@ -760,7 +760,7 @@ ppl_@CLASS@_@EXTRAPOLATION@_extrapolation_assign
  ppl_const_@CLASS@_t y) try {
   return
     ppl_@CLASS@_@EXTRAPOLATION@_extrapolation_assign_with_tokens
-      (x, y, 0);
+      (x, y, nullptr);
 }
 CATCH_ALL
 

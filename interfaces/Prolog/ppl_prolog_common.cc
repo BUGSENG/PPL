@@ -293,7 +293,7 @@ const Prolog_Interface_Atom prolog_interface_atoms[] = {
   { &a_expected,                 "expected" },
   { &a_found,                    "found" },
   { &a_where,                    "where" },
-  { 0,                           0 }
+  { nullptr,                     nullptr }
 };
 
 Prolog_term_ref
@@ -825,20 +825,20 @@ handle_exception() {
   Prolog_raise_exception(et);
 }
 
-Parma_Polyhedra_Library::Watchdog* p_timeout_object = 0;
+Parma_Polyhedra_Library::Watchdog* p_timeout_object = nullptr;
 
 typedef
 Parma_Polyhedra_Library::Threshold_Watcher
 <Parma_Polyhedra_Library::Weightwatch_Traits> Weightwatch;
 
-Weightwatch* p_deterministic_timeout_object = 0;
+Weightwatch* p_deterministic_timeout_object = nullptr;
 
 void
 reset_timeout() {
   if (p_timeout_object) {
     delete p_timeout_object;
-    p_timeout_object = 0;
-    abandon_expensive_computations = 0;
+    p_timeout_object = nullptr;
+    abandon_expensive_computations = nullptr;
   }
 }
 
@@ -846,8 +846,8 @@ void
 reset_deterministic_timeout() {
   if (p_deterministic_timeout_object) {
     delete p_deterministic_timeout_object;
-    p_deterministic_timeout_object = 0;
-    abandon_expensive_computations = 0;
+    p_deterministic_timeout_object = nullptr;
+    abandon_expensive_computations = nullptr;
   }
 }
 
@@ -1781,7 +1781,7 @@ ppl_initialize() {
       return PROLOG_SUCCESS;
     // Initialize the core library.
     initialize();
-    for (size_t i = 0; prolog_interface_atoms[i].p_atom != 0; ++i) {
+    for (size_t i = 0; prolog_interface_atoms[i].p_atom != nullptr; ++i) {
       Prolog_atom a = Prolog_atom_from_string(prolog_interface_atoms[i].name);
       *prolog_interface_atoms[i].p_atom = a;
     }
@@ -2980,7 +2980,7 @@ ppl_PIP_Tree_Node_is_solution(Prolog_term_ref t_pip) {
     const PIP_Tree_Node* pip = term_to_handle<PIP_Tree_Node>(t_pip, where);
     PPL_CHECK(pip);
 
-    if (pip != 0 && pip->as_solution() != 0)
+    if (pip != nullptr && pip->as_solution() != nullptr)
       return PROLOG_SUCCESS;
     return PROLOG_FAILURE;
   }
@@ -2994,7 +2994,7 @@ ppl_PIP_Tree_Node_is_decision(Prolog_term_ref t_pip) {
     const PIP_Tree_Node* pip = term_to_handle<PIP_Tree_Node>(t_pip, where);
     PPL_CHECK(pip);
 
-    if (pip != 0 && pip->as_decision() != 0)
+    if (pip != nullptr && pip->as_decision() != nullptr)
       return PROLOG_SUCCESS;
     return PROLOG_FAILURE;
   }
@@ -3008,8 +3008,9 @@ ppl_PIP_Tree_Node_is_bottom(Prolog_term_ref t_pip) {
     const PIP_Tree_Node* pip = term_to_handle<PIP_Tree_Node>(t_pip, where);
     PPL_CHECK(pip);
 
-    if (pip == 0)
+    if (pip == nullptr) {
       return PROLOG_SUCCESS;
+    }
     return PROLOG_FAILURE;
   }
   CATCH_ALL;

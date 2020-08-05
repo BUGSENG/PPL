@@ -1318,7 +1318,7 @@ private:
   //! The number of nodes in the complete tree.
   /*!
     It is one less than a power of 2.
-    If this is 0, data and indexes are set to NULL.
+    If this is 0, data and indexes are set to nullptr.
   */
   dimension_type reserved_size;
 

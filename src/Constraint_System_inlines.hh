@@ -118,7 +118,7 @@ Constraint_System::zero_dim_empty() {
 
 inline
 Constraint_System_const_iterator::Constraint_System_const_iterator()
-  : i(), csp(0) {
+  : i(), csp(nullptr) {
 }
 
 inline

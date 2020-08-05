@@ -274,29 +274,29 @@ PPL::Generator::check_strong_normalized() const {
   return compare(*this, tmp) == 0;
 }
 
-const PPL::Generator* PPL::Generator::zero_dim_point_p = 0;
-const PPL::Generator* PPL::Generator::zero_dim_closure_point_p = 0;
+const PPL::Generator* PPL::Generator::zero_dim_point_p = nullptr;
+const PPL::Generator* PPL::Generator::zero_dim_closure_point_p = nullptr;
 
 void
 PPL::Generator::initialize() {
-  PPL_ASSERT(zero_dim_point_p == 0);
+  PPL_ASSERT(zero_dim_point_p == nullptr);
   zero_dim_point_p
     = new Generator(point());
 
-  PPL_ASSERT(zero_dim_closure_point_p == 0);
+  PPL_ASSERT(zero_dim_closure_point_p == nullptr);
   zero_dim_closure_point_p
     = new Generator(closure_point());
 }
 
 void
 PPL::Generator::finalize() {
-  PPL_ASSERT(zero_dim_point_p != 0);
+  PPL_ASSERT(zero_dim_point_p != nullptr);
   delete zero_dim_point_p;
-  zero_dim_point_p = 0;
+  zero_dim_point_p = nullptr;
 
-  PPL_ASSERT(zero_dim_closure_point_p != 0);
+  PPL_ASSERT(zero_dim_closure_point_p != nullptr);
   delete zero_dim_closure_point_p;
-  zero_dim_closure_point_p = 0;
+  zero_dim_closure_point_p = nullptr;
 }
 
 void
@@ -376,7 +376,7 @@ PPL::IO_Operators::operator<<(std::ostream& s, const Generator& g) {
 /*! \relates Parma_Polyhedra_Library::Generator */
 std::ostream&
 PPL::IO_Operators::operator<<(std::ostream& s, const Generator::Type& t) {
-  const char* n = 0;
+  const char* n = nullptr;
   switch (t) {
   case Generator::LINE:
     n = "LINE";

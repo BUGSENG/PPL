@@ -1487,7 +1487,7 @@ public:
                    Bounded_Integer_Type_Width w,
                    Bounded_Integer_Type_Representation r,
                    Bounded_Integer_Type_Overflow o,
-                   const Constraint_System* cs_p = 0,
+                   const Constraint_System* cs_p = nullptr,
                    unsigned complexity_threshold = 16,
                    bool wrap_individually = true);
 
@@ -1542,7 +1542,7 @@ public:
     \exception std::invalid_argument
     Thrown if \p *this and \p y are dimension-incompatible.
   */
-  void CC76_extrapolation_assign(const Octagonal_Shape& y, unsigned* tp = 0);
+  void CC76_extrapolation_assign(const Octagonal_Shape& y, unsigned* tp = nullptr);
 
   /*! \brief
     Assigns to \p *this the result of computing the
@@ -1568,7 +1568,7 @@ public:
   template <typename Iterator>
   void CC76_extrapolation_assign(const Octagonal_Shape& y,
                                  Iterator first, Iterator last,
-                                 unsigned* tp = 0);
+                                 unsigned* tp = nullptr);
 
   /*! \brief
     Assigns to \p *this the result of computing the
@@ -1585,10 +1585,10 @@ public:
     \exception std::invalid_argument
     Thrown if \p *this and \p y are dimension-incompatible.
   */
-  void BHMZ05_widening_assign(const Octagonal_Shape& y, unsigned* tp = 0);
+  void BHMZ05_widening_assign(const Octagonal_Shape& y, unsigned* tp = nullptr);
 
   //! Same as BHMZ05_widening_assign(y, tp).
-  void widening_assign(const Octagonal_Shape& y, unsigned* tp = 0);
+  void widening_assign(const Octagonal_Shape& y, unsigned* tp = nullptr);
 
   /*! \brief
     Improves the result of the \ref BHMZ05_widening "BHMZ05-widening"
@@ -1612,7 +1612,7 @@ public:
   */
   void limited_BHMZ05_extrapolation_assign(const Octagonal_Shape& y,
                                            const Constraint_System& cs,
-                                           unsigned* tp = 0);
+                                           unsigned* tp = nullptr);
 
   /*! \brief
     Restores from \p y the constraints of \p *this, lost by
@@ -1648,7 +1648,7 @@ public:
   */
   void limited_CC76_extrapolation_assign(const Octagonal_Shape& y,
                                          const Constraint_System& cs,
-                                         unsigned* tp = 0);
+                                         unsigned* tp = nullptr);
 
   //@} Space-Dimension Preserving Member Functions that May Modify [...]
 

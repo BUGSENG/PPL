@@ -29,20 +29,20 @@ namespace Interfaces {
 
 namespace OCaml {
 
-Parma_Polyhedra_Library::Watchdog* p_timeout_object = 0;
+Parma_Polyhedra_Library::Watchdog* p_timeout_object = nullptr;
 
 typedef
 Parma_Polyhedra_Library::Threshold_Watcher
 <Parma_Polyhedra_Library::Weightwatch_Traits> Weightwatch;
 
-Weightwatch* p_deterministic_timeout_object = 0;
+Weightwatch* p_deterministic_timeout_object = nullptr;
 
 void
 reset_timeout() {
   if (p_timeout_object) {
     delete p_timeout_object;
-    p_timeout_object = 0;
-    abandon_expensive_computations = 0;
+    p_timeout_object = nullptr;
+    abandon_expensive_computations = nullptr;
   }
 }
 
@@ -50,8 +50,8 @@ void
 reset_deterministic_timeout() {
   if (p_deterministic_timeout_object) {
     delete p_deterministic_timeout_object;
-    p_deterministic_timeout_object = 0;
-    abandon_expensive_computations = 0;
+    p_deterministic_timeout_object = nullptr;
+    abandon_expensive_computations = nullptr;
   }
 }
 

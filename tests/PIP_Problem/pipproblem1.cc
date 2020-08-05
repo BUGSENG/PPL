@@ -79,108 +79,130 @@ test02() {
 
     // Programmatically check the expected solution.
     const PIP_Decision_Node* root = solution->as_decision();
-    if (root == 0)
+    if (root == nullptr) {
       return false;
+    }
     {
       // Check the root node.
-      if (root->art_parameter_count() != 0)
+      if (root->art_parameter_count() != 0) {
         return false;
+      }
       const Constraint_System& cs = root->constraints();
-      if (std::distance(cs.begin(), cs.end()) != 1)
+      if (std::distance(cs.begin(), cs.end()) != 1) {
         return false;
+      }
       const Constraint& c = *cs.begin();
       if (!(c.is_inequality()
             && c.coefficient(n) == 1
             && c.coefficient(m) == 0
-            && c.inhomogeneous_term() == -2))
+            && c.inhomogeneous_term() == -2)) {
         return false;
+      }
     }
-    if (root->child_node(true) == 0 || root->child_node(false) != 0)
+    if (root->child_node(true) == nullptr || root->child_node(false) != nullptr) {
       return false;
+    }
     const PIP_Decision_Node* t_child = root->child_node(true)->as_decision();
-    if (t_child == 0)
+    if (t_child == nullptr) {
       return false;
+    }
     {
       // Check t_child node context.
-      if (t_child->art_parameter_count() != 0)
+      if (t_child->art_parameter_count() != 0) {
         return false;
+      }
       const Constraint_System& cs = t_child->constraints();
-      if (std::distance(cs.begin(), cs.end()) != 1)
+      if (std::distance(cs.begin(), cs.end()) != 1) {
         return false;
+      }
       const Constraint& c = *cs.begin();
       if (!(c.is_inequality()
             && c.coefficient(n) == 0
             && c.coefficient(m) == 1
-            && c.inhomogeneous_term() == -2))
+            && c.inhomogeneous_term() == -2)) {
         return false;
+      }
       // Dummy print of (non-root) tree node to increase code coverage.
       using namespace IO_Operators;
       nout << "\nPrinting the root's true child subtree:\n";
       nout << (*t_child) << endl;
     }
-    if (t_child->child_node(true) == 0 || t_child->child_node(false) == 0)
+    if (t_child->child_node(true) == nullptr || t_child->child_node(false) == nullptr) {
       return false;
+    }
     const PIP_Solution_Node* t_t_child
       = t_child->child_node(true)->as_solution();
-    if (t_t_child == 0)
+    if (t_t_child == nullptr) {
       return false;
+    }
     {
       // Check t_t_child node.
-      if (t_t_child->art_parameter_count() != 0)
+      if (t_t_child->art_parameter_count() != 0) {
         return false;
+      }
       const Constraint_System& cs = t_t_child->constraints();
-      if (std::distance(cs.begin(), cs.end()) != 0)
+      if (std::distance(cs.begin(), cs.end()) != 0) {
         return false;
+      }
       const Linear_Expression& v_i = t_t_child->parametric_values(i);
       if (!(v_i.coefficient(n) == 0
             && v_i.coefficient(m) == 0
-            && v_i.inhomogeneous_term() == 2))
+            && v_i.inhomogeneous_term() == 2)) {
         return false;
+      }
       const Linear_Expression& v_j = t_t_child->parametric_values(j);
       if (!(v_j.coefficient(n) == 0
             && v_j.coefficient(m) == 0
-            && v_j.inhomogeneous_term() == 2))
+            && v_j.inhomogeneous_term() == 2)) {
         return false;
+      }
     }
     const PIP_Solution_Node* t_f_child
       = t_child->child_node(false)->as_solution();
-    if (t_f_child == 0)
+    if (t_f_child == nullptr) {
       return false;
+    }
     {
       // Check t_f_child node.
       // Check artificial parameter.
-      if (t_f_child->art_parameter_count() != 1)
+      if (t_f_child->art_parameter_count() != 1) {
         return false;
+      }
       const PIP_Tree_Node::Artificial_Parameter& ap
         = *(t_f_child->art_parameter_begin());
       if (!(ap.coefficient(n) == 0
             && ap.coefficient(m) == 1
-            && ap.denominator() == 2))
+            && ap.denominator() == 2)) {
         return false;
+      }
       // Check context.
       const Constraint_System& cs = t_f_child->constraints();
-      if (std::distance(cs.begin(), cs.end()) != 1)
+      if (std::distance(cs.begin(), cs.end()) != 1) {
         return false;
+      }
       const Constraint& c = *cs.begin();
       if (!(c.is_inequality()
             && c.coefficient(n) == 2
             && c.coefficient(m) == 3
-            && c.inhomogeneous_term() == -8))
+            && c.inhomogeneous_term() == -8)) {
         return false;
+      }
       // Check parametric values.
       Variable art_p(4);
       const Linear_Expression& v_i = t_f_child->parametric_values(i);
       if (!(v_i.coefficient(n) == 0
             && v_i.coefficient(m) == -1
             && v_i.coefficient(art_p) == -1
-            && v_i.inhomogeneous_term() == 4))
+            && v_i.inhomogeneous_term() == 4)) {
         return false;
+      }
       const Linear_Expression& v_j = t_f_child->parametric_values(j);
       if (!(v_j.coefficient(n) == 0
             && v_j.coefficient(m) == 1
             && v_j.coefficient(art_p) == 0
-            && v_j.inhomogeneous_term() == 0))
+            && v_j.inhomogeneous_term() == 0)) {
         return false;
+      }
     }
   }
   return ok;
@@ -497,8 +519,9 @@ test16() {
   // Adding trivial unsatisfiable constraint.
   pip.add_constraint(Linear_Expression(0) == 1);
   bool ok = (pip.solve() == UNFEASIBLE_PIP_PROBLEM);
-  if (pip.solution() != 0)
+  if (pip.solution() != nullptr) {
     pip.print_solution(nout);
+  }
   return ok;
 }
 
@@ -511,8 +534,9 @@ test17() {
   pip.add_constraint(n <= 5);
   pip.add_constraint(n >= 10);
   bool ok = (pip.solve() == UNFEASIBLE_PIP_PROBLEM);
-  if (pip.solution() != 0)
+  if (pip.solution() != nullptr) {
     pip.print_solution(nout);
+  }
   return ok;
 }
 
@@ -527,8 +551,9 @@ test18() {
   pip.add_constraint(m == 2);
   pip.add_constraint(n + m == 3);
   bool ok = (pip.solve() == UNFEASIBLE_PIP_PROBLEM);
-  if (pip.solution() != 0)
+  if (pip.solution() != nullptr) {
     pip.print_solution(nout);
+  }
   return ok;
 }
 

@@ -1687,7 +1687,7 @@ Box<ITV>::wrap_assign(const Variables_Set& vars,
 
   // Dimension-compatibility check for `*cs_p', if any.
   const dimension_type vars_space_dim = vars.space_dimension();
-  if (cs_p != 0 && cs_p->space_dimension() > vars_space_dim) {
+  if (cs_p != nullptr && cs_p->space_dimension() > vars_space_dim) {
     std::ostringstream s;
     s << "PPL::Box<ITV>::wrap_assign(vars, w, r, o, cs_p, ...):"
       << std::endl
@@ -1698,7 +1698,7 @@ Box<ITV>::wrap_assign(const Variables_Set& vars,
 
   // Wrapping no variable only requires refining with *cs_p, if any.
   if (vars.empty()) {
-    if (cs_p != 0) {
+    if (cs_p != nullptr) {
       refine_with_constraints(*cs_p);
     }
     return;
@@ -1754,7 +1754,7 @@ Box<ITV>::wrap_assign(const Variables_Set& vars,
 
   const Variables_Set::const_iterator vs_end = vars.end();
 
-  if (cs_p == 0) {
+  if (cs_p == nullptr) {
     // No constraint refinement is needed here.
     switch (o) {
     case OVERFLOW_WRAPS:
@@ -4105,9 +4105,9 @@ Box<ITV>::CC76_widening_assign(const T& y, unsigned* const tp) {
 
   Box& x = *this;
   // If there are tokens available, work on a temporary copy.
-  if (tp != 0 && *tp > 0) {
+  if (tp != nullptr && *tp > 0) {
     Box<ITV> x_tmp(x);
-    x_tmp.CC76_widening_assign(y, 0);
+    x_tmp.CC76_widening_assign(y, nullptr);
     // If the widening was not precise, use one of the available tokens.
     if (!x.contains(x_tmp)) {
       --(*tp);

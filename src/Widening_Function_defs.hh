@@ -46,7 +46,7 @@ public:
     Computes <CODE>(x.*wm)(y, tp)</CODE>, where \p wm is the widening
     method stored at construction time.
   */
-  void operator()(PSET& x, const PSET& y, unsigned* tp = 0) const;
+  void operator()(PSET& x, const PSET& y, unsigned* tp = nullptr) const;
 
 private:
   //! The widening method.
@@ -83,7 +83,7 @@ public:
     are the limited widening method and the constraint system stored
     at construction time.
   */
-  void operator()(PSET& x, const PSET& y, unsigned* tp = 0) const;
+  void operator()(PSET& x, const PSET& y, unsigned* tp = nullptr) const;
 
 private:
   //! The limited widening method.

@@ -1614,7 +1614,7 @@ public:
                    Bounded_Integer_Type_Width w,
                    Bounded_Integer_Type_Representation r,
                    Bounded_Integer_Type_Overflow o,
-                   const Constraint_System* cs_p = 0,
+                   const Constraint_System* cs_p = nullptr,
                    unsigned complexity_threshold = 16,
                    bool wrap_individually = true);
 
@@ -1670,7 +1670,7 @@ public:
     Thrown if \p *this and \p y are topology-incompatible or
     dimension-incompatible.
   */
-  void BHRZ03_widening_assign(const Polyhedron& y, unsigned* tp = 0);
+  void BHRZ03_widening_assign(const Polyhedron& y, unsigned* tp = nullptr);
 
   /*! \brief
     Assigns to \p *this the result of computing the
@@ -1695,7 +1695,7 @@ public:
   */
   void limited_BHRZ03_extrapolation_assign(const Polyhedron& y,
                                            const Constraint_System& cs,
-                                           unsigned* tp = 0);
+                                           unsigned* tp = nullptr);
 
   /*! \brief
     Assigns to \p *this the result of computing the
@@ -1720,7 +1720,7 @@ public:
   */
   void bounded_BHRZ03_extrapolation_assign(const Polyhedron& y,
                                            const Constraint_System& cs,
-                                           unsigned* tp = 0);
+                                           unsigned* tp = nullptr);
 
   /*! \brief
     Assigns to \p *this the result of computing the
@@ -1738,10 +1738,10 @@ public:
     Thrown if \p *this and \p y are topology-incompatible or
     dimension-incompatible.
   */
-  void H79_widening_assign(const Polyhedron& y, unsigned* tp = 0);
+  void H79_widening_assign(const Polyhedron& y, unsigned* tp = nullptr);
 
   //! Same as H79_widening_assign(y, tp).
-  void widening_assign(const Polyhedron& y, unsigned* tp = 0);
+  void widening_assign(const Polyhedron& y, unsigned* tp = nullptr);
 
   /*! \brief
     Assigns to \p *this the result of computing the
@@ -1766,7 +1766,7 @@ public:
   */
   void limited_H79_extrapolation_assign(const Polyhedron& y,
                                         const Constraint_System& cs,
-                                        unsigned* tp = 0);
+                                        unsigned* tp = nullptr);
 
   /*! \brief
     Assigns to \p *this the result of computing the
@@ -1791,7 +1791,7 @@ public:
   */
   void bounded_H79_extrapolation_assign(const Polyhedron& y,
                                         const Constraint_System& cs,
-                                        unsigned* tp = 0);
+                                        unsigned* tp = nullptr);
 
   //@} // Space Dimension Preserving Member Functions that May Modify [...]
 

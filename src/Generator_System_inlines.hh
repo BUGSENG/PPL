@@ -291,7 +291,7 @@ operator!=(const Generator_System& x, const Generator_System& y) {
 
 inline
 Generator_System_const_iterator::Generator_System_const_iterator()
-  : i(), gsp(0) {
+  : i(), gsp(nullptr) {
 }
 
 inline

@@ -51,7 +51,7 @@ PPL::PIP_Problem::PIP_Problem(const dimension_type dim)
   : external_space_dim(dim),
     internal_space_dim(0),
     status(PARTIALLY_SATISFIABLE),
-    current_solution(0),
+    current_solution(nullptr),
     input_cs(),
     first_pending_constraint(0),
     parameters(),
@@ -71,13 +71,13 @@ PPL::PIP_Problem::PIP_Problem(const PIP_Problem& y)
   : external_space_dim(y.external_space_dim),
     internal_space_dim(y.internal_space_dim),
     status(y.status),
-    current_solution(0),
+    current_solution(nullptr),
     input_cs(y.input_cs),
     first_pending_constraint(y.first_pending_constraint),
     parameters(y.parameters),
     initial_context(y.initial_context),
     big_parameter_dimension(y.big_parameter_dimension) {
-  if (y.current_solution != 0) {
+  if (y.current_solution != nullptr) {
     current_solution = y.current_solution->clone();
     current_solution->set_owner(this);
   }
@@ -118,7 +118,7 @@ PPL::PIP_Problem::solve() const {
     {
       PIP_Problem& x = const_cast<PIP_Problem&>(*this);
       // Allocate PIP solution tree root, if needed.
-      if (current_solution == 0) {
+      if (current_solution == nullptr) {
         x.current_solution = new PIP_Solution_Node(this);
       }
 
@@ -218,7 +218,7 @@ PPL::PIP_Problem::solve() const {
         if (!PIP_Solution_Node::compatibility_check(ctx_copy)) {
           // Problem found to be unfeasible.
           delete x.current_solution;
-          x.current_solution = 0;
+          x.current_solution = nullptr;
           x.status = UNSATISFIABLE;
           PPL_ASSERT(OK());
           return UNFEASIBLE_PIP_PROBLEM;
@@ -242,10 +242,10 @@ PPL::PIP_Problem::solve() const {
                                                      external_space_dim,
                                                      /*indent_level=*/ 0);
       // Update problem status.
-      x.status = (x.current_solution != 0) ? OPTIMIZED : UNSATISFIABLE;
+      x.status = (x.current_solution != nullptr) ? OPTIMIZED : UNSATISFIABLE;
 
       PPL_ASSERT(OK());
-      return (x.current_solution != 0)
+      return (x.current_solution != nullptr)
         ? OPTIMIZED_PIP_PROBLEM
         : UNFEASIBLE_PIP_PROBLEM;
     } // End of handler for PARTIALLY_SATISFIABLE case.
@@ -344,7 +344,7 @@ PPL::PIP_Problem::OK() const {
     return false;
   }
 
-  if (current_solution != 0) {
+  if (current_solution != nullptr) {
     // Check well formedness of the solution tree.
     if (!current_solution->OK()) {
 #ifndef NDEBUG
@@ -431,7 +431,7 @@ PPL::PIP_Problem::ascii_dump(std::ostream& s) const {
   s << "\nbig_parameter_dimension: " << big_parameter_dimension << "\n";
 
   s << "\ncurrent_solution: ";
-  if (current_solution == 0) {
+  if (current_solution == nullptr) {
     s << "BOTTOM\n";
   }
   else if (const PIP_Decision_Node* const dec
@@ -574,7 +574,7 @@ PPL::PIP_Problem::ascii_load(std::istream& s) {
 
   // Release current_solution tree (if any).
   delete current_solution;
-  current_solution = 0;
+  current_solution = nullptr;
   // Load current_solution (if any).
   if (!(s >> str) || str != "current_solution:") {
     return false;
@@ -583,10 +583,10 @@ PPL::PIP_Problem::ascii_load(std::istream& s) {
     return false;
   }
   if (str == "BOTTOM") {
-    current_solution = 0;
+    current_solution = nullptr;
   }
   else if (str == "DECISION") {
-    PIP_Decision_Node* const dec = new PIP_Decision_Node(0, 0, 0);
+    PIP_Decision_Node* const dec = new PIP_Decision_Node(nullptr, nullptr, nullptr);
     current_solution = dec;
     if (!dec->ascii_load(s)) {
       return false;
@@ -594,7 +594,7 @@ PPL::PIP_Problem::ascii_load(std::istream& s) {
     dec->set_owner(this);
   }
   else if (str == "SOLUTION") {
-    PIP_Solution_Node* const sol = new PIP_Solution_Node(0);
+    PIP_Solution_Node* const sol = new PIP_Solution_Node(nullptr);
     current_solution = sol;
     if (!sol->ascii_load(s)) {
       return false;
@@ -615,9 +615,9 @@ PPL::PIP_Problem::clear() {
   external_space_dim = 0;
   internal_space_dim = 0;
   status = PARTIALLY_SATISFIABLE;
-  if (current_solution != 0) {
+  if (current_solution != nullptr) {
     delete current_solution;
-    current_solution = 0;
+    current_solution = nullptr;
   }
   input_cs.clear();
   first_pending_constraint = 0;
@@ -766,7 +766,7 @@ PPL::memory_size_type
 PPL::PIP_Problem::external_memory_in_bytes() const {
   memory_size_type n = initial_context.external_memory_in_bytes();
   // Adding the external memory for `current_solution'.
-  if (current_solution != 0) {
+  if (current_solution != nullptr) {
     n += current_solution->total_memory_in_bytes();
   }
   // Adding the external memory for `input_cs'.
@@ -791,12 +791,12 @@ PPL::PIP_Problem::print_solution(std::ostream& s, int indent) const {
   switch (status) {
 
   case UNSATISFIABLE:
-    PPL_ASSERT(current_solution == 0);
+    PPL_ASSERT(current_solution == nullptr);
     PIP_Tree_Node::indent_and_print(s, indent, "_|_\n");
     break;
 
   case OPTIMIZED:
-    PPL_ASSERT(current_solution != 0);
+    PPL_ASSERT(current_solution != nullptr);
     current_solution->print(s, indent);
     break;
 

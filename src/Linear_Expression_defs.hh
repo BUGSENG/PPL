@@ -318,7 +318,7 @@ public:
                     typename
                     Enable_If<Is_Same_Or_Derived<Expression_Adapter_Base,
                                                  LE_Adapter>::value,
-                              void*>::type = 0);
+                              void*>::type = nullptr);
 
   /*! \brief Copy constructor from a linear expression adapter that takes a
     Representation.
@@ -329,7 +329,7 @@ public:
                     typename
                     Enable_If<Is_Same_Or_Derived<Expression_Adapter_Base,
                                                  LE_Adapter>::value,
-                              void*>::type = 0);
+                              void*>::type = nullptr);
 
   /*! \brief
     Copy constructor from a linear expression adapter that takes a
@@ -345,7 +345,7 @@ public:
                     typename
                     Enable_If<Is_Same_Or_Derived<Expression_Adapter_Base,
                                                  LE_Adapter>::value,
-                              void*>::type = 0);
+                              void*>::type = nullptr);
 
   /*! \brief
     Copy constructor from a linear expression adapter that takes a
@@ -358,7 +358,7 @@ public:
                     typename
                     Enable_If<Is_Same_Or_Derived<Expression_Adapter_Base,
                                                  LE_Adapter>::value,
-                              void*>::type = 0);
+                              void*>::type = nullptr);
 
   //! Assignment operator.
   Linear_Expression& operator=(const Linear_Expression& e);

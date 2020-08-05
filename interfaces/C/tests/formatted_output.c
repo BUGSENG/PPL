@@ -54,10 +54,12 @@ main() {
   }
   p = print_ppl_Constraint_System_to_buffer(cs, 4, 64, 64);
   if (check_noisy()) {
-    if (p == 0)
+    if (p == 0) {
       printf("print_ppl_Constraint_System_to_buffer() returned NULL!\n");
-    else
+    }
+    else {
       printf("    %s\n", p);
+    }
   }
   free(p);
   ppl_delete_Constraint_System(cs);

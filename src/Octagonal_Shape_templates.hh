@@ -3837,9 +3837,9 @@ Octagonal_Shape<T>::CC76_extrapolation_assign(const Octagonal_Shape& y,
   }
 
   // If there are tokens available, work on a temporary copy.
-  if (tp != 0 && *tp > 0) {
+  if (tp != nullptr && *tp > 0) {
     Octagonal_Shape x_tmp(*this);
-    x_tmp.CC76_extrapolation_assign(y, first, last, 0);
+    x_tmp.CC76_extrapolation_assign(y, first, last, nullptr);
     // If the widening was not precise, use one of the available tokens.
     if (!contains(x_tmp)) {
       --(*tp);
@@ -4043,9 +4043,9 @@ Octagonal_Shape<T>::BHMZ05_widening_assign(const Octagonal_Shape& y,
     return;
   }
   // If there are tokens available, work on a temporary copy.
-  if (tp != 0 && *tp > 0) {
+  if (tp != nullptr && *tp > 0) {
     Octagonal_Shape x_tmp(*this);
-    x_tmp.BHMZ05_widening_assign(y, 0);
+    x_tmp.BHMZ05_widening_assign(y, nullptr);
     // If the widening was not precise, use one of the available tokens.
     if (!contains(x_tmp)) {
       --(*tp);

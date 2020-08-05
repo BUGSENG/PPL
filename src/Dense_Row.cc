@@ -55,7 +55,7 @@ PPL::Dense_Row::resize(const dimension_type new_size) {
       const dimension_type new_capacity = new_size;
       Coefficient* const new_vec = impl.coeff_allocator.allocate(new_capacity);
 
-      if (impl.vec != 0) {
+      if (impl.vec != nullptr) {
         memcpy(new_vec, impl.vec, sizeof(Coefficient) * impl.size);
         impl.coeff_allocator.deallocate(impl.vec, impl.capacity);
       }
@@ -81,7 +81,7 @@ PPL::Dense_Row::resize(const dimension_type new_size,
 
   if (new_capacity == 0) {
     destroy();
-    impl.vec = 0;
+    impl.vec = nullptr;
     impl.size = 0;
     impl.capacity = 0;
 
@@ -114,7 +114,7 @@ PPL::Dense_Row::resize(const dimension_type new_size,
 
       Coefficient* const new_vec = impl.coeff_allocator.allocate(new_capacity);
 
-      if (impl.vec != 0) {
+      if (impl.vec != nullptr) {
         memcpy(new_vec, impl.vec, sizeof(Coefficient) * impl.size);
         impl.coeff_allocator.deallocate(impl.vec, impl.capacity);
       }
@@ -566,12 +566,12 @@ PPL::Dense_Row::OK() const {
   }
 
   if (capacity() == 0) {
-    if (impl.vec != 0) {
+    if (impl.vec != nullptr) {
       is_broken = true;
     }
   }
   else {
-    if (impl.vec == 0) {
+    if (impl.vec == nullptr) {
       is_broken = true;
     }
   }

@@ -113,7 +113,7 @@ wrap_assign_col(PSET& dest,
                 Coefficient& tmp) {
   if (first == end) {
     PSET p(src);
-    if (cs_p != 0) {
+    if (cs_p != nullptr) {
       p.refine_with_constraints(*cs_p);
     }
     for (Variables_Set::const_iterator i = vars.begin(),
@@ -162,7 +162,7 @@ wrap_assign(PSET& pointset,
   //         and  vars.space_dimension() <= pointset.space_dimension().
 
   // Dimension-compatibility check of `*cs_p', if any.
-  if (cs_p != 0) {
+  if (cs_p != nullptr) {
     const dimension_type vars_space_dim = vars.space_dimension();
     if (cs_p->space_dimension() > vars_space_dim) {
       std::ostringstream s;
@@ -192,7 +192,7 @@ wrap_assign(PSET& pointset,
 
   // Wrapping no variable only requires refining with *cs_p, if any.
   if (vars.empty()) {
-    if (cs_p != 0) {
+    if (cs_p != nullptr) {
       pointset.refine_with_constraints(*cs_p);
     }
     return;
@@ -339,7 +339,7 @@ wrap_assign(PSET& pointset,
       }
     }
 
-    if (wrap_individually && cs_p == 0) {
+    if (wrap_individually && cs_p == nullptr) {
       Coefficient& quadrant = first_quadrant;
       // Temporary variable holding the shifts to be applied in order
       // to implement the translations.
@@ -381,7 +381,7 @@ wrap_assign(PSET& pointset,
     }
   }
 
-  if (cs_p != 0) {
+  if (cs_p != nullptr) {
     pointset.refine_with_constraints(*cs_p);
   }
   pointset.refine_with_constraints(full_range_bounds);

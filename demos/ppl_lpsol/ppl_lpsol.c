@@ -442,8 +442,9 @@ process_options(int argc, char* argv[]) {
 
   if (output_argument) {
     output_file = fopen(output_argument, "a");
-    if (output_file == NULL)
+    if (output_file == NULL) {
       fatal("cannot open output file `%s'", output_argument);
+    }
   }
   else
     output_file = stdout;
@@ -671,10 +672,12 @@ maybe_check_results(const int ppl_status, const double ppl_optimum_value) {
 static const char*
 variable_output_function(ppl_dimension_type var) {
   const char* name = glp_get_col_name(glpk_lp, var+1);
-  if (name != NULL)
+  if (name != NULL) {
     return name;
-  else
+  }
+  else {
     return 0;
+  }
 }
 
 static void

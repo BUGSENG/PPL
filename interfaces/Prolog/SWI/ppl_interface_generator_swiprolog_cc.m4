@@ -41,7 +41,7 @@ namespace {
 
 PL_extension predicates[] = {
 m4_divert(1)dnl
-  { NULL, 0, NULL, 0 }
+  { nullptr, 0, nullptr, 0 }
 };
 
 } // namespace

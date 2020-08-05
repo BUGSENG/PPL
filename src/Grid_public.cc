@@ -675,7 +675,7 @@ PPL::Grid::relation_with(const Constraint& c) const {
 
   bool point_is_included = false;
   bool point_saturates = false;
-  const Grid_Generator* first_point = 0;
+  const Grid_Generator* first_point = nullptr;
 
   for (Grid_Generator_System::const_iterator i = gen_sys.begin(),
          i_end = gen_sys.end(); i != i_end; ++i) {
@@ -683,7 +683,7 @@ PPL::Grid::relation_with(const Constraint& c) const {
     switch (g.type()) {
     case Grid_Generator::POINT:
       {
-        if (first_point == 0) {
+        if (first_point == nullptr) {
           first_point = &g;
           const int sign = Scalar_Products::sign(c, g);
           if (sign == 0) {
@@ -2929,7 +2929,7 @@ PPL::Grid::wrap_assign(const Variables_Set& vars,
                        bool /* wrap_individually */) {
 
   // Dimension-compatibility check of `*cs_p', if any.
-  if (cs_p != 0) {
+  if (cs_p != nullptr) {
     const dimension_type cs_p_space_dim  = cs_p->space_dimension();
     if (cs_p->space_dimension() > space_dim) {
       throw_dimension_incompatible("wrap_assign(vs, ...)", cs_p_space_dim);

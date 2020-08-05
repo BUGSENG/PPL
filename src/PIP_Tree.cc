@@ -915,14 +915,14 @@ operator<<(std::ostream& os, const PIP_Tree_Node::Artificial_Parameter& x) {
 
 PIP_Tree_Node::PIP_Tree_Node(const PIP_Problem* owner)
   : owner_(owner),
-    parent_(0),
+    parent_(nullptr),
     constraints_(),
     artificial_parameters() {
 }
 
 PIP_Tree_Node::PIP_Tree_Node(const PIP_Tree_Node& y)
   : owner_(y.owner_),
-    parent_(0), // NOTE: parent is not copied.
+    parent_(nullptr), // NOTE: parent is not copied.
     constraints_(y.constraints_),
     artificial_parameters(y.artificial_parameters) {
 }
@@ -1085,25 +1085,25 @@ PIP_Decision_Node::PIP_Decision_Node(const PIP_Problem* owner,
   : PIP_Tree_Node(owner),
     false_child(fcp),
     true_child(tcp) {
-  if (false_child != 0) {
+  if (false_child != nullptr) {
     false_child->set_parent(this);
   }
-  if (true_child != 0) {
+  if (true_child != nullptr) {
     true_child->set_parent(this);
   }
 }
 
 PIP_Decision_Node::PIP_Decision_Node(const PIP_Decision_Node& y)
   : PIP_Tree_Node(y),
-    false_child(0),
-    true_child(0) {
-  if (y.false_child != 0) {
+    false_child(nullptr),
+    true_child(nullptr) {
+  if (y.false_child != nullptr) {
     false_child = y.false_child->clone();
     false_child->set_parent(this);
   }
   // Protect false_child from exception safety issues via std::auto_ptr.
   std::auto_ptr<PIP_Tree_Node> wrapped_node(false_child);
-  if (y.true_child != 0) {
+  if (y.true_child != nullptr) {
     true_child = y.true_child->clone();
     true_child->set_parent(this);
   }
@@ -1124,10 +1124,10 @@ PIP_Solution_Node::set_owner(const PIP_Problem* owner) {
 void
 PIP_Decision_Node::set_owner(const PIP_Problem* owner) {
   owner_ = owner;
-  if (false_child != 0) {
+  if (false_child != nullptr) {
     false_child->set_owner(owner);
   }
-  if (true_child != 0) {
+  if (true_child != nullptr) {
     true_child->set_owner(owner);
   }
 }
@@ -1140,8 +1140,8 @@ PIP_Solution_Node::check_ownership(const PIP_Problem* owner) const {
 bool
 PIP_Decision_Node::check_ownership(const PIP_Problem* owner) const {
   return get_owner() == owner
-    && (false_child == 0 || false_child->check_ownership(owner))
-    && (true_child == 0 || true_child->check_ownership(owner));
+    && (false_child == nullptr || false_child->check_ownership(owner))
+    && (true_child == nullptr || true_child->check_ownership(owner));
 }
 
 const PIP_Decision_Node*
@@ -1151,12 +1151,12 @@ PIP_Decision_Node::as_decision() const {
 
 const PIP_Decision_Node*
 PIP_Solution_Node::as_decision() const {
-  return 0;
+  return nullptr;
 }
 
 const PIP_Solution_Node*
 PIP_Decision_Node::as_solution() const {
-  return 0;
+  return nullptr;
 }
 
 const PIP_Solution_Node*
@@ -1339,15 +1339,15 @@ PIP_Decision_Node::OK() const {
   }
 
   // Recursively check if child nodes are well-formed.
-  if (false_child != 0 && !false_child->OK()) {
+  if (false_child != nullptr && !false_child->OK()) {
     return false;
   }
-  if (true_child != 0 && !true_child->OK()) {
+  if (true_child != nullptr && !true_child->OK()) {
     return false;
   }
 
   // Decision nodes should always have a true child.
-  if (true_child == 0) {
+  if (true_child == nullptr) {
 #ifndef NDEBUG
     std::cerr << "PIP_Decision_Node with no 'true' child.\n";
 #endif
@@ -1355,7 +1355,7 @@ PIP_Decision_Node::OK() const {
   }
 
   // Decision nodes with a false child must have exactly one constraint.
-  if (false_child != 0) {
+  if (false_child != nullptr) {
     const dimension_type dist = Implementation::num_constraints(constraints_);
     if (dist != 1) {
 #ifndef NDEBUG
@@ -1383,7 +1383,7 @@ PIP_Decision_Node::update_tableau(
                              first_pending_constraint,
                              input_cs,
                              parameters);
-  if (false_child != 0) {
+  if (false_child != nullptr) {
     false_child->update_tableau(pip,
                                 external_space_dim,
                                 first_pending_constraint,
@@ -1413,8 +1413,8 @@ PIP_Decision_Node::solve(const PIP_Problem& pip,
   add_artificial_parameters(context_true, all_params, space_dim,
                             num_art_params);
   merge_assign(context_true, constraints_, all_params);
-  const bool has_false_child = (false_child != 0);
-  const bool has_true_child = (true_child != 0);
+  const bool has_false_child = (false_child != nullptr);
+  const bool has_true_child = (true_child != nullptr);
 #ifdef NOISY_PIP_TREE_STRUCTURE
   indent_and_print(std::cerr, indent_level,
                    "=== DECISION: SOLVING THEN CHILD\n");
@@ -1439,17 +1439,17 @@ PIP_Decision_Node::solve(const PIP_Problem& pip,
                                      indent_level + 1);
   }
 
-  if (true_child == 0 && false_child == 0) {
+  if (true_child == nullptr && false_child == nullptr) {
     // No children: the whole subtree is unfeasible.
 #ifdef NOISY_PIP_TREE_STRUCTURE
     indent_and_print(std::cerr, indent_level,
                      "=== DECISION: BOTH BRANCHES NOW UNFEASIBLE: _|_\n");
 #endif
     delete this;
-    return 0;
+    return nullptr;
   }
 
-  if (has_false_child && false_child == 0) {
+  if (has_false_child && false_child == nullptr) {
     // False child has become unfeasible: merge this node's artificials with
     // the true child, while removing the local parameter constraints, which
     // are no longer discriminative.
@@ -1462,12 +1462,12 @@ PIP_Decision_Node::solve(const PIP_Problem& pip,
     PIP_Tree_Node* const node = true_child;
     node->parent_merge();
     node->set_parent(parent());
-    true_child = 0;
+    true_child = nullptr;
     delete this;
     PPL_ASSERT(node->OK());
     return node;
   }
-  else if (has_true_child && true_child == 0) {
+  else if (has_true_child && true_child == nullptr) {
     // True child has become unfeasible: merge this node's artificials
     // with the false child.
 #ifdef NOISY_PIP_TREE_STRUCTURE
@@ -1479,7 +1479,7 @@ PIP_Decision_Node::solve(const PIP_Problem& pip,
     PIP_Tree_Node* const node = false_child;
     node->parent_merge();
     node->set_parent(parent());
-    false_child = 0;
+    false_child = nullptr;
     delete this;
     PPL_ASSERT(node->OK());
     return node;
@@ -1511,7 +1511,7 @@ PIP_Decision_Node::solve(const PIP_Problem& pip,
       PIP_Tree_Node* const node = true_child;
       node->parent_merge();
       node->set_parent(parent());
-      true_child = 0;
+      true_child = nullptr;
       delete this;
       PPL_ASSERT(node->OK());
       return node;
@@ -1528,7 +1528,7 @@ PIP_Decision_Node::ascii_dump(std::ostream& s) const {
 
   // Dump true child (if any).
   s << "\ntrue_child: ";
-  if (true_child == 0) {
+  if (true_child == nullptr) {
     // Note: this branch should normally be unreachable code, since a
     // well-formed decision node always has a true child. We keep this code
     // for debugging purposes (since we want to dump broken nodes).
@@ -1540,14 +1540,14 @@ PIP_Decision_Node::ascii_dump(std::ostream& s) const {
   }
   else {
     const PIP_Solution_Node* const sol = true_child->as_solution();
-    PPL_ASSERT(sol != 0);
+    PPL_ASSERT(sol != nullptr);
     s << "SOLUTION\n";
     sol->ascii_dump(s);
   }
 
   // Dump false child (if any).
   s << "\nfalse_child: ";
-  if (false_child == 0) {
+  if (false_child == nullptr) {
     s << "BOTTOM\n";
   }
   else if (const PIP_Decision_Node* const dec = false_child->as_decision()) {
@@ -1561,7 +1561,7 @@ PIP_Decision_Node::ascii_dump(std::ostream& s) const {
   }
   else {
     const PIP_Solution_Node* const sol = false_child->as_solution();
-    PPL_ASSERT(sol != 0);
+    PPL_ASSERT(sol != nullptr);
     s << "SOLUTION\n";
     sol->ascii_dump(s);
   }
@@ -1578,7 +1578,7 @@ PIP_Decision_Node::ascii_load(std::istream& s) {
 
   // Release the "true" subtree (if any).
   delete true_child;
-  true_child = 0;
+  true_child = nullptr;
 
   // Load true child (if any).
   if (!(s >> str) || str != "true_child:") {
@@ -1589,17 +1589,17 @@ PIP_Decision_Node::ascii_load(std::istream& s) {
   }
   if (str == "BOTTOM") {
     // Note: normally unreachable code (see comment on ascii_dump).
-    true_child = 0;
+    true_child = nullptr;
   }
   else if (str == "DECISION") {
-    PIP_Decision_Node* const dec = new PIP_Decision_Node(0, 0, 0);
+    PIP_Decision_Node* const dec = new PIP_Decision_Node(nullptr, nullptr, nullptr);
     true_child = dec;
     if (!dec->ascii_load(s)) {
       return false;
     }
   }
   else if (str == "SOLUTION") {
-    PIP_Solution_Node* const sol = new PIP_Solution_Node(0);
+    PIP_Solution_Node* const sol = new PIP_Solution_Node(nullptr);
     true_child = sol;
     if (!sol->ascii_load(s)) {
       return false;
@@ -1612,7 +1612,7 @@ PIP_Decision_Node::ascii_load(std::istream& s) {
 
   // Release the "false" subtree (if any).
   delete false_child;
-  false_child = 0;
+  false_child = nullptr;
 
   // Load false child (if any).
   if (!(s >> str) || str != "false_child:") {
@@ -1622,18 +1622,18 @@ PIP_Decision_Node::ascii_load(std::istream& s) {
     return false;
   }
   if (str == "BOTTOM") {
-    false_child = 0;
+    false_child = nullptr;
   }
   else if (str == "DECISION") {
     // Note: normally unreachable code (see comment on ascii_dump).
-    PIP_Decision_Node* const dec = new PIP_Decision_Node(0, 0, 0);
+    PIP_Decision_Node* const dec = new PIP_Decision_Node(nullptr, nullptr, nullptr);
     false_child = dec;
     if (!dec->ascii_load(s)) {
       return false;
     }
   }
   else if (str == "SOLUTION") {
-    PIP_Solution_Node* const sol = new PIP_Solution_Node(0);
+    PIP_Solution_Node* const sol = new PIP_Solution_Node(nullptr);
     false_child = sol;
     if (!sol->ascii_load(s)) {
       return false;
@@ -2628,7 +2628,7 @@ PIP_Solution_Node::solve(const PIP_Problem& pip,
     Matrix<Row> ctx_copy(ctx);
     if (!compatibility_check(ctx_copy)) {
       delete this;
-      return 0;
+      return nullptr;
     }
   }
 
@@ -2796,7 +2796,7 @@ PIP_Solution_Node::solve(const PIP_Problem& pip,
                            "No positive pivot: Solution = _|_\n");
 #endif // #ifdef NOISY_PIP_TREE_STRUCTURE
           delete this;
-          return 0;
+          return nullptr;
         }
         if (pj == not_a_dim
             || tableau.is_better_pivot(mapping, basis, i, j, pi, pj)) {
@@ -3179,14 +3179,14 @@ PIP_Solution_Node::solve(const PIP_Problem& pip,
                              indent_level + 1);
 
       // Case analysis on recursive resolution calls outcome.
-      if (t_node == 0) {
-        if (f_node == 0) {
+      if (t_node == nullptr) {
+        if (f_node == nullptr) {
           // Both t_node and f_node unfeasible.
 #ifdef NOISY_PIP_TREE_STRUCTURE
           indent_and_print(std::cerr, indent_level,
                            "=== EXIT: BOTH BRANCHES UNFEASIBLE: _|_\n");
 #endif
-          return 0;
+          return nullptr;
         }
         else {
           // t_node unfeasible, f_node feasible:
@@ -3203,7 +3203,7 @@ PIP_Solution_Node::solve(const PIP_Problem& pip,
           return f_node;
         }
       }
-      else if (f_node == 0) {
+      else if (f_node == nullptr) {
         // t_node feasible, f_node unfeasible.
 #ifdef NOISY_PIP_TREE_STRUCTURE
         indent_and_print(std::cerr, indent_level,
@@ -3216,10 +3216,10 @@ PIP_Solution_Node::solve(const PIP_Problem& pip,
         // it will have, at least, the two splitting constraints.
         const PIP_Decision_Node* const decision_node_p
           = dynamic_cast<PIP_Decision_Node*>(t_node);
-        if (decision_node_p != 0 && decision_node_p->false_child != 0) {
+        if (decision_node_p != nullptr && decision_node_p->false_child != nullptr) {
           // Do NOT merge: create a new decision node.
           PIP_Tree_Node* const parent
-            = new PIP_Decision_Node(t_node->get_owner(), 0, t_node);
+            = new PIP_Decision_Node(t_node->get_owner(), nullptr, t_node);
           // Previously wrapped 't_node' is now safe: release it
           // and protect new 'parent' node from exception safety issues.
           wrapped_node.release();
@@ -3281,7 +3281,7 @@ PIP_Solution_Node::solve(const PIP_Problem& pip,
 #endif
         // If node to be solved had tautologies,
         // store them in a new decision node.
-        parent = new PIP_Decision_Node(parent->get_owner(), 0, parent);
+        parent = new PIP_Decision_Node(parent->get_owner(), nullptr, parent);
         // Previously wrapped 'parent' node is now safe: release it
         // and protect new 'parent' node from exception safety issues.
         wrapped_node.release();
@@ -3456,7 +3456,7 @@ PIP_Solution_Node::solve(const PIP_Problem& pip,
 
   // This point should be unreachable.
   PPL_UNREACHABLE;
-  return 0;
+  return nullptr;
 }
 
 void
@@ -3562,7 +3562,7 @@ PIP_Solution_Node::generate_cut(const dimension_type index,
         }
       }
       node = node->parent();
-    } while (!reuse_ap && node != 0);
+    } while (!reuse_ap && node != nullptr);
 
     if (reuse_ap) {
       // We can re-use an existing Artificial_Parameter.
@@ -3756,7 +3756,7 @@ PIP_Decision_Node::external_memory_in_bytes() const {
   memory_size_type n = PIP_Tree_Node::external_memory_in_bytes();
   PPL_ASSERT(true_child != 0);
   n += true_child->total_memory_in_bytes();
-  if (false_child != 0) {
+  if (false_child != nullptr) {
     n += false_child->total_memory_in_bytes();
   }
   return n;
@@ -3819,8 +3819,7 @@ PIP_Tree_Node::print(std::ostream& s, const int indent) const {
   }
 
   dimension_type first_art_dim = pip_space_dim;
-  for (const PIP_Tree_Node* node = parent();
-       node != 0; node = node->parent()) {
+  for (const PIP_Tree_Node* node = parent(); node != nullptr; node = node->parent()) {
     first_art_dim += node->art_parameter_count();
   }
 
@@ -3874,7 +3873,7 @@ PIP_Decision_Node::print_tree(std::ostream& s, const int indent,
 
   indent_and_print(s, indent, "else\n");
 
-  if (false_child != 0) {
+  if (false_child != nullptr) {
     false_child->print_tree(s, indent+1, pip_dim_is_param,
                             child_first_art_dim);
   }
@@ -3919,7 +3918,7 @@ PIP_Solution_Node::print_tree(std::ostream& s, const int indent,
 const Linear_Expression&
 PIP_Solution_Node::parametric_values(const Variable var) const {
   const PIP_Problem* const pip = get_owner();
-  PPL_ASSERT(pip != 0);
+  PPL_ASSERT(pip != nullptr);
 
   const dimension_type space_dim = pip->space_dimension();
   if (var.space_dimension() > space_dim) {
@@ -3961,7 +3960,7 @@ PIP_Solution_Node::update_solution() const {
     return;
   }
   const PIP_Problem* const pip = get_owner();
-  PPL_ASSERT(pip != 0);
+  PPL_ASSERT(pip != nullptr);
   std::vector<bool> pip_dim_is_param(pip->space_dimension());
   const Variables_Set& params = pip->parameter_space_dimensions();
   for (Variables_Set::const_iterator p = params.begin(),

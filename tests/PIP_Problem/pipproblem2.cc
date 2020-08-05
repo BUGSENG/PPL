@@ -207,7 +207,7 @@ test11() {
   cs.insert(A >= 5);
 
   PIP_Problem pip1(3, cs.begin(), cs.end(), Variables_Set());
-  bool ok = (pip1.solution() != 0);
+  bool ok = (pip1.solution() != nullptr);
 
   return ok;
 }
@@ -219,7 +219,7 @@ test12() {
   cs.insert(A >= 5);
 
   PIP_Problem pip1(3, cs.begin(), cs.end(), Variables_Set());
-  bool ok = (pip1.optimizing_solution() != 0);
+  bool ok = (pip1.optimizing_solution() != nullptr);
 
   return ok;
 }
@@ -243,7 +243,7 @@ test13() {
   PIP_Tree pip_tree = pip.solution();
   const PIP_Solution_Node* sol_node = pip_tree->as_solution();
   const PIP_Decision_Node* dec_node = pip_tree->as_decision();
-  bool ok = (sol_node == 0 && dec_node != 0);
+  bool ok = (sol_node == nullptr && dec_node != nullptr);
 
   return ok;
 }

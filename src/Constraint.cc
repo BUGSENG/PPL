@@ -262,47 +262,47 @@ PPL::Constraint::check_strong_normalized() const {
   return compare(*this, tmp) == 0;
 }
 
-const PPL::Constraint* PPL::Constraint::zero_dim_false_p = 0;
-const PPL::Constraint* PPL::Constraint::zero_dim_positivity_p = 0;
-const PPL::Constraint* PPL::Constraint::epsilon_geq_zero_p = 0;
-const PPL::Constraint* PPL::Constraint::epsilon_leq_one_p = 0;
+const PPL::Constraint* PPL::Constraint::zero_dim_false_p = nullptr;
+const PPL::Constraint* PPL::Constraint::zero_dim_positivity_p = nullptr;
+const PPL::Constraint* PPL::Constraint::epsilon_geq_zero_p = nullptr;
+const PPL::Constraint* PPL::Constraint::epsilon_leq_one_p = nullptr;
 
 void
 PPL::Constraint::initialize() {
-  PPL_ASSERT(zero_dim_false_p == 0);
+  PPL_ASSERT(zero_dim_false_p == nullptr);
   zero_dim_false_p
     = new Constraint(Linear_Expression::zero() == Coefficient_one());
 
-  PPL_ASSERT(zero_dim_positivity_p == 0);
+  PPL_ASSERT(zero_dim_positivity_p == nullptr);
   zero_dim_positivity_p
     = new Constraint(Linear_Expression::zero() <= Coefficient_one());
 
-  PPL_ASSERT(epsilon_geq_zero_p == 0);
+  PPL_ASSERT(epsilon_geq_zero_p == nullptr);
   epsilon_geq_zero_p
     = new Constraint(construct_epsilon_geq_zero());
 
-  PPL_ASSERT(epsilon_leq_one_p == 0);
+  PPL_ASSERT(epsilon_leq_one_p == nullptr);
   epsilon_leq_one_p
     = new Constraint(Linear_Expression::zero() < Coefficient_one());
 }
 
 void
 PPL::Constraint::finalize() {
-  PPL_ASSERT(zero_dim_false_p != 0);
+  PPL_ASSERT(zero_dim_false_p != nullptr);
   delete zero_dim_false_p;
-  zero_dim_false_p = 0;
+  zero_dim_false_p = nullptr;
 
-  PPL_ASSERT(zero_dim_positivity_p != 0);
+  PPL_ASSERT(zero_dim_positivity_p != nullptr);
   delete zero_dim_positivity_p;
-  zero_dim_positivity_p = 0;
+  zero_dim_positivity_p = nullptr;
 
-  PPL_ASSERT(epsilon_geq_zero_p != 0);
+  PPL_ASSERT(epsilon_geq_zero_p != nullptr);
   delete epsilon_geq_zero_p;
-  epsilon_geq_zero_p = 0;
+  epsilon_geq_zero_p = nullptr;
 
-  PPL_ASSERT(epsilon_leq_one_p != 0);
+  PPL_ASSERT(epsilon_leq_one_p != nullptr);
   delete epsilon_leq_one_p;
-  epsilon_leq_one_p = 0;
+  epsilon_leq_one_p = nullptr;
 }
 
 void
@@ -426,7 +426,7 @@ PPL::IO_Operators::operator<<(std::ostream& s, const Constraint& c) {
   if (first) {
     s << Coefficient_zero();
   }
-  const char* relation_symbol = 0;
+  const char* relation_symbol = nullptr;
   switch (c.type()) {
   case Constraint::EQUALITY:
     relation_symbol = " = ";
@@ -445,7 +445,7 @@ PPL::IO_Operators::operator<<(std::ostream& s, const Constraint& c) {
 /*! \relates Parma_Polyhedra_Library::Constraint */
 std::ostream&
 PPL::IO_Operators::operator<<(std::ostream& s, const Constraint::Type& t) {
-  const char* n = 0;
+  const char* n = nullptr;
   switch (t) {
   case Constraint::EQUALITY:
     n = "EQUALITY";

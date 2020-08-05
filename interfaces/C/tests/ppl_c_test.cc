@@ -43,7 +43,7 @@ namespace {
 static int
 check_noisy_variable(const char* environment_variable) {
 #if PPL_HAVE_DECL_GETENV
-  return getenv(environment_variable) != 0;
+  return getenv(environment_variable) != nullptr;
 #else
 #if NOISY
   if (strcmp(environment_variable, "PPL_NOISY_TESTS") == 0)

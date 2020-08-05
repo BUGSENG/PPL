@@ -229,7 +229,7 @@ PPL::Polyhedron::H79_widening_assign(const Polyhedron& y, unsigned* tp) {
 
       // Check whether we are using the widening-with-tokens technique
       // and there still are tokens available.
-      if (tp != 0 && *tp > 0) {
+      if (tp != nullptr && *tp > 0) {
         // There are tokens available. If `CH78' is not a subset of `x',
         // then it is less precise and we use one of the available tokens.
         if (!x.contains(CH78)) {
@@ -281,7 +281,7 @@ PPL::Polyhedron::H79_widening_assign(const Polyhedron& y, unsigned* tp) {
 
     // Check whether we are using the widening-with-tokens technique
     // and there still are tokens available.
-    if (tp != 0 && *tp > 0) {
+    if (tp != nullptr && *tp > 0) {
       // There are tokens available. If `H79' is not a subset of `x',
       // then it is less precise and we use one of the available tokens.
       if (!x.contains(H79)) {
@@ -783,7 +783,7 @@ PPL::Polyhedron::BHRZ03_widening_assign(const Polyhedron& y, unsigned* tp) {
   // Here the iteration is not immediately stabilizing.
   // If we are using the widening-with-tokens technique and
   // there are tokens available, use one of them and return `x'.
-  if (tp != 0 && *tp > 0) {
+  if (tp != nullptr && *tp > 0) {
     --(*tp);
     PPL_ASSERT_HEAVY(OK());
     return;

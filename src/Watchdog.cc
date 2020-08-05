@@ -130,14 +130,14 @@ PPL::Watchdog::set_timer(const Implementation::Watchdog::Time& time) {
   last_time_requested = time;
   signal_once.it_value.tv_sec = time.seconds();
   signal_once.it_value.tv_usec = time.microseconds();
-  my_setitimer(THE_TIMER, &signal_once, 0);
+  my_setitimer(THE_TIMER, &signal_once, nullptr);
 }
 
 void
 PPL::Watchdog::stop_timer() {
   signal_once.it_value.tv_sec = 0;
   signal_once.it_value.tv_usec = 0;
-  my_setitimer(THE_TIMER, &signal_once, 0);
+  my_setitimer(THE_TIMER, &signal_once, nullptr);
 }
 
 void
@@ -248,7 +248,7 @@ PPL::Watchdog::initialize() {
   s.sa_mask = mask;
   s.sa_flags = 0;  // Was SA_ONESHOT: why?
 
-  my_sigaction(THE_SIGNAL, &s, 0);
+  my_sigaction(THE_SIGNAL, &s, nullptr);
 }
 
 void

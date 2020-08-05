@@ -103,7 +103,7 @@ Powerset<D>::omega_reduce() const {
     else {
       ++xi;
     }
-    if (abandon_expensive_computations != 0 && xi != x.end()) {
+    if (abandon_expensive_computations != nullptr && xi != x.end()) {
       // Hurry up!
       x.collapse(xi.base);
       break;

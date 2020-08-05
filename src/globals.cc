@@ -31,11 +31,11 @@ namespace Parma_Polyhedra_Library {
 Throwable::~Throwable() {
 }
 
-const Throwable* volatile abandon_expensive_computations = 0;
+const Throwable* volatile abandon_expensive_computations = nullptr;
 
 // Initialize Weightwatch_Traits static data members.
 Weightwatch_Traits::Threshold Weightwatch_Traits::weight = 0;
-void (*Weightwatch_Traits::check_function)(void) = 0;
+void (*Weightwatch_Traits::check_function)(void) = nullptr;
 
 #ifndef NDEBUG
 

@@ -217,8 +217,9 @@ catch (...) { \
     if (!os)                                                            \
       return PPL_STDIO_ERROR;                                           \
     *strp = strdup(os.str().c_str());                                   \
-    if (*strp == 0)                                                     \
+    if (*strp == nullptr) {                                             \
       return PPL_ERROR_OUT_OF_MEMORY;                                   \
+    }                                                                   \
     return 0;                                                           \
   }                                                                     \
   CATCH_ALL

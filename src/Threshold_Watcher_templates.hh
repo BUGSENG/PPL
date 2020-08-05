@@ -41,7 +41,7 @@ Threshold_Watcher<Traits>
 ::remove_threshold(typename TW_Pending_List::iterator position) {
   typename TW_Pending_List::iterator i = init.pending.erase(position);
   if (init.pending.empty()) {
-    Traits::check_function = 0;
+    Traits::check_function = nullptr;
   }
   return i;
 }

@@ -169,7 +169,7 @@ Congruence_System::zero_dim_empty() {
 
 inline
 Congruence_System::const_iterator::const_iterator()
-  : i(), csp(0) {
+  : i(), csp(nullptr) {
 }
 
 inline
