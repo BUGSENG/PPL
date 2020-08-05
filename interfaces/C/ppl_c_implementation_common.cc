@@ -2555,8 +2555,9 @@ CATCH_ALL
 int
 ppl_io_print_variable(ppl_dimension_type var) try {
   const char* f = c_variable_output_function(var);
-  if (f == nullptr || puts(f) < 0)
+  if (f == nullptr || puts(f) < 0) {
     return PPL_STDIO_ERROR;
+  }
   return 0;
 }
 CATCH_ALL
@@ -2564,8 +2565,9 @@ CATCH_ALL
 int
 ppl_io_fprint_variable(FILE* stream, ppl_dimension_type var) try {
   const char* f = c_variable_output_function(var);
-  if (f == nullptr || fputs(f, stream) < 0)
+  if (f == nullptr || fputs(f, stream) < 0) {
     return PPL_STDIO_ERROR;
+  }
   return 0;
 }
 CATCH_ALL
@@ -2573,8 +2575,9 @@ CATCH_ALL
 int
 ppl_io_asprint_variable(char** strp, ppl_dimension_type var) try {
   const char* f = c_variable_output_function(var);
-  if (f == nullptr)
+  if (f == nullptr) {
     return PPL_STDIO_ERROR;
+  }
   *strp = strdup(f);
   if (*strp == nullptr) {
     return PPL_ERROR_OUT_OF_MEMORY;
