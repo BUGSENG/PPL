@@ -1296,7 +1296,7 @@ public:
                    Bounded_Integer_Type_Width w,
                    Bounded_Integer_Type_Representation r,
                    Bounded_Integer_Type_Overflow o,
-                   const Constraint_System* cs_p = 0,
+                   const Constraint_System* cs_p = nullptr,
                    unsigned complexity_threshold = 16,
                    bool wrap_individually = true);
 
@@ -1352,7 +1352,7 @@ public:
   typename Enable_If<Is_Same<T, Box>::value
                      && Is_Same_Or_Derived<Interval_Base, ITV>::value,
                      void>::type
-  CC76_widening_assign(const T& y, unsigned* tp = 0);
+  CC76_widening_assign(const T& y, unsigned* tp = nullptr);
 
   /*! \brief
     Assigns to \p *this the result of computing the
@@ -1378,7 +1378,7 @@ public:
                        Iterator first, Iterator last);
 
   //! Same as CC76_widening_assign(y, tp).
-  void widening_assign(const Box& y, unsigned* tp = 0);
+  void widening_assign(const Box& y, unsigned* tp = nullptr);
 
   /*! \brief
     Improves the result of the \ref CC76_extrapolation "CC76-extrapolation"
@@ -1402,7 +1402,7 @@ public:
   */
   void limited_CC76_extrapolation_assign(const Box& y,
                                          const Constraint_System& cs,
-                                         unsigned* tp = 0);
+                                         unsigned* tp = nullptr);
 
   /*! \brief
     Assigns to \p *this the result of restoring in \p y the constraints

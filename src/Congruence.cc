@@ -263,27 +263,27 @@ PPL::Congruence::OK() const {
   return true;
 }
 
-PPL_TLS const PPL::Congruence* PPL::Congruence::zero_dim_false_p = 0;
-PPL_TLS const PPL::Congruence* PPL::Congruence::zero_dim_integrality_p = 0;
+PPL_TLS const PPL::Congruence* PPL::Congruence::zero_dim_false_p = nullptr;
+PPL_TLS const PPL::Congruence* PPL::Congruence::zero_dim_integrality_p = nullptr;
 
 void
 PPL::Congruence::initialize() {
-  PPL_ASSERT(zero_dim_false_p == 0);
+  PPL_ASSERT(zero_dim_false_p == nullptr);
   zero_dim_false_p
     = new Congruence((Linear_Expression::zero() %= Coefficient(-1)) / 0);
 
-  PPL_ASSERT(zero_dim_integrality_p == 0);
+  PPL_ASSERT(zero_dim_integrality_p == nullptr);
   zero_dim_integrality_p
     = new Congruence(Linear_Expression::zero() %= Coefficient(-1));
 }
 
 void
 PPL::Congruence::finalize() {
-  PPL_ASSERT(zero_dim_false_p != 0);
+  PPL_ASSERT(zero_dim_false_p != nullptr);
   delete zero_dim_false_p;
-  zero_dim_false_p = 0;
+  zero_dim_false_p = nullptr;
 
-  PPL_ASSERT(zero_dim_integrality_p != 0);
+  PPL_ASSERT(zero_dim_integrality_p != nullptr);
   delete zero_dim_integrality_p;
-  zero_dim_integrality_p = 0;
+  zero_dim_integrality_p = nullptr;
 }

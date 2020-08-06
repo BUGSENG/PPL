@@ -33,7 +33,7 @@ namespace Parma_Polyhedra_Library {
 
 inline
 Dense_Row::Impl::Impl()
-  : size(0), capacity(0), coeff_allocator(), vec(0) {
+  : size(0), capacity(0), coeff_allocator(), vec(nullptr) {
 }
 
 inline
@@ -93,7 +93,7 @@ inline
 Dense_Row::Dense_Row(const Dense_Row& y)
   : impl() {
   impl.coeff_allocator = y.impl.coeff_allocator;
-  if (y.impl.vec != 0) {
+  if (y.impl.vec != nullptr) {
     impl.capacity = y.capacity();
     impl.vec = impl.coeff_allocator.allocate(impl.capacity);
     while (impl.size != y.size()) {
@@ -117,7 +117,7 @@ Dense_Row::Dense_Row(const Dense_Row& y,
   impl.coeff_allocator = y.impl.coeff_allocator;
   impl.vec = impl.coeff_allocator.allocate(impl.capacity);
 
-  if (y.impl.vec != 0) {
+  if (y.impl.vec != nullptr) {
     while (impl.size != y.size()) {
       new(&impl.vec[impl.size]) Coefficient(y[impl.size]);
       ++impl.size;
@@ -342,7 +342,7 @@ operator!=(const Dense_Row& x, const Dense_Row& y) {
 
 inline
 Dense_Row::iterator::iterator()
-  : row(NULL), idx(0) {
+  : row(nullptr), idx(0) {
   PPL_ASSERT(OK());
 }
 
@@ -416,7 +416,7 @@ Dense_Row::iterator::operator const_iterator() const {
 
 inline bool
 Dense_Row::iterator::OK() const {
-  if (row == NULL) {
+  if (row == nullptr) {
     return true;
   }
   // i can be equal to row.size() for past-the-end iterators
@@ -426,7 +426,7 @@ Dense_Row::iterator::OK() const {
 
 inline
 Dense_Row::const_iterator::const_iterator()
-  : row(NULL), idx(0) {
+  : row(nullptr), idx(0) {
   PPL_ASSERT(OK());
 }
 
@@ -490,7 +490,7 @@ Dense_Row::const_iterator::operator!=(const const_iterator& x) const {
 
 inline bool
 Dense_Row::const_iterator::OK() const {
-  if (row == NULL) {
+  if (row == nullptr) {
     return true;
   }
   // i can be equal to row.size() for past-the-end iterators

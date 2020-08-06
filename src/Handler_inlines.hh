@@ -39,7 +39,7 @@ Handler_Flag<Flag_Base, Flag>::Handler_Flag(const Flag_Base* volatile& holder,
 template <typename Flag_Base, typename Flag>
 void
 Handler_Flag<Flag_Base, Flag>::act() const {
-  if (h == 0 || static_cast<const Flag&>(*h).priority() < f.priority()) {
+  if (h == nullptr || static_cast<const Flag&>(*h).priority() < f.priority()) {
     h = &f;
   }
 }

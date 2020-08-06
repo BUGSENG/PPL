@@ -481,25 +481,25 @@ protected:
 
 #ifdef PPL_HAVE_GETOPT_H
 struct option long_options[] = {
-  {"max-cpu",        required_argument, 0, 'C'},
-  {"max-memory",     required_argument, 0, 'R'},
-  {"help",           no_argument,       0, 'h'},
-  {"output",         required_argument, 0, 'o'},
-  {"polylib",        no_argument,       0, 'P'},
-  {"piplib",         no_argument,       0, 'p'},
-  {"timings",        no_argument,       0, 't'},
-  {"verbose",        no_argument,       0, 'v'},
-  {"iterations",     required_argument, 0, 'i'},
+  {"max-cpu",        required_argument, nullptr, 'C'},
+  {"max-memory",     required_argument, nullptr, 'R'},
+  {"help",           no_argument,       nullptr, 'h'},
+  {"output",         required_argument, nullptr, 'o'},
+  {"polylib",        no_argument,       nullptr, 'P'},
+  {"piplib",         no_argument,       nullptr, 'p'},
+  {"timings",        no_argument,       nullptr, 't'},
+  {"verbose",        no_argument,       nullptr, 'v'},
+  {"iterations",     required_argument, nullptr, 'i'},
 #if defined(USE_PPL)
-  {"version",        no_argument,       0, 'V'},
-  {"check",          required_argument, 0, 'c'},
+  {"version",        no_argument,       nullptr, 'V'},
+  {"check",          required_argument, nullptr, 'c'},
 #endif
-  {"cut-first",      no_argument,       0, 'f'},
-  {"cut-deepest",    no_argument,       0, 'd'},
-  {"cut-all",        no_argument,       0, 'a'},
-  {"row-first",      no_argument,       0, 'F'},
-  {"row-max",        no_argument,       0, 'M'},
-  {0, 0, 0, 0}
+  {"cut-first",      no_argument,       nullptr, 'f'},
+  {"cut-deepest",    no_argument,       nullptr, 'd'},
+  {"cut-all",        no_argument,       nullptr, 'a'},
+  {"row-first",      no_argument,       nullptr, 'F'},
+  {"row-max",        no_argument,       nullptr, 'M'},
+  {nullptr, 0, nullptr, 0}
 };
 #endif
 
@@ -541,12 +541,12 @@ static const char* const usage_string
 #define OPTION_LETTERS "R:ho:Pptvi:fdaFM"
 #endif
 
-const char* program_name = 0;
+const char* program_name = nullptr;
 
 unsigned long max_bytes_of_virtual_memory = 0;
 bool print_timings = false;
 bool verbose = false;
-const char* check_file_name = 0;
+const char* check_file_name = nullptr;
 
 void
 fatal(const char* format, ...) {
@@ -559,8 +559,8 @@ fatal(const char* format, ...) {
   exit(1);
 }
 
-const char* input_file_name = 0;
-std::istream* input_stream_p = 0;
+const char* input_file_name = nullptr;
+std::istream* input_stream_p = nullptr;
 
 void
 set_input(const char* const file_name) {
@@ -580,8 +580,8 @@ set_input(const char* const file_name) {
   }
 }
 
-const char* output_file_name = 0;
-std::ostream* output_stream_p = 0;
+const char* output_file_name = nullptr;
+std::ostream* output_stream_p = nullptr;
 
 void
 set_output(const char* const file_name) {
@@ -769,7 +769,7 @@ process_options(const int argc, char* const argv[]) {
   }
   else {
     // If no input files have been specified: we will read from standard input.
-    assert(input_file_name == 0);
+    assert(input_file_name == nullptr);
   }
 }
 

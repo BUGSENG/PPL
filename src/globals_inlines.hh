@@ -78,7 +78,7 @@ maybe_abandon() {
     return;
   }
 #endif
-  if (Weightwatch_Traits::check_function != 0) {
+  if (Weightwatch_Traits::check_function != nullptr) {
     Weightwatch_Traits::check_function();
   }
   if (const Throwable* const p = abandon_expensive_computations) {

@@ -46,7 +46,7 @@ const FP_Interval_Type& compute_absolute_error(
   static PPL_TLS FP_Interval_Type ieee754_quad_result = ZERO_INTERVAL;
   static PPL_TLS FP_Interval_Type intel_double_extended_result = ZERO_INTERVAL;
 
-  FP_Interval_Type* to_compute = NULL;
+  FP_Interval_Type* to_compute = nullptr;
   // Get the necessary information on the analyzed's format.
   unsigned int f_base;
   int f_exponent_bias;
@@ -116,7 +116,7 @@ const FP_Interval_Type& compute_absolute_error(
       break;
   }
 
-  PPL_ASSERT(to_compute != NULL);
+  PPL_ASSERT(to_compute != nullptr);
 
   // We assume that f_base is a power of 2.
   analyzer_format omega;

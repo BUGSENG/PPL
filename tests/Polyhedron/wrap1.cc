@@ -269,7 +269,7 @@ test09() {
 
   Variables_Set vars(x, y);
 
-  ph.wrap_assign(vars, BITS_8, UNSIGNED, OVERFLOW_WRAPS, 0, 32, false);
+  ph.wrap_assign(vars, BITS_8, UNSIGNED, OVERFLOW_WRAPS, nullptr, 32, false);
 
   C_Polyhedron known_result(2);
   known_result.add_constraint(x >= 0);
@@ -328,7 +328,7 @@ test11() {
 
   Variables_Set vars(x, y);
 
-  ph.wrap_assign(vars, BITS_8, UNSIGNED, OVERFLOW_WRAPS, 0, 32, false);
+  ph.wrap_assign(vars, BITS_8, UNSIGNED, OVERFLOW_WRAPS, nullptr, 32, false);
 
   C_Polyhedron known_result(2);
   known_result.add_constraint(x >= 0);

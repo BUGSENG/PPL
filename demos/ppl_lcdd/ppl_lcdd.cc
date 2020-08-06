@@ -166,19 +166,19 @@ namespace {
 
 #ifdef PPL_HAVE_GETOPT_H
 struct option long_options[] = {
-  {"max-cpu",        required_argument, 0, 'C'},
-  {"max-memory",     required_argument, 0, 'R'},
-  {"help",           no_argument,       0, 'h'},
-  {"output",         required_argument, 0, 'o'},
-  {"timings",        no_argument,       0, 't'},
-  {"verbose",        no_argument,       0, 'v'},
+  {"max-cpu",        required_argument, nullptr, 'C'},
+  {"max-memory",     required_argument, nullptr, 'R'},
+  {"help",           no_argument,       nullptr, 'h'},
+  {"output",         required_argument, nullptr, 'o'},
+  {"timings",        no_argument,       nullptr, 't'},
+  {"verbose",        no_argument,       nullptr, 'v'},
 #if defined(USE_PPL)
-  {"version",        no_argument,       0, 'V'},
+  {"version",        no_argument,       nullptr, 'V'},
 #if !MULTI_THREADED
-  {"check",          required_argument, 0, 'c'},
+  {"check",          required_argument, nullptr, 'c'},
 #endif
 #endif
-  {0, 0, 0, 0}
+  {nullptr, 0, nullptr, 0}
 };
 #endif
 
@@ -224,7 +224,7 @@ usage(const char* const program) {
 #define OPTION_LETTERS "C:R:ho:tv"
 #endif
 
-const char* program_name = 0;
+const char* program_name = nullptr;
 
 #ifdef PPL_LCDD_SUPPORTS_LIMIT_ON_CPU_TIME
 unsigned long max_seconds_of_cpu_time = 0;
@@ -233,7 +233,7 @@ unsigned long max_seconds_of_cpu_time = 0;
 unsigned long max_bytes_of_virtual_memory = 0;
 bool print_timings = false;
 bool verbose = false;
-const char* check_file_name = 0;
+const char* check_file_name = nullptr;
 
 void
 fatal(const char* format, ...) {
@@ -249,8 +249,8 @@ fatal(const char* format, ...) {
 // Note: for uniformity, use a vector even when single-threaded.
 std::vector<const char*> input_file_names;
 
-THREAD_LOCAL const char* input_file_name = 0;
-THREAD_LOCAL std::istream* input_stream_p = 0;
+THREAD_LOCAL const char* input_file_name = nullptr;
+THREAD_LOCAL std::istream* input_stream_p = nullptr;
 
 void
 set_input(const char* const file_name) {
@@ -273,7 +273,7 @@ set_input(const char* const file_name) {
 
 std::istream&
 input() {
-  assert(input_stream_p != 0);
+  assert(input_stream_p != nullptr);
   return *input_stream_p;
 }
 
@@ -281,10 +281,10 @@ input() {
 // In multi-threaded mode, it contains the name of a directory, where the
 // output file(s) will be written; each output file name is obtained by
 // concatenating .out to the corresponding input file name.
-const char* output_path = 0;
+const char* output_path = nullptr;
 
-THREAD_LOCAL const char* output_file_name = 0;
-THREAD_LOCAL std::ostream* output_stream_p = 0;
+THREAD_LOCAL const char* output_file_name = nullptr;
+THREAD_LOCAL std::ostream* output_stream_p = nullptr;
 
 void
 set_output(const char* const file_name) {
@@ -309,7 +309,7 @@ set_output(const char* const file_name) {
 
 std::ostream&
 output() {
-  assert(output_stream_p != 0);
+  assert(output_stream_p != nullptr);
   return *output_stream_p;
 }
 
@@ -1516,7 +1516,7 @@ main(int argc, char* argv[]) try {
   if (num_files <= 1) {
     // No need to create a thread pool, the main thread is enough.
     // Passing 0 means "read from stdin".
-    convert(input_file_names.empty() ? 0 : input_file_names.front());
+    convert(input_file_names.empty() ? nullptr : input_file_names.front());
   }
   else {
     // Create the thread pool.

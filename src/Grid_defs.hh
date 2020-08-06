@@ -1564,7 +1564,7 @@ public:
                    Bounded_Integer_Type_Width w,
                    Bounded_Integer_Type_Representation r,
                    Bounded_Integer_Type_Overflow o,
-                   const Constraint_System* cs_p = 0,
+                   const Constraint_System* cs_p = nullptr,
                    unsigned complexity_threshold = 16,
                    bool wrap_individually = true);
 
@@ -1613,7 +1613,7 @@ public:
     \exception std::invalid_argument
     Thrown if \p *this and \p y are dimension-incompatible.
   */
-  void congruence_widening_assign(const Grid& y, unsigned* tp = NULL);
+  void congruence_widening_assign(const Grid& y, unsigned* tp = nullptr);
 
   /*! \brief
     Assigns to \p *this the result of computing the \ref Grid_Widening
@@ -1630,7 +1630,7 @@ public:
     \exception std::invalid_argument
     Thrown if \p *this and \p y are dimension-incompatible.
   */
-  void generator_widening_assign(const Grid& y, unsigned* tp = NULL);
+  void generator_widening_assign(const Grid& y, unsigned* tp = nullptr);
 
   /*! \brief
     Assigns to \p *this the result of computing the \ref Grid_Widening
@@ -1651,7 +1651,7 @@ public:
     \exception std::invalid_argument
     Thrown if \p *this and \p y are dimension-incompatible.
   */
-  void widening_assign(const Grid& y, unsigned* tp = NULL);
+  void widening_assign(const Grid& y, unsigned* tp = nullptr);
 
   /*! \brief
     Improves the result of the congruence variant of
@@ -1675,7 +1675,7 @@ public:
   */
   void limited_congruence_extrapolation_assign(const Grid& y,
                                                const Congruence_System& cgs,
-                                               unsigned* tp = NULL);
+                                               unsigned* tp = nullptr);
 
   /*! \brief
     Improves the result of the generator variant of the
@@ -1699,7 +1699,7 @@ public:
   */
   void limited_generator_extrapolation_assign(const Grid& y,
                                               const Congruence_System& cgs,
-                                              unsigned* tp = NULL);
+                                              unsigned* tp = nullptr);
 
   /*! \brief
     Improves the result of the \ref Grid_Widening "Grid widening"
@@ -1722,7 +1722,7 @@ public:
   */
   void limited_extrapolation_assign(const Grid& y,
                                     const Congruence_System& cgs,
-                                    unsigned* tp = NULL);
+                                    unsigned* tp = nullptr);
 
   //@} // Space Dimension Preserving Member Functions that May Modify [...]
 
@@ -2206,7 +2206,7 @@ private:
   bool max_min(const Linear_Expression& expr,
                const char* method_call,
                Coefficient& ext_n, Coefficient& ext_d, bool& included,
-               Generator* point = NULL) const;
+               Generator* point = nullptr) const;
 
   /*! \brief
     Returns <CODE>true</CODE> if and only if \p *this is not empty and
@@ -2360,14 +2360,14 @@ private:
     value of this object is the new system divisor.
 
     \param first_point
-    If \p first_point has a value other than NULL then it is taken as
+    If \p first_point has a value other than nullptr then it is taken as
     the first point in \p sys, and it is assumed that any following
     points have the same divisor as \p first_point.
   */
   static void
   normalize_divisors(Grid_Generator_System& sys,
                      Coefficient& divisor,
-                     const Grid_Generator* first_point = NULL);
+                     const Grid_Generator* first_point = nullptr);
 
   //! Normalizes the divisors in \p sys.
   /*!

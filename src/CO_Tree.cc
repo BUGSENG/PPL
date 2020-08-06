@@ -606,8 +606,8 @@ PPL::CO_Tree::erase(tree_iterator itr) {
 
 void
 PPL::CO_Tree::init(const dimension_type n) {
-  indexes = NULL;
-  data = NULL;
+  indexes = nullptr;
+  data = nullptr;
   size_ = 0;
   reserved_size = 0;
   max_depth = 0;
@@ -624,7 +624,7 @@ PPL::CO_Tree::init(const dimension_type n) {
     }
     catch (...) {
       delete[] indexes;
-      indexes = 0;
+      indexes = nullptr;
       PPL_ASSERT(OK());
       throw;
     }
@@ -669,10 +669,10 @@ PPL::CO_Tree::structure_OK() const {
   }
 
   if (reserved_size == 0) {
-    if (indexes != NULL) {
+    if (indexes != nullptr) {
       return false;
     }
-    if (data != NULL) {
+    if (data != nullptr) {
       return false;
     }
     if (max_depth != 0) {
@@ -689,11 +689,11 @@ PPL::CO_Tree::structure_OK() const {
     return false;
   }
 
-  if (data == NULL) {
+  if (data == nullptr) {
     return false;
   }
 
-  if (indexes == NULL) {
+  if (indexes == nullptr) {
     return false;
   }
 

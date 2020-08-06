@@ -502,7 +502,7 @@ inline void
 float_ieee754_quad::build(const bool negative,
                           mpz_t mantissa, const int exponent) {
   uint64_t parts[2];
-  mpz_export(parts, 0, -1, sizeof(parts[0]), 0, 0, mantissa);
+  mpz_export(parts, nullptr, -1, sizeof(parts[0]), 0, 0, mantissa);
   lsp = parts[0];
   msp = parts[1];
   msp &= ((static_cast<uint64_t>(1) << (MANTISSA_BITS - 64)) - 1);

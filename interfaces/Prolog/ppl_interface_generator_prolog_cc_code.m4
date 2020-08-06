@@ -1554,7 +1554,7 @@ m4_define(`ppl_@CLASS@_@WIDEN@_widening_assign_code',
     const @CPP_CLASS@* rhs = term_to_handle<@CPP_CLASS@ >(t_rhs, where);
     PPL_CHECK(lhs);
     PPL_CHECK(rhs);
-    lhs->@WIDEN@_widening_assign(*rhs, 0);
+    lhs->@WIDEN@_widening_assign(*rhs, nullptr);
     return PROLOG_SUCCESS;
   }
   CATCH_ALL;
@@ -1593,7 +1593,7 @@ m4_define(`ppl_@CLASS@_widening_assign_code',
     const @CPP_CLASS@* rhs = term_to_handle<@CPP_CLASS@ >(t_rhs, where);
     PPL_CHECK(lhs);
     PPL_CHECK(rhs);
-    lhs->widening_assign(*rhs, 0);
+    lhs->widening_assign(*rhs, nullptr);
     return PROLOG_SUCCESS;
   }
   CATCH_ALL;
@@ -1634,7 +1634,7 @@ m4_define(`ppl_@CLASS@_@EXTRAPOLATION@_extrapolation_assign_code',
     PPL_CHECK(lhs);
     PPL_CHECK(rhs);
 
-    lhs->@EXTRAPOLATION@_extrapolation_assign(*rhs, 0);
+    lhs->@EXTRAPOLATION@_extrapolation_assign(*rhs, nullptr);
     return PROLOG_SUCCESS;
   }
   CATCH_ALL;
@@ -1811,7 +1811,7 @@ m4_define(`ppl_@CLASS@_@LIMITEDBOUNDED@_@WIDENEXPN@_extrapolation_assign_code',
     // Check the list is properly terminated.
     check_nil_terminating(t_clist, where);
 
-    lhs->@LIMITEDBOUNDED@_@WIDENEXPN@_extrapolation_assign(*rhs, cs, 0);
+    lhs->@LIMITEDBOUNDED@_@WIDENEXPN@_extrapolation_assign(*rhs, cs, nullptr);
     return PROLOG_SUCCESS;
   }
   CATCH_ALL;

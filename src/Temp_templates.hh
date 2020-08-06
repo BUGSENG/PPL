@@ -28,7 +28,7 @@ namespace Parma_Polyhedra_Library {
 
 template <typename T>
 Temp_Item<T>::Free_List::~Free_List() {
-  while (head_ptr != 0) {
+  while (head_ptr != nullptr) {
     Temp_Item* const p = head_ptr;
     head_ptr = head_ptr->next;
     delete p;

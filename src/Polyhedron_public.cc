@@ -39,7 +39,8 @@ site: http://bugseng.com/products/ppl/ . */
 
 namespace PPL = Parma_Polyhedra_Library;
 
-PPL_TLS PPL::dimension_type* PPL::Polyhedron::simplify_num_saturators_p = 0;
+PPL_TLS PPL::dimension_type*
+PPL::Polyhedron::simplify_num_saturators_p = nullptr;
 
 PPL_TLS size_t PPL::Polyhedron::simplify_num_saturators_size = 0;
 
@@ -53,7 +54,7 @@ PPL::Polyhedron::initialize() {
 void
 PPL::Polyhedron::finalize() {
   delete [] simplify_num_saturators_p;
-  simplify_num_saturators_p = 0;
+  simplify_num_saturators_p = nullptr;
   simplify_num_saturators_size = 0;
 }
 
@@ -2096,12 +2097,12 @@ drop_redundant_inequalities(std::vector<const PPL::Constraint*>& ineqs_p,
   for (dimension_type i = num_rows; i-- > 0; ) {
     if (sat[i].empty()) {
       // Masked equalities are redundant.
-      ineqs_p[i] = 0;
+      ineqs_p[i] = nullptr;
     }
     else {
       const dimension_type num_sat = num_cols_sat - sat[i].count_ones();
       if (num_sat < min_sat) {
-        ineqs_p[i] = 0;
+        ineqs_p[i] = nullptr;
       }
     }
   }
@@ -2109,18 +2110,18 @@ drop_redundant_inequalities(std::vector<const PPL::Constraint*>& ineqs_p,
   // Re-examine remaining inequalities.
   // Iteration index `i' is _intentionally_ increasing.
   for (dimension_type i = 0; i < num_rows; ++i) {
-    if (ineqs_p[i] != 0) {
+    if (ineqs_p[i] != nullptr) {
       for (dimension_type j = 0; j < num_rows; ++j) {
         bool strict_subset;
-        if (ineqs_p[j] != 0 && i != j
+        if (ineqs_p[j] != nullptr && i != j
             && subset_or_equal(sat[j], sat[i], strict_subset)) {
           if (strict_subset) {
-            ineqs_p[i] = 0;
+            ineqs_p[i] = nullptr;
             break;
           }
           else {
             // Here `sat[j] == sat[i]'.
-            ineqs_p[j] = 0;
+            ineqs_p[j] = nullptr;
           }
         }
       }
@@ -2558,7 +2559,7 @@ PPL::Polyhedron::simplify_using_context_assign(const Polyhedron& y) {
       for (dimension_type i = y_cs_num_ineq;
            i < non_redundant_ineq_p_size;
            ++i) {
-        if (non_redundant_ineq_p[i] != 0) {
+        if (non_redundant_ineq_p[i] != nullptr) {
           result_cs.insert(*non_redundant_ineq_p[i]);
         }
       }

@@ -8,8 +8,6 @@
 -config=B.REPORT.ECB,preprocessed=show
 -config=B.REPORT.ECB,macros=10
 
--disable=B.REPORT.TXT
-
 -enable=B.BUGFIND
 
 -reports={hide,all_exp_external}

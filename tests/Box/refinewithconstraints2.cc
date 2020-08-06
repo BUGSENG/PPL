@@ -85,19 +85,19 @@ test01() {
       box.refine_with_constraints(cs);
 
       // We should never get here.
-      abandon_expensive_computations = 0;
+      abandon_expensive_computations = nullptr;
       nout << "unexpected termination" << endl;
       ok = false;
     }
     catch (const Timeout&) {
-      abandon_expensive_computations = 0;
+      abandon_expensive_computations = nullptr;
       nout << "timeout, as expected" << endl;
 
       // The box will have been shrunk, nonetheless.
       ok = check_result(box, known_result, "1.0e-6", "1.0e-6", "1.0e-6");
     }
     catch (...) {
-      abandon_expensive_computations = 0;
+      abandon_expensive_computations = nullptr;
       nout << "unexpected exception" << endl;
       ok = false;
     }
@@ -402,12 +402,12 @@ test02() {
       box.refine_with_constraints(cs);
 
       // We should never get here.
-      abandon_expensive_computations = 0;
+      abandon_expensive_computations = nullptr;
       nout << "unexpected termination" << endl;
       ok = false;
     }
     catch (const Timeout&) {
-      abandon_expensive_computations = 0;
+      abandon_expensive_computations = nullptr;
       nout << "timeout, as expected" << endl;
 
       // The box will have been shrunk, but no bounds on the distances
@@ -415,7 +415,7 @@ test02() {
       ok = check_result(box, known_result, "+inf", "+inf", "+inf");
     }
     catch (...) {
-      abandon_expensive_computations = 0;
+      abandon_expensive_computations = nullptr;
       nout << "unexpected exception" << endl;
       ok = false;
     }

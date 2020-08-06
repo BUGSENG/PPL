@@ -36,19 +36,19 @@ PPL::Linear_Expression::max_space_dimension() {
   return Dense_Row::max_size() - 1;
 }
 
-PPL_TLS const PPL::Linear_Expression* PPL::Linear_Expression::zero_p = 0;
+PPL_TLS const PPL::Linear_Expression* PPL::Linear_Expression::zero_p = nullptr;
 
 void
 PPL::Linear_Expression::initialize() {
-  PPL_ASSERT(zero_p == 0);
+  PPL_ASSERT(zero_p == nullptr);
   zero_p = new Linear_Expression(Coefficient_zero());
 }
 
 void
 PPL::Linear_Expression::finalize() {
-  PPL_ASSERT(zero_p != 0);
+  PPL_ASSERT(zero_p != nullptr);
   delete zero_p;
-  zero_p = 0;
+  zero_p = nullptr;
 }
 
 PPL::Linear_Expression::Linear_Expression(const Representation r) {

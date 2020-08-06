@@ -360,7 +360,7 @@ check_noisy(const char*
 #endif
 ) {
 #if PPL_HAVE_DECL_GETENV
-  return getenv(environment_variable) != 0;
+  return getenv(environment_variable) != nullptr;
 #else
 #if NOISY
   if (strcmp(environment_variable, "PPL_NOISY_TESTS") == 0)
@@ -521,7 +521,7 @@ check_result_i(const BD_Shape<T>& computed_result,
                const char* max_l_d_s) {
   BD_Shape<mpq_class> q_computed_result(computed_result);
   // Handle in a more efficient way the case where equality is expected.
-  if (max_r_d_s == 0 && max_e_d_s == 0 && max_l_d_s == 0) {
+  if (max_r_d_s == nullptr && max_e_d_s == nullptr && max_l_d_s == nullptr) {
     if (q_computed_result != known_result) {
       using IO_Operators::operator<<;
       nout << "Equality does not hold:"
@@ -606,7 +606,7 @@ check_result(const BD_Shape<T>& computed_result,
              const BD_Shape<mpq_class>& known_result) {
   return std::numeric_limits<T>::is_integer
     ? check_result_i(computed_result, known_result, "+inf", "+inf", "+inf")
-    : check_result_i(computed_result, known_result, 0, 0, 0);
+    : check_result_i(computed_result, known_result, nullptr, nullptr, nullptr);
 }
 
 bool
@@ -622,7 +622,7 @@ check_result_i(const Octagonal_Shape<T>& computed_result,
                const char* max_l_d_s) {
   Octagonal_Shape<mpq_class> q_computed_result(computed_result);
   // Handle in a more efficient way the case where equality is expected.
-  if (max_r_d_s == 0 && max_e_d_s == 0 && max_l_d_s == 0) {
+  if (max_r_d_s == nullptr && max_e_d_s == nullptr && max_l_d_s == nullptr) {
     if (q_computed_result != known_result) {
       using IO_Operators::operator<<;
       nout << "Equality does not hold:"
@@ -691,7 +691,7 @@ check_result(const Octagonal_Shape<mpq_class>& computed_result,
              const char*,
              const char*) {
   return check_result_i(computed_result, known_result,
-                        0, 0, 0);
+                        nullptr, nullptr, nullptr);
 }
 
 template <typename T>
@@ -700,7 +700,7 @@ check_result(const Octagonal_Shape<T>& computed_result,
              const Octagonal_Shape<mpq_class>& known_result) {
   return std::numeric_limits<T>::is_integer
     ? check_result_i(computed_result, known_result, "+inf", "+inf", "+inf")
-    : check_result_i(computed_result, known_result, 0, 0, 0);
+    : check_result_i(computed_result, known_result, nullptr, nullptr, nullptr);
 }
 
 
@@ -713,7 +713,7 @@ check_result_i(const Box<Interval>& computed_result,
                const char* max_l_d_s) {
   Rational_Box q_computed_result(computed_result);
   // Handle in a more efficient way the case where equality is expected.
-  if (max_r_d_s == 0 && max_e_d_s == 0 && max_l_d_s == 0) {
+  if (max_r_d_s == nullptr && max_e_d_s == nullptr && max_l_d_s == nullptr) {
     if (q_computed_result != known_result) {
       using IO_Operators::operator<<;
       nout << "Equality does not hold:"
@@ -811,7 +811,7 @@ check_result(const Box<Interval>& computed_result,
              const Rational_Box& known_result) {
   return std::numeric_limits<typename Interval::boundary_type>::is_integer
     ? check_result_i(computed_result, known_result, "+inf", "+inf", "+inf")
-    : check_result_i(computed_result, known_result, 0, 0, 0);
+    : check_result_i(computed_result, known_result, nullptr, nullptr, nullptr);
 }
 
 bool

@@ -360,7 +360,7 @@ CO_Tree::move_data_element(data_type& to, data_type& from) {
 
 inline
 CO_Tree::const_iterator::const_iterator()
-  : current_index(0), current_data(0) {
+  : current_index(nullptr), current_data(nullptr) {
 #if PPL_CO_TREE_EXTRA_DEBUG
   tree = 0;
 #endif
@@ -524,7 +524,7 @@ CO_Tree::const_iterator::operator!=(const const_iterator& x) const {
 
 inline
 CO_Tree::iterator::iterator()
-  : current_index(0), current_data(0) {
+  : current_index(nullptr), current_data(nullptr) {
 #if PPL_CO_TREE_EXTRA_DEBUG
   tree = 0;
 #endif

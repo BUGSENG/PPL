@@ -1362,7 +1362,7 @@ public:
     Thrown if \p *this and \p y are dimension-incompatible.
   */
   void widening_assign(const Partially_Reduced_Product& y,
-                       unsigned* tp = NULL);
+                       unsigned* tp = nullptr);
 
   /*! \brief
     Possibly tightens \p *this by dropping some points with non-integer

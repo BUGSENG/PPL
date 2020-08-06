@@ -665,7 +665,7 @@ assign_signed_int_mpz(To& to, const mpz_class& from, Rounding_Dir dir) {
         return V_EQ;
       }
       To v;
-      mpz_export(&v, 0, -1, sizeof(To), 0, 0, m);
+      mpz_export(&v, nullptr, -1, sizeof(To), 0, 0, m);
       if (v >= 0) {
         if (::sgn(from) < 0) {
           return neg<To_Policy, To_Policy>(to, v, dir);
@@ -717,7 +717,7 @@ assign_unsigned_int_mpz(To& to, const mpz_class& from, Rounding_Dir dir) {
         to = 0;
       }
       else {
-        mpz_export(&to, 0, -1, sizeof(To), 0, 0, m);
+        mpz_export(&to, nullptr, -1, sizeof(To), 0, 0, m);
       }
       return V_EQ;
     }

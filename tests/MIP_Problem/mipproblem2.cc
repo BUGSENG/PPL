@@ -130,12 +130,12 @@ bool test01() {
     pg = mip.optimizing_point();
 
     // We should never get here.
-    abandon_expensive_computations = 0;
+    abandon_expensive_computations = nullptr;
     nout << "unexpected termination" << endl;
     return false;
   }
   catch (const Timeout&) {
-    abandon_expensive_computations = 0;
+    abandon_expensive_computations = nullptr;
     nout << "timeout, as expected" << endl;
     return true;
   }
@@ -148,7 +148,7 @@ bool test01() {
   }
 #endif // !PPL_WATCHDOG_OBJECTS_ARE_SUPPORTED
   catch (const std::overflow_error& e) {
-    abandon_expensive_computations = 0;
+    abandon_expensive_computations = nullptr;
     if (std::numeric_limits<Coefficient>::is_integer
         && std::numeric_limits<Coefficient>::is_bounded
         && std::numeric_limits<Coefficient>::radix == 2
@@ -163,7 +163,7 @@ bool test01() {
       throw;
   }
   catch (...) {
-    abandon_expensive_computations = 0;
+    abandon_expensive_computations = nullptr;
     nout << "unexpected exception" << endl;
     return false;
   }

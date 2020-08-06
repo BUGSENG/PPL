@@ -169,7 +169,7 @@ public:
   typedef T& Arg_Type;
   typedef const T& Return_Type;
   Val_Or_Ref()
-    : ptr(0) {
+    : ptr(nullptr) {
   }
   explicit Val_Or_Ref(Arg_Type v)
     : ptr(&v) {

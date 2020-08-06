@@ -157,30 +157,30 @@ Parma_Polyhedra_Library_thread_initializer_p;
 
 void
 initialize_aux() {
-  if (Parma_Polyhedra_Library_initializer_p == 0) {
+  if (Parma_Polyhedra_Library_initializer_p == nullptr) {
     Parma_Polyhedra_Library_initializer_p = new Init();
   }
 }
 
 void
 finalize_aux() {
-  PPL_ASSERT(Parma_Polyhedra_Library_initializer_p != 0);
+  PPL_ASSERT(Parma_Polyhedra_Library_initializer_p != nullptr);
   delete Parma_Polyhedra_Library_initializer_p;
-  Parma_Polyhedra_Library_initializer_p = 0;
+  Parma_Polyhedra_Library_initializer_p = nullptr;
 }
 
 void
 thread_initialize_aux() {
-  if (Parma_Polyhedra_Library_thread_initializer_p == 0) {
+  if (Parma_Polyhedra_Library_thread_initializer_p == nullptr) {
     Parma_Polyhedra_Library_thread_initializer_p = new Thread_Init();
   }
 }
 
 void
 thread_finalize_aux() {
-  PPL_ASSERT(Parma_Polyhedra_Library_thread_initializer_p != 0);
+  PPL_ASSERT(Parma_Polyhedra_Library_thread_initializer_p != nullptr);
   delete Parma_Polyhedra_Library_thread_initializer_p;
-  Parma_Polyhedra_Library_thread_initializer_p = 0;
+  Parma_Polyhedra_Library_thread_initializer_p = nullptr;
 }
 
 } // namespace Implementation

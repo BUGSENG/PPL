@@ -31,7 +31,7 @@ namespace Interfaces {
 
 namespace C {
 
-PPL_C_TLS error_handler_type user_error_handler = 0;
+PPL_C_TLS error_handler_type user_error_handler = nullptr;
 
 extern "C" const char*
 c_variable_default_output_function(ppl_dimension_type var) {
@@ -58,10 +58,10 @@ c_variable_default_output_function(ppl_dimension_type var) {
   if (ppl_dimension_type i = var / 26) {
     int r = sprintf(buffer+1, FORMAT, CONVERSION i);
     if (r < 0)
-      return 0;
+      return nullptr;
     else if (r >= 19) {
       errno = ERANGE;
-      return 0;
+      return nullptr;
     }
   }
   else
@@ -74,12 +74,13 @@ PPL_C_TLS ppl_io_variable_output_function_type* c_variable_output_function;
 
 void
 cxx_Variable_output_function(std::ostream& s, const Variable v) {
-  const char* b = c_variable_output_function(v.id());
-  if (b == 0)
+  const char* f = c_variable_output_function(v.id());
+  if (f == nullptr) {
     // Something went wrong in the client's output function.
     // Client code will know what to do: we do nothing.
     return;
-  s << b;
+  }
+  s << f;
 }
 
 extern "C" typedef const char*
@@ -90,27 +91,27 @@ PPL_C_TLS Variable::output_function_type* saved_cxx_Variable_output_function;
 
 void
 notify_error(enum ppl_enum_error_code code, const char* description) {
-  if (user_error_handler != 0)
+  if (user_error_handler != nullptr)
     user_error_handler(code, description);
 }
 
 // FIXME: current implementation is not thread-safe.
-Parma_Polyhedra_Library::Watchdog* p_timeout_object = 0;
+Parma_Polyhedra_Library::Watchdog* p_timeout_object = nullptr;
 
 typedef
 Parma_Polyhedra_Library::Threshold_Watcher
 <Parma_Polyhedra_Library::Weightwatch_Traits> Weightwatch;
 
 // FIXME: current implementation is not thread-safe.
-Weightwatch* p_deterministic_timeout_object = 0;
+Weightwatch* p_deterministic_timeout_object = nullptr;
 
 void
 reset_timeout() {
 #ifndef PPL_THREAD_SAFE
-  if (p_timeout_object != 0) {
+  if (p_timeout_object != nullptr) {
     delete p_timeout_object;
-    p_timeout_object = 0;
-    abandon_expensive_computations = 0;
+    p_timeout_object = nullptr;
+    abandon_expensive_computations = nullptr;
   }
 #endif // !defined(PPL_THREAD_SAFE)
 }
@@ -118,10 +119,10 @@ reset_timeout() {
 void
 reset_deterministic_timeout() {
 #ifndef PPL_THREAD_SAFE
-  if (p_deterministic_timeout_object != 0) {
+  if (p_deterministic_timeout_object != nullptr) {
     delete p_deterministic_timeout_object;
-    p_deterministic_timeout_object = 0;
-    abandon_expensive_computations = 0;
+    p_deterministic_timeout_object = nullptr;
+    abandon_expensive_computations = nullptr;
   }
 #endif // !defined(PPL_THREAD_SAFE)
 }
@@ -2618,30 +2619,34 @@ CATCH_ALL
 
 int
 ppl_io_print_variable(ppl_dimension_type var) try {
-  const char* b = c_variable_output_function(var);
-  if (b == 0 || puts(b) < 0)
+  const char* f = c_variable_output_function(var);
+  if (f == nullptr || puts(f) < 0) {
     return PPL_STDIO_ERROR;
+  }
   return 0;
 }
 CATCH_ALL
 
 int
 ppl_io_fprint_variable(FILE* stream, ppl_dimension_type var) try {
-  const char* b = c_variable_output_function(var);
-  if (b == 0 || fputs(b, stream) < 0)
+  const char* f = c_variable_output_function(var);
+  if (f == nullptr || fputs(f, stream) < 0) {
     return PPL_STDIO_ERROR;
+  }
   return 0;
 }
 CATCH_ALL
 
 int
 ppl_io_asprint_variable(char** strp, ppl_dimension_type var) try {
-  const char* b = c_variable_output_function(var);
-  if (b == 0)
+  const char* f = c_variable_output_function(var);
+  if (f == nullptr) {
     return PPL_STDIO_ERROR;
-  *strp = strdup(b);
-  if (*strp == 0)
+  }
+  *strp = strdup(f);
+  if (*strp == nullptr) {
     return PPL_ERROR_OUT_OF_MEMORY;
+  }
   return 0;
 }
 CATCH_ALL

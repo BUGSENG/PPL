@@ -832,20 +832,21 @@ PPL::Generator_System::remove_invalid_lines_and_rays() {
   }
 }
 
-PPL_TLS const PPL::Generator_System* PPL::Generator_System::zero_dim_univ_p = 0;
+PPL_TLS const PPL::Generator_System*
+PPL::Generator_System::zero_dim_univ_p = nullptr;
 
 void
 PPL::Generator_System::initialize() {
-  PPL_ASSERT(zero_dim_univ_p == 0);
+  PPL_ASSERT(zero_dim_univ_p == nullptr);
   zero_dim_univ_p
     = new Generator_System(Generator::zero_dim_point());
 }
 
 void
 PPL::Generator_System::finalize() {
-  PPL_ASSERT(zero_dim_univ_p != 0);
+  PPL_ASSERT(zero_dim_univ_p != nullptr);
   delete zero_dim_univ_p;
-  zero_dim_univ_p = 0;
+  zero_dim_univ_p = nullptr;
 }
 
 bool

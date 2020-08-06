@@ -2232,7 +2232,7 @@ void
 PPL::Polyhedron::drop_some_non_integer_points(const Variables_Set* vars_p,
                                               Complexity_Class complexity) {
   // There is nothing to do for an empty set of variables.
-  if (vars_p != 0 && vars_p->empty()) {
+  if (vars_p != nullptr && vars_p->empty()) {
     return;
   }
 
@@ -2287,7 +2287,7 @@ PPL::Polyhedron::drop_some_non_integer_points(const Variables_Set* vars_p,
   const bool con_sys_was_sorted = con_sys.is_sorted();
 
   Variables_Set other_vars;
-  if (vars_p != 0) {
+  if (vars_p != nullptr) {
     // Compute the complement of `*vars_p'.
     for (dimension_type i = 0; i < space_dim; ++i) {
       if (vars_p->find(i) == vars_p->end()) {

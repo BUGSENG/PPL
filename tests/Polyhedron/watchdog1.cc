@@ -70,11 +70,11 @@ timed_compute_open_hypercube_generators(dimension_type dimension, int csecs) {
     start_clock();
 
     compute_open_hypercube_generators(dimension);
-    abandon_expensive_computations = 0;
+    abandon_expensive_computations = nullptr;
     return true;
   }
   catch (const Timeout& e) {
-    abandon_expensive_computations = 0;
+    abandon_expensive_computations = nullptr;
     nout << e.what() << " after ";
     print_clock(nout);
     nout << " s" << endl;

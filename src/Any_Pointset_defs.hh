@@ -854,7 +854,7 @@ public:
 
 #if 0
   //! Same as H79_widening_assign(y, tp).
-  void widening_assign(const Any_Pointset& y, unsigned* tp = 0);
+  void widening_assign(const Any_Pointset& y, unsigned* tp = nullptr);
 
   /*! \brief
     Improves the result of the \ref H79_widening "H79-widening"
@@ -878,7 +878,7 @@ public:
   */
   void limited_H79_extrapolation_assign(const Any_Pointset& y,
                                         const Constraint_System& cs,
-                                        unsigned* tp = 0);
+                                        unsigned* tp = nullptr);
 
   /*! \brief
     Improves the result of the \ref H79_widening "H79-widening"
@@ -904,7 +904,7 @@ public:
   */
   void bounded_H79_extrapolation_assign(const Any_Pointset& y,
                                         const Constraint_System& cs,
-                                        unsigned* tp = 0);
+                                        unsigned* tp = nullptr);
 #endif
 
   //@} // Space Dimension Preserving Member Functions that May Modify [...]

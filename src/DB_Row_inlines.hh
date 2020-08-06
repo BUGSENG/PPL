@@ -117,7 +117,7 @@ DB_Row_Impl_Handler<T>::Impl::~Impl() {
 template <typename T>
 inline
 DB_Row_Impl_Handler<T>::DB_Row_Impl_Handler()
-  : impl(0) {
+  : impl(nullptr) {
 #if PPL_DB_ROW_EXTRA_DEBUG
   capacity_ = 0;
 #endif
@@ -183,7 +183,7 @@ DB_Row<T>::allocate(
     ++capacity;
   }
 #endif
-  PPL_ASSERT(x.impl == 0);
+  PPL_ASSERT(x.impl == nullptr);
   x.impl = new(capacity) typename DB_Row_Impl_Handler<T>::Impl();
 #if PPL_DB_ROW_EXTRA_DEBUG
   PPL_ASSERT(x.capacity_ == 0);
@@ -258,7 +258,7 @@ template <typename T>
 inline
 DB_Row<T>::DB_Row(const DB_Row& y)
   : DB_Row_Impl_Handler<T>() {
-  if (y.impl != 0) {
+  if (y.impl != nullptr) {
     allocate(compute_capacity(y.size(), max_size()));
     copy_construct_coefficients(y);
   }

@@ -69,7 +69,7 @@ if (! $decl_only) {
         s/\"/\\"/g;
         print "  \"$_\",\n";
     }
-    print "  0";
+    print "  nullptr";
     print "}";
 }
 

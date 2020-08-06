@@ -380,20 +380,21 @@ PPL::Constraint_System::ascii_load(std::istream& s) {
   return true;
 }
 
-PPL_TLS const PPL::Constraint_System* PPL::Constraint_System::zero_dim_empty_p = 0;
+PPL_TLS const PPL::Constraint_System*
+PPL::Constraint_System::zero_dim_empty_p = nullptr;
 
 void
 PPL::Constraint_System::initialize() {
-  PPL_ASSERT(zero_dim_empty_p == 0);
+  PPL_ASSERT(zero_dim_empty_p == nullptr);
   zero_dim_empty_p
     = new Constraint_System(Constraint::zero_dim_false());
 }
 
 void
 PPL::Constraint_System::finalize() {
-  PPL_ASSERT(zero_dim_empty_p != 0);
+  PPL_ASSERT(zero_dim_empty_p != nullptr);
   delete zero_dim_empty_p;
-  zero_dim_empty_p = 0;
+  zero_dim_empty_p = nullptr;
 }
 
 bool

@@ -199,7 +199,7 @@ sp_stub_##name(Prolog_term_ref goal, void*) { \
 
 m4_divert(1)
 #define SP_DEFINE_C_PREDICATE(name, arity) \
-  SP_define_c_predicate(#name, arity, "user", sp_stub_##name, NULL)
+  SP_define_c_predicate(#name, arity, "user", sp_stub_##name, nullptr)
 
 extern "C" void
 ppl_sicstus_init(int /* when */) {

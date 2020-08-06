@@ -43,7 +43,7 @@ Temp_Item<T>::item() {
 template <typename T>
 inline
 Temp_Item<T>::Free_List::Free_List()
-  : head_ptr(0) {
+  : head_ptr(nullptr) {
 }
 
 template <typename T>
@@ -57,7 +57,7 @@ template <typename T>
 inline Temp_Item<T>&
 Temp_Item<T>::obtain() {
   Temp_Item* const p = free_list_ref();
-  if (p != 0) {
+  if (p != nullptr) {
     free_list_ref() = p->next;
     return *p;
   }

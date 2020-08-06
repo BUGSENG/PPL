@@ -36,49 +36,49 @@ PPL_TLS Java_TLS_Cache cached_TLSs;
 
 Java_Class_Cache::Java_Class_Cache() {
   // Java Virtual Machine pointer.
-  jvm = NULL;
+  jvm = nullptr;
   // Non-PPL classes.
-  Boolean = NULL;
-  Integer = NULL;
-  Long = NULL;
-  Iterator = NULL;
+  Boolean = nullptr;
+  Integer = nullptr;
+  Long = nullptr;
+  Iterator = nullptr;
   // PPL classes.
-  Artificial_Parameter = NULL;
-  Artificial_Parameter_Sequence = NULL;
-  Bounded_Integer_Type_Overflow = NULL;
-  Bounded_Integer_Type_Representation = NULL;
-  Bounded_Integer_Type_Width = NULL;
-  By_Reference = NULL;
-  Coefficient = NULL;
-  Congruence = NULL;
-  Constraint = NULL;
-  Generator = NULL;
-  Grid_Generator = NULL;
-  Generator_Type = NULL;
-  Grid_Generator_Type = NULL;
-  Constraint_System = NULL;
-  Congruence_System = NULL;
-  Generator_System = NULL;
-  Grid_Generator_System = NULL;
-  Linear_Expression = NULL;
-  Linear_Expression_Coefficient = NULL;
-  Linear_Expression_Difference = NULL;
-  Linear_Expression_Sum = NULL;
-  Linear_Expression_Times = NULL;
-  Linear_Expression_Unary_Minus = NULL;
-  Linear_Expression_Variable = NULL;
-  MIP_Problem_Status = NULL;
-  Optimization_Mode = NULL;
-  Pair = NULL;
-  PIP_Problem_Control_Parameter_Name = NULL;
-  PIP_Problem_Control_Parameter_Value = NULL;
-  PIP_Problem_Status = NULL;
-  Poly_Con_Relation = NULL;
-  Poly_Gen_Relation = NULL;
-  PPL_Object = NULL;
-  Relation_Symbol = NULL;
-  Variable = NULL;
-  Variables_Set = NULL;
+  Artificial_Parameter = nullptr;
+  Artificial_Parameter_Sequence = nullptr;
+  Bounded_Integer_Type_Overflow = nullptr;
+  Bounded_Integer_Type_Representation = nullptr;
+  Bounded_Integer_Type_Width = nullptr;
+  By_Reference = nullptr;
+  Coefficient = nullptr;
+  Congruence = nullptr;
+  Constraint = nullptr;
+  Generator = nullptr;
+  Grid_Generator = nullptr;
+  Generator_Type = nullptr;
+  Grid_Generator_Type = nullptr;
+  Constraint_System = nullptr;
+  Congruence_System = nullptr;
+  Generator_System = nullptr;
+  Grid_Generator_System = nullptr;
+  Linear_Expression = nullptr;
+  Linear_Expression_Coefficient = nullptr;
+  Linear_Expression_Difference = nullptr;
+  Linear_Expression_Sum = nullptr;
+  Linear_Expression_Times = nullptr;
+  Linear_Expression_Unary_Minus = nullptr;
+  Linear_Expression_Variable = nullptr;
+  MIP_Problem_Status = nullptr;
+  Optimization_Mode = nullptr;
+  Pair = nullptr;
+  PIP_Problem_Control_Parameter_Name = nullptr;
+  PIP_Problem_Control_Parameter_Value = nullptr;
+  PIP_Problem_Status = nullptr;
+  Poly_Con_Relation = nullptr;
+  Poly_Gen_Relation = nullptr;
+  PPL_Object = nullptr;
+  Relation_Symbol = nullptr;
+  Variable = nullptr;
+  Variables_Set = nullptr;
 }
 
 void
@@ -92,7 +92,7 @@ Java_Class_Cache::init_cache(JNIEnv* env, jclass& field, const char* name) {
 
 void
 Java_Class_Cache::init_cache(JNIEnv* env) {
-  assert(env != NULL);
+  assert(env != nullptr);
   // Java Virtual Machine pointer.
   env->GetJavaVM(&jvm);
   // Non-PPL classes.
@@ -170,9 +170,9 @@ Java_Class_Cache::clear_cache(JNIEnv* env, jclass& field) {
 
 void
 Java_Class_Cache::clear_cache(JNIEnv* env) {
-  assert(env != NULL);
+  assert(env != nullptr);
   // Clearing the JVM pointer.
-  jvm = NULL;
+  jvm = nullptr;
   // Non-PPL classes.
   clear_cache(env, Boolean);
   clear_cache(env, Integer);
@@ -217,22 +217,22 @@ Java_Class_Cache::clear_cache(JNIEnv* env) {
 
 Java_TLS_Cache::Java_TLS_Cache() {
   // Variable_Stringifier.
-  Variable_Stringifier = NULL;
-  Variable_Stringifier_stringify_ID = NULL;
-  current_stringifier = NULL;
+  Variable_Stringifier = nullptr;
+  Variable_Stringifier_stringify_ID = nullptr;
+  current_stringifier = nullptr;
 }
 
 void
 Java_TLS_Cache::clear_Variable_Stringifier_data(JNIEnv* env) {
   delete_global_ref(env, cached_TLSs.Variable_Stringifier);
-  cached_TLSs.Variable_Stringifier_stringify_ID = NULL;
+  cached_TLSs.Variable_Stringifier_stringify_ID = nullptr;
   delete_global_ref(env, cached_TLSs.current_stringifier);
 }
 
 void
 Java_TLS_Cache::set_Variable_Stringifier_data(JNIEnv* env,
                                               jobject j_stringifier) {
-  assert(j_stringifier != NULL);
+  assert(j_stringifier != nullptr);
   // Delete previously cached values (if any).
   clear_Variable_Stringifier_data(env);
   // Compute new values for j_stringifier.
@@ -250,11 +250,11 @@ Java_TLS_Cache::set_Variable_Stringifier_data(JNIEnv* env,
 }
 
 Java_TLS_Cache::~Java_TLS_Cache() {
-  if (current_stringifier != NULL) {
+  if (current_stringifier != nullptr) {
     // Use cached Java Virtual Machine pointer to retrieve JNI env.
     JavaVM* jvm = cached_classes.jvm;
     JNIEnv *env = 0;
-    jvm->AttachCurrentThread((void **)&env, NULL);
+    jvm->AttachCurrentThread((void **)&env, nullptr);
     CHECK_EXCEPTION_ASSERT(env);
     clear_Variable_Stringifier_data(env);
   }
@@ -351,18 +351,18 @@ handle_exception(JNIEnv* env) {
 }
 
 // FIXME: current implementation is not thread-safe.
-Parma_Polyhedra_Library::Watchdog* p_timeout_object = 0;
+Parma_Polyhedra_Library::Watchdog* p_timeout_object = nullptr;
 
 // FIXME: current implementation is not thread-safe.
-Weightwatch* p_deterministic_timeout_object = 0;
+Weightwatch* p_deterministic_timeout_object = nullptr;
 
 void
 reset_timeout() {
 #ifndef PPL_THREAD_SAFE
   if (p_timeout_object) {
     delete p_timeout_object;
-    p_timeout_object = 0;
-    abandon_expensive_computations = 0;
+    p_timeout_object = nullptr;
+    abandon_expensive_computations = nullptr;
   }
 #endif // !defined(PPL_THREAD_SAFE)
 }
@@ -372,8 +372,8 @@ reset_deterministic_timeout() {
 #ifndef PPL_THREAD_SAFE
   if (p_deterministic_timeout_object) {
     delete p_deterministic_timeout_object;
-    p_deterministic_timeout_object = 0;
-    abandon_expensive_computations = 0;
+    p_deterministic_timeout_object = nullptr;
+    abandon_expensive_computations = nullptr;
   }
 #endif // !defined(PPL_THREAD_SAFE)
 }
@@ -1256,7 +1256,7 @@ Java_Variable_output_function(std::ostream& s, Variable v) {
   // Use cached Java Virtual Machine pointer to retrieve JNI env.
   JavaVM* jvm = cached_classes.jvm;
   JNIEnv *env = 0;
-  jvm->AttachCurrentThread((void **)&env, NULL);
+  jvm->AttachCurrentThread((void **)&env, nullptr);
   CHECK_EXCEPTION_ASSERT(env);
   // Retrieve stringifier object.
   jobject stringifier = cached_TLSs.current_stringifier;

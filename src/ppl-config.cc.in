@@ -129,7 +129,7 @@ unsigned num_required_items = 0;
 
 #define OPTION_LETTERS "hF:I:ALp::e::OVMNRBEniblPCXDgcur"
 
-const char* program_name = 0;
+const char* program_name = nullptr;
 
 void
 fatal(const char* format, ...) __attribute__((__noreturn__));
@@ -177,33 +177,33 @@ process_options(int argc, char* argv[]) {
 
 #ifdef PPL_HAVE_GETOPT_H
 struct option long_options[] = {
-  {"help",              no_argument,       0, 'h'},
-  {"format",            required_argument, 0, 'F'},
-  {"interface",         required_argument, 0, 'I'},
-  {"application",       no_argument,       0, 'A'},
-  {"library",           no_argument,       0, 'L'},
-  {"prefix",            optional_argument, 0, 'p'},
-  {"exec-prefix",       optional_argument, 0, 'e'},
-  {"configure-options", no_argument,       0, 'O'},
-  {"version",           no_argument,       0, 'V'},
-  {"version-major",     no_argument,       0, 'M'},
-  {"version-minor",     no_argument,       0, 'N'},
-  {"version-revision",  no_argument,       0, 'R'},
-  {"version-beta",      no_argument,       0, 'B'},
-  {"banner",            no_argument,       0, 'E'},
-  {"coefficients",      no_argument,       0, 'n'},
-  {"includedir",        no_argument,       0, 'i'},
-  {"bindir",            no_argument,       0, 'b'},
-  {"libdir",            no_argument,       0, 'l'},
-  {"cppflags",          no_argument,       0, 'P'},
-  {"cflags",            no_argument,       0, 'C'},
-  {"cxxflags",          no_argument,       0, 'X'},
-  {"ldflags",           no_argument,       0, 'D'},
-  {"license",           no_argument,       0, 'g'},
-  {"copying",           no_argument,       0, 'c'},
-  {"bugs",              no_argument,       0, 'u'},
-  {"credits",           no_argument,       0, 'r'},
-  {0, 0, 0, 0}
+  {"help",              no_argument,       nullptr, 'h'},
+  {"format",            required_argument, nullptr, 'F'},
+  {"interface",         required_argument, nullptr, 'I'},
+  {"application",       no_argument,       nullptr, 'A'},
+  {"library",           no_argument,       nullptr, 'L'},
+  {"prefix",            optional_argument, nullptr, 'p'},
+  {"exec-prefix",       optional_argument, nullptr, 'e'},
+  {"configure-options", no_argument,       nullptr, 'O'},
+  {"version",           no_argument,       nullptr, 'V'},
+  {"version-major",     no_argument,       nullptr, 'M'},
+  {"version-minor",     no_argument,       nullptr, 'N'},
+  {"version-revision",  no_argument,       nullptr, 'R'},
+  {"version-beta",      no_argument,       nullptr, 'B'},
+  {"banner",            no_argument,       nullptr, 'E'},
+  {"coefficients",      no_argument,       nullptr, 'n'},
+  {"includedir",        no_argument,       nullptr, 'i'},
+  {"bindir",            no_argument,       nullptr, 'b'},
+  {"libdir",            no_argument,       nullptr, 'l'},
+  {"cppflags",          no_argument,       nullptr, 'P'},
+  {"cflags",            no_argument,       nullptr, 'C'},
+  {"cxxflags",          no_argument,       nullptr, 'X'},
+  {"ldflags",           no_argument,       nullptr, 'D'},
+  {"license",           no_argument,       nullptr, 'g'},
+  {"copying",           no_argument,       nullptr, 'c'},
+  {"bugs",              no_argument,       nullptr, 'u'},
+  {"credits",           no_argument,       nullptr, 'r'},
+  {nullptr, 0, nullptr, 0}
 };
 #endif
 
@@ -330,7 +330,7 @@ struct option long_options[] = {
 
       // --prefix
     case 'p':
-      if (optarg != 0) {
+      if (optarg != nullptr) {
         prefix = optarg;
         if (!exec_prefix_set) {
           exec_prefix = optarg;
@@ -345,7 +345,7 @@ struct option long_options[] = {
 
       // --exec_prefix
     case 'e':
-      if (optarg != 0) {
+      if (optarg != nullptr) {
         exec_prefix = optarg;
         exec_prefix_set = true;
       }
@@ -515,7 +515,7 @@ portray_name(const char* name) {
 
 void
 portray(const char* const array[]) {
-  for (unsigned i = 0; array[i] != 0; ++i)
+  for (unsigned i = 0; array[i] != nullptr; ++i)
     std::cout << array[i] << std::endl;
 }
 

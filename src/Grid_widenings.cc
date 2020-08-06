@@ -140,7 +140,7 @@ PPL::Grid::congruence_widening_assign(const Grid& y, unsigned* tp) {
 
   // Check whether we are using the widening-with-tokens technique
   // and there are still tokens available.
-  if (tp != 0 && *tp > 0) {
+  if (tp != nullptr && *tp > 0) {
     // There are tokens available.  If `result' is not a subset of
     // `x', then it is less precise and we use one of the available
     // tokens.
@@ -205,7 +205,7 @@ PPL::Grid::limited_congruence_extrapolation_assign(const Grid& y,
     return;
   }
 
-  if (tp == NULL || *tp == 0) {
+  if (tp == nullptr || *tp == 0) {
     // Widening may change the grid, so add the congruences.
     Congruence_System new_cgs;
     // The congruences to be added need only be satisfied by all the
@@ -349,7 +349,7 @@ PPL::Grid::generator_widening_assign(const Grid& y, unsigned* tp) {
 
   // Check whether we are using the widening-with-tokens technique
   // and there are still tokens available.
-  if (tp != 0 && *tp > 0) {
+  if (tp != nullptr && *tp > 0) {
     // There are tokens available.  If `result' is not a subset of
     // `x', then it is less precise and we use one of the available
     // tokens.
@@ -414,7 +414,7 @@ PPL::Grid::limited_generator_extrapolation_assign(const Grid& y,
     return;
   }
 
-  if (tp == NULL || *tp == 0) {
+  if (tp == nullptr || *tp == 0) {
     // Widening may change the grid, so add the congruences.
     Congruence_System new_cgs;
     // The congruences to be added need only be satisfied by all the
@@ -516,7 +516,7 @@ PPL::Grid::limited_extrapolation_assign(const Grid& y,
     return;
   }
 
-  if (tp == NULL || *tp == 0) {
+  if (tp == nullptr || *tp == 0) {
     // Widening may change the grid, so add the congruences.
     Congruence_System new_cgs;
     // The congruences to be added need only be satisfied by all the

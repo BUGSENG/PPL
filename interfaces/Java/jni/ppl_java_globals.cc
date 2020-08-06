@@ -243,7 +243,7 @@ Java_parma_1polyhedra_1library_Constraint_1System_initIDs
   mID = env->GetMethodID(cached_classes.Iterator, "hasNext", "()Z");
   CHECK_RESULT_ASSERT(env, mID);
   cached_FMIDs.System_Iterator_has_next_ID = mID;
-  assert(cached_classes.Iterator != NULL);
+  assert(cached_classes.Iterator != nullptr);
   mID = env->GetMethodID(cached_classes.Iterator, "next",
                          "()Ljava/lang/Object;");
   CHECK_RESULT_ASSERT(env, mID);
@@ -1306,7 +1306,7 @@ Java_parma_1polyhedra_1library_Variable_toString
 JNIEXPORT void JNICALL
 Java_parma_1polyhedra_1library_Variable_setStringifier
 (JNIEnv* env, jclass /* j_variable_class */, jobject j_stringifier) {
-  if (j_stringifier == NULL) {
+  if (j_stringifier == nullptr) {
     // Clear cache entries.
     cached_TLSs.clear_Variable_Stringifier_data(env);
     // Reset default C++ output function.
@@ -2090,7 +2090,7 @@ Java_parma_1polyhedra_1library_PIP_1Decision_1Node_child_1node
     PIP_Decision_Node* dec_node
       = reinterpret_cast<PIP_Decision_Node*>(get_ptr(env, j_this));
     const PIP_Tree_Node* child = dec_node->child_node(j_branch);
-    if (child == 0) {
+    if (child == nullptr) {
       jobject null = 0;
       return null;
     }

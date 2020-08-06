@@ -1034,7 +1034,7 @@ public:
                    Bounded_Integer_Type_Width w,
                    Bounded_Integer_Type_Representation r,
                    Bounded_Integer_Type_Overflow o,
-                   const Constraint_System* cs_p = 0,
+                   const Constraint_System* cs_p = nullptr,
                    unsigned complexity_threshold = 16,
                    bool wrap_individually = true);
 
