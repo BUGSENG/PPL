@@ -233,7 +233,8 @@ Octagonal_Shape<T>::Octagonal_Shape(const Generator_System& gs)
     switch (g.type()) {
     case Generator::POINT:
       point_seen = true;
-      // Intentionally fall through.
+      FALLTHROUGH;
+      // Fall through.
     case Generator::CLOSURE_POINT:
       if (!mat_initialized) {
         // When handling the first (closure) point, we initialize the matrix.

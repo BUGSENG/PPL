@@ -250,10 +250,8 @@ PPL::MIP_Problem::is_satisfiable() const {
   case UNSATISFIABLE:
     PPL_ASSERT(OK());
     return false;
-  case SATISFIABLE:
-    // Intentionally fall through
-  case UNBOUNDED:
-    // Intentionally fall through.
+  case SATISFIABLE: // Fall through.
+  case UNBOUNDED: // Fall through.
   case OPTIMIZED:
     PPL_ASSERT(OK());
     return true;
@@ -301,8 +299,7 @@ PPL::MIP_Problem::solve() const{
   case OPTIMIZED:
     PPL_ASSERT(OK());
     return OPTIMIZED_MIP_PROBLEM;
-  case SATISFIABLE:
-    // Intentionally fall through
+  case SATISFIABLE: // Fall through.
   case PARTIALLY_SATISFIABLE:
     {
       MIP_Problem& x = const_cast<MIP_Problem&>(*this);
@@ -1973,12 +1970,9 @@ PPL::MIP_Problem::is_lp_satisfiable() const {
   switch (status) {
   case UNSATISFIABLE:
     return false;
-  case SATISFIABLE:
-    // Intentionally fall through.
-  case UNBOUNDED:
-    // Intentionally fall through.
-  case OPTIMIZED:
-    // Intentionally fall through.
+  case SATISFIABLE: // Fall through.
+  case UNBOUNDED: // Fall through.
+  case OPTIMIZED: // Fall through.
     return true;
   case PARTIALLY_SATISFIABLE:
     {

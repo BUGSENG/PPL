@@ -371,7 +371,8 @@ Grid::simplify(Grid_Generator_System& ggs, Dimension_Kinds& dim_kinds) {
     switch (dim_kinds[dim]) {
     case PARAMETER:
       ggs.sys.rows[i].set_divisor(system_divisor);
-      // Intentionally fall through.
+      FALLTHROUGH;
+      // Fall through.
     case LINE:
       PPL_ASSERT(ggs.sys.rows[i].OK());
       --i;
@@ -519,7 +520,8 @@ Grid::simplify(Congruence_System& cgs, Dimension_Kinds& dim_kinds) {
       // The last row is a false proper congruence.
       last_row.set_modulus(Coefficient_zero());
       dim_kinds[0] = EQUALITY;
-      // Intentionally fall through.
+      FALLTHROUGH;
+      // Fall through.
 
     case EQUALITY:
       // The last row is a false equality, as all the coefficient terms

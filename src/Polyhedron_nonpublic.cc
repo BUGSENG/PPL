@@ -546,8 +546,7 @@ PPL::Polyhedron::is_included_in(const Polyhedron& y) const {
               return false;
             }
             break;
-          case Generator::RAY:
-            // Intentionally fall through.
+          case Generator::RAY: // Fall through.
           case Generator::CLOSURE_POINT:
             // The generator is a ray or closure point: usual test.
             if (sp_sign < 0) {

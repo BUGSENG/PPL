@@ -513,7 +513,8 @@ Grid::conversion(Congruence_System& source, Grid_Generator_System& dest,
     switch (dim_kinds[dim]) {
     case PARAMETER:
       dest.sys.rows[i].set_divisor(system_divisor);
-      // Intentionally fall through.
+      FALLTHROUGH;
+      // Fall through.
     case LINE:
       --i;
       break;

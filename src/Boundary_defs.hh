@@ -456,7 +456,8 @@ adjust_boundary(const Boundary_Type type, T& x, Info& info,
     switch (r) {
     case V_GT_MINUS_INFINITY:
       open = true;
-      /* Fall through */
+      FALLTHROUGH;
+      // Fall through.
     case V_EQ_MINUS_INFINITY:
       if (!Info::store_special) {
         return r;
@@ -467,7 +468,8 @@ adjust_boundary(const Boundary_Type type, T& x, Info& info,
       return special_set_boundary_infinity(type, x, info);
     case V_GT:
       open = true;
-      /* Fall through */
+      FALLTHROUGH;
+      // Fall through.
     case V_GE:
     case V_EQ:
       if (open) {
@@ -483,7 +485,8 @@ adjust_boundary(const Boundary_Type type, T& x, Info& info,
     switch (r) {
     case V_LT_PLUS_INFINITY:
       open = true;
-      /* Fall through */
+      FALLTHROUGH;
+      // Fall through.
     case V_EQ_PLUS_INFINITY:
       if (!Info::store_special) {
         return r;
@@ -494,7 +497,8 @@ adjust_boundary(const Boundary_Type type, T& x, Info& info,
       return special_set_boundary_infinity(type, x, info);
     case V_LT:
       open = true;
-      /* Fall through */
+      FALLTHROUGH;
+      // Fall through-
     case V_LE:
     case V_EQ:
       if (open) {

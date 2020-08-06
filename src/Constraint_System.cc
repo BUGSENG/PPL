@@ -295,8 +295,7 @@ PPL::Constraint_System::satisfies_all_constraints(const Generator& g) const {
       }
       break;
 
-    case Generator::RAY:
-      // Intentionally fall through.
+    case Generator::RAY: // Fall through.
     case Generator::CLOSURE_POINT:
       for (dimension_type i = sys.num_rows(); i-- > 0; ) {
         const Constraint& c = sys[i];

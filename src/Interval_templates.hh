@@ -170,6 +170,7 @@ Interval<Boundary, Info>::Interval(const char* s) {
     break;
   case V_GT_MINUS_INFINITY:
     lower_open = true;
+    FALLTHROUGH;
     // Fall through.
   case V_EQ_MINUS_INFINITY:
     lower_boundary_infinity = true;
@@ -205,6 +206,7 @@ Interval<Boundary, Info>::Interval(const char* s) {
     break;
   case V_LT_PLUS_INFINITY:
     upper_open = true;
+    FALLTHROUGH;
     // Fall through.
   case V_EQ_PLUS_INFINITY:
     upper_boundary_infinity = true;
@@ -331,6 +333,7 @@ operator>>(std::istream& is, Interval<Boundary, Info>& x) {
     break;
   case V_GT_MINUS_INFINITY:
     lower_open = true;
+    FALLTHROUGH;
     // Fall through.
   case V_EQ_MINUS_INFINITY:
     lower_boundary_infinity = true;
@@ -357,6 +360,7 @@ operator>>(std::istream& is, Interval<Boundary, Info>& x) {
     break;
   case V_GT_MINUS_INFINITY:
     upper_open = true;
+    FALLTHROUGH;
     // Fall through.
   case V_EQ_MINUS_INFINITY:
     if (lower_r == V_EQ_MINUS_INFINITY || lower_r == V_GT_MINUS_INFINITY) {

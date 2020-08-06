@@ -64,8 +64,7 @@ PPL::BHRZ03_Certificate::BHRZ03_Certificate(const Polyhedron& ph)
   for (Generator_System::const_iterator i = gs.begin(),
          gs_end = gs.end(); i != gs_end; ++i) {
     switch (i->type()) {
-    case Generator::POINT:
-      // Intentionally fall through.
+    case Generator::POINT: // Fall through.
     case Generator::CLOSURE_POINT:
       ++num_points;
       break;
@@ -180,8 +179,7 @@ PPL::BHRZ03_Certificate::compare(const Polyhedron& ph) const {
   for (Generator_System::const_iterator i = gs.begin(),
          gs_end = gs.end(); i != gs_end; ++i) {
     switch (i->type()) {
-    case Generator::POINT:
-      // Intentionally fall through.
+    case Generator::POINT: // Fall through.
     case Generator::CLOSURE_POINT:
       ++ph_num_points;
       break;

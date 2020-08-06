@@ -2355,8 +2355,7 @@ PPL::Polyhedron::simplify_using_context_assign(const Polyhedron& y) {
                   break;
                 }
                 break;
-              case Generator::RAY:
-                // Intentionally fall through.
+              case Generator::RAY: // Fall through.
               case Generator::CLOSURE_POINT:
                 if (c.is_inequality()) {
                   // Constraint `c' is either a strict or a non-strict
@@ -3135,8 +3134,7 @@ generalized_affine_image(const Variable var,
   case GREATER_OR_EQUAL:
     add_generator(ray(var));
     break;
-  case LESS_THAN:
-  // Intentionally fall through.
+  case LESS_THAN: // Fall through.
   case GREATER_THAN:
     {
       // The relation symbol is strict.

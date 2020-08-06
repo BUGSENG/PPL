@@ -155,6 +155,7 @@ parse_number_part(std::istream& is, number_struct& numer) {
   switch (c) {
   case '-':
     numer.neg_mantissa = true;
+    FALLTHROUGH;
     // Fall through.
   case '+':
     if (!is.get(c)) {
@@ -166,6 +167,7 @@ parse_number_part(std::istream& is, number_struct& numer) {
     if (c != '.') {
       break;
     }
+    FALLTHROUGH;
     // Fall through.
   case '.':
     state = FRACTIONAL;

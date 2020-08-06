@@ -483,8 +483,7 @@ PPL::Generator::OK() const {
   }
 
   switch (type()) {
-  case LINE:
-    // Intentionally fall through.
+  case LINE: // Fall through.
   case RAY:
     if (expr.inhomogeneous_term() != 0) {
 #ifndef NDEBUG

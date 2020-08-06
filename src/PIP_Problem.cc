@@ -728,15 +728,12 @@ PPL::PIP_Problem::is_satisfiable() const {
 void
 PPL::PIP_Problem::set_control_parameter(Control_Parameter_Value value) {
   switch (value) {
-  case CUTTING_STRATEGY_FIRST:
-    // Intentionally fall through.
-  case CUTTING_STRATEGY_DEEPEST:
-    // Intentionally fall through.
+  case CUTTING_STRATEGY_FIRST: // Fall through.
+  case CUTTING_STRATEGY_DEEPEST: // Fall through.
   case CUTTING_STRATEGY_ALL:
     control_parameters[CUTTING_STRATEGY] = value;
     break;
-  case PIVOT_ROW_STRATEGY_FIRST:
-    // Intentionally fall through.
+  case PIVOT_ROW_STRATEGY_FIRST: // Fall through.
   case PIVOT_ROW_STRATEGY_MAX_COLUMN:
     control_parameters[PIVOT_ROW_STRATEGY] = value;
     break;

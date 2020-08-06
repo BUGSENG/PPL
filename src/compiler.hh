@@ -226,4 +226,14 @@ ctz(unsigned long long ull) {
 
 } // namespace Parma_Polyhedra_Library
 
+#if __has_cpp_attribute(fallthrough)
+#if __cplusplus > 201402L
+#define FALLTHROUGH [[fallthrough]]
+#else // __cplusplus <= 201402L
+#define FALLTHROUGH __attribute__((fallthrough))
+#endif
+#else // !__has_cpp_attribute(fallthrough)
+#define FALLTHROUGH
+#endif // !__has_cpp_attribute(fallthrough)
+
 #endif // !defined(PPL_compiler_hh)

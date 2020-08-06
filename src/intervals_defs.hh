@@ -316,7 +316,8 @@ public:
         rel2 = V_EQ;
         return V_LGE;
       }
-      /* Fall through*/
+      FALLTHROUGH;
+      // Fall through.
     case V_GT:
     case V_GT_MINUS_INFINITY:
       return rel1;
@@ -344,7 +345,8 @@ public:
         rel = result_relation_class(rel);
         return (rel == V_EQ) ? V_LE : rel;
       }
-      /* Fall through */
+      FALLTHROUGH;
+      // Fall through.
     case V_LE:
       rel = floor_assign_r(to, to, ROUND_UP);
       rel = result_relation_class(rel);
@@ -356,7 +358,8 @@ public:
         rel = result_relation_class(rel);
         return (rel == V_EQ) ? V_GE : rel;
       }
-      /* Fall through */
+      FALLTHROUGH;
+      // Fall through.
     case V_GE:
       rel = ceil_assign_r(to, to, ROUND_DOWN);
       rel = result_relation_class(rel);

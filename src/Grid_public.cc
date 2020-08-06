@@ -707,7 +707,8 @@ PPL::Grid::relation_with(const Constraint& c) const {
         gen.set_is_parameter();
         PPL_ASSERT(gen.OK());
       }
-      // Intentionally fall through.
+      FALLTHROUGH;
+      // Fall through.
 
     case Grid_Generator::PARAMETER:
     case Grid_Generator::LINE:
