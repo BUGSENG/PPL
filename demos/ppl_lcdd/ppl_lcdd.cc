@@ -1535,7 +1535,7 @@ main(int argc, char* argv[]) try {
 
   assert(input_file_names.size() <= 1);
   // Passing 0 means "read from stdin".
-  convert(input_file_names.empty() ? 0 : input_file_names.front());
+  convert(input_file_names.empty() ? nullptr : input_file_names.front());
 
 #endif // !MULTI_THREADED
 
