@@ -105,54 +105,70 @@ catch (const std::exception& e) {                                       \
   nout << "\n=== " #test " ===" << std::endl
 
 #define RUN_TEST(test)                                                  \
-  try {                                                                 \
-    overflow = false;                                                   \
-    succeeded = test();                                                 \
-  }                                                                     \
-  catch (const std::overflow_error& e) {                                \
-    nout << "arithmetic overflow (" << e.what() << ")"                  \
-         << std::endl;                                                  \
-    overflow = true;                                                    \
-    succeeded = false;                                                  \
-  }                                                                     \
-  catch (const std::exception& e) {                                     \
-    nout << "std::exception caught: "                                   \
-         << e.what() << " (type == " << typeid(e).name() << ")"         \
-         << std::endl;                                                  \
-    succeeded = false;                                                  \
-  }                                                                     \
-  catch (...) {                                                         \
-    nout << "unknown exception caught"                                  \
-         << std::endl;                                                  \
-    succeeded = false;                                                  \
-  }
+  do {                                                                  \
+    try {                                                               \
+      overflow = false;                                                 \
+      succeeded = test();                                               \
+    }                                                                   \
+    catch (const std::overflow_error& e) {                              \
+      nout << "arithmetic overflow (" << e.what() << ")"                \
+           << std::endl;                                                \
+      overflow = true;                                                  \
+      succeeded = false;                                                \
+    }                                                                   \
+    catch (const std::exception& e) {                                   \
+      nout << "std::exception caught: "                                 \
+           << e.what() << " (type == " << typeid(e).name() << ")"       \
+           << std::endl;                                                \
+      succeeded = false;                                                \
+    }                                                                   \
+    catch (...) {                                                       \
+      nout << "unknown exception caught"                                \
+           << std::endl;                                                \
+      succeeded = false;                                                \
+    }                                                                   \
+  } while (false)
 
-#define DO_TEST(test)                    \
-  ANNOUNCE_TEST(test);                   \
-  RUN_TEST(test);                        \
-  if (!succeeded)                        \
-    failed_tests.push_back(#test);
+#define DO_TEST(test)                                   \
+  do {                                                  \
+    ANNOUNCE_TEST(test);                                \
+    RUN_TEST(test);                                     \
+    if (!succeeded) {                                   \
+      failed_tests.push_back(#test);                    \
+    }                                                   \
+  } while (false)
 
 #define DO_TEST_F(test)                                 \
-  ANNOUNCE_TEST(test);                                  \
-  RUN_TEST(test);                                       \
-  if (succeeded)                                        \
-    unexpectedly_succeeded_tests.push_back(#test);
+  do {                                                  \
+    ANNOUNCE_TEST(test);                                \
+    RUN_TEST(test);                                     \
+    if (succeeded) {                                    \
+      unexpectedly_succeeded_tests.push_back(#test);    \
+    }                                                   \
+  } while (false)
 
 #define DO_TEST_OVERFLOW(test)                          \
-  ANNOUNCE_TEST(test);                                  \
-  RUN_TEST(test);                                       \
-  if (succeeded)                                        \
-    unexpectedly_succeeded_tests.push_back(#test);      \
-  else if (!overflow)                                   \
-    failed_tests.push_back(#test);
+  do {                                                  \
+    ANNOUNCE_TEST(test);                                \
+    RUN_TEST(test);                                     \
+    if (succeeded) {                                    \
+      unexpectedly_succeeded_tests.push_back(#test);    \
+    }                                                   \
+    else if (!overflow) {                               \
+      failed_tests.push_back(#test);                    \
+    }                                                   \
+  } while (false)
 
 #define DO_TEST_MAY_OVERFLOW_IF_INEXACT(test, shape)                    \
-  ANNOUNCE_TEST(test);                                                  \
-  RUN_TEST(test);                                                       \
-  if (!succeeded)                                                       \
-    if (!overflow || has_exact_coefficient_type(shape(0, EMPTY)))       \
-      failed_tests.push_back(#test);
+  do {                                                                  \
+    ANNOUNCE_TEST(test);                                                \
+    RUN_TEST(test);                                                     \
+    if (!succeeded) {                                                   \
+      if (!overflow || has_exact_coefficient_type(shape(0, EMPTY))) {   \
+        failed_tests.push_back(#test);                                  \
+      }                                                                 \
+    }                                                                   \
+  } while (false)
 
 
 // Macros for arbitrary combination of preprocessor conditions.
