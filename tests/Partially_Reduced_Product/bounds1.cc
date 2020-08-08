@@ -252,7 +252,7 @@ test11() {
   prp.refine_with_constraint(A - B <= 1);
 #endif
   prp.refine_with_congruence(3*B %= 2);
-;
+
   Linear_Expression le = A - B;
 
   Coefficient max_n;

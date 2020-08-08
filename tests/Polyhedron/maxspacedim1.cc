@@ -23,26 +23,29 @@ site: http://bugseng.com/products/ppl/ . */
 
 #include "ppl_test.hh"
 
-#define test01_DO_CLASS(T)                              \
-  nout << #T "::max_space_dimension() = "               \
-    << T::max_space_dimension() << endl;                \
-  if (T::max_space_dimension() < max_space_dimension()) \
-    return false
+#define test01_DO_CLASS(T)                                      \
+  do {                                                          \
+    nout << #T "::max_space_dimension() = "                     \
+      << T::max_space_dimension() << endl;                      \
+    if (T::max_space_dimension() < max_space_dimension()) {     \
+      return false;                                             \
+    }                                                           \
+  } while (false)
 
 #if PPL_SUPPORTED_FLOAT
 #define test01_DO_WRD_FLOAT(WRD) test01_DO_CLASS(WRD<float>)
 #else
-#define test01_DO_WRD_FLOAT(WRD)
+#define test01_DO_WRD_FLOAT(WRD) do { } while (false)
 #endif
 #if PPL_SUPPORTED_DOUBLE
 #define test01_DO_WRD_DOUBLE(WRD) test01_DO_CLASS(WRD<double>)
 #else
-#define test01_DO_WRD_DOUBLE(WRD)
+#define test01_DO_WRD_DOUBLE(WRD) do { } while (false)
 #endif
 #if PPL_SUPPORTED_LONG_DOUBLE
 #define test01_DO_WRD_LONG_DOUBLE(WRD) test01_DO_CLASS(WRD<long double>)
 #else
-#define test01_DO_WRD_LONG_DOUBLE(WRD)
+#define test01_DO_WRD_LONG_DOUBLE(WRD) do { } while (false)
 #endif
 
 #define test01_DO_WRD(WRD)                      \
@@ -57,28 +60,34 @@ site: http://bugseng.com/products/ppl/ . */
   test01_DO_WRD_LONG_DOUBLE(WRD)
 
 #define test01_DO_CONSTR_CLASS(CONSTR, T)                               \
-  nout << #CONSTR "<" #T ">::max_space_dimension() = "                  \
-       << CONSTR<T>::max_space_dimension() << endl;                     \
-  if (CONSTR<T>::max_space_dimension() < max_space_dimension())         \
-    return false
+  do {                                                                  \
+    nout << #CONSTR "<" #T ">::max_space_dimension() = "                \
+         << CONSTR<T>::max_space_dimension() << endl;                   \
+    if (CONSTR<T>::max_space_dimension() < max_space_dimension()) {     \
+      return false;                                                     \
+    }                                                                   \
+  } while (false)
 
 #if PPL_SUPPORTED_FLOAT
 #define test01_DO_CONSTR_WRD_FLOAT(CONSTR, WRD) \
   test01_DO_CONSTR_CLASS(CONSTR, WRD<float>)
 #else
-#define test01_DO_CONSTR_WRD_FLOAT(CONSTR, WRD)
+#define test01_DO_CONSTR_WRD_FLOAT(CONSTR, WRD) \
+  do { } while (false)
 #endif
 #if PPL_SUPPORTED_DOUBLE
 #define test01_DO_CONSTR_WRD_DOUBLE(CONSTR, WRD)        \
   test01_DO_CONSTR_CLASS(CONSTR, WRD<double>)
 #else
-#define test01_DO_CONSTR_WRD_DOUBLE(CONSTR, WRD)
+#define test01_DO_CONSTR_WRD_DOUBLE(CONSTR, WRD)        \
+  do { } while (false)
 #endif
 #if PPL_SUPPORTED_LONG_DOUBLE
 #define test01_DO_CONSTR_WRD_LONG_DOUBLE(CONSTR, WRD)   \
   test01_DO_CONSTR_CLASS(CONSTR, WRD<long double>)
 #else
-#define test01_DO_CONSTR_WRD_LONG_DOUBLE(CONSTR, WRD)
+#define test01_DO_CONSTR_WRD_LONG_DOUBLE(CONSTR, WRD)   \
+  do { } while (false)
 #endif
 
 #define test01_DO_CONSTR_WRD(CONSTR, WRD)                       \
@@ -134,4 +143,3 @@ test01() {
 BEGIN_MAIN
   DO_TEST(test01);
 END_MAIN
-
