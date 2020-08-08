@@ -56,7 +56,7 @@ test01() {
       ok &= (gr_copy == known_gr);
       print_generators(gr_copy, "*** gr_copy ***");
     }
-  };
+  }
 
   return ok;
 }
@@ -89,7 +89,7 @@ test02() {
       ok &= (gr_copy == known_gr);
       print_generators(gr_copy, "*** gr_copy ***");
     }
-  };
+  }
 
   return ok;
 }

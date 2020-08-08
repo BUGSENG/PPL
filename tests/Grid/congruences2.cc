@@ -60,7 +60,7 @@ test01() {
     ok &= !(cgs2 == cgs0) && !(cgs2 == cgs1);
 
     print_congruences(cgs2, "*** cgs2((A - 3*B %= 5) / 2) ***");
-  };
+  }
 
   return ok;
 }

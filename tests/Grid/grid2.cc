@@ -589,7 +589,7 @@ test21() {
 bool
 test22() {
   Variable A(0);
-  Variable B(1);;
+  Variable B(1);
 
   Congruence_System cgs1(0*A == 0);
   cgs1.insert(0*B == 0);

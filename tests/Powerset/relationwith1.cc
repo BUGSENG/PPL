@@ -39,7 +39,7 @@ test01() {
   Poly_Con_Relation known_rel = Poly_Con_Relation::saturates()
     && Poly_Con_Relation::is_included();
 
-  bool ok = (rel == known_rel);;
+  bool ok = (rel == known_rel);
 
   return ok && ps.OK();
 }
@@ -132,7 +132,7 @@ test05() {
   Poly_Con_Relation known_rel = Poly_Con_Relation::saturates()
     && Poly_Con_Relation::is_included();
 
-  bool ok = (rel == known_rel);;
+  bool ok = (rel == known_rel);
 
   return ok && ps.OK();
 }

@@ -270,7 +270,7 @@ test09() {
   bds.add_constraint(A - B <= 2);
   bds.add_constraint(A - B >= -2);
 
-  print_constraints(bds, "*** bds ***");;
+  print_constraints(bds, "*** bds ***");
 
   BD_Shape<mpq_class> known_result(2);
   known_result.add_constraint(4*A >= -5);

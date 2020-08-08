@@ -24,16 +24,20 @@ site: http://bugseng.com/products/ppl/ . */
 #include "ppl_test.hh"
 
 #define TEST_PREDICATE_TRUE(pred)               \
-  if (!pred) {                                  \
-    nout << "!" #pred << endl;                  \
-    ok = false;                                 \
-  }
+  do {                                          \
+    if (!pred) {                                \
+      nout << "!" #pred << endl;                \
+      ok = false;                               \
+    }                                           \
+  } while (false)
 
 #define TEST_PREDICATE_FALSE(pred)              \
-  if (pred) {                                   \
-    nout << #pred << endl;                      \
-    ok = false;                                 \
-  }
+  do {                                          \
+    if (pred) {                                 \
+      nout << #pred << endl;                    \
+      ok = false;                               \
+    }                                           \
+  } while (false)
 
 namespace {
 

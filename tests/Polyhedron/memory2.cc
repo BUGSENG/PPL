@@ -226,11 +226,13 @@ test3() {
 } // namespace
 
 #define IGNORE_OVERFLOWS(fun)                   \
-  try {                                         \
-    fun;                                        \
-  }                                             \
-  catch (const std::overflow_error&) {          \
-  }
+  do {                                          \
+    try {                                       \
+      fun;                                      \
+    }                                           \
+    catch (const std::overflow_error&) {        \
+    }                                           \
+  } while (false)
 
 extern "C" void
 ppl_set_GMP_memory_allocation_functions() {

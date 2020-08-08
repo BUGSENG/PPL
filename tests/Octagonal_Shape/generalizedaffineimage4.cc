@@ -176,7 +176,7 @@ test06() {
   print_constraints(oct, "*** oct ***");
 
   Octagonal_Shape<mpq_class> known_result(3);
-  known_result.add_constraint(A <= 1);;
+  known_result.add_constraint(A <= 1);
 
   oct.generalized_affine_image(e1, LESS_OR_EQUAL, e2);
 
