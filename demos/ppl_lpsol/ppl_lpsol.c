@@ -1273,7 +1273,7 @@ error_handler(enum ppl_enum_error_code code,
 #if !(defined(PPL_GLPK_HAS_GLP_TERM_OUT) && defined(GLP_OFF))
 
 #if defined(PPL_GLPK_HAS_GLP_TERM_HOOK) \
-  || defined(PPL_GLPK_HAS__GLP_LIB_PRINT_HOOK)
+  || defined(PPL_GLPK_HAS_GLP_LIB_PRINT_HOOK)
 
 static int
 glpk_message_interceptor(void* info, const char* msg) {
@@ -1292,7 +1292,7 @@ glpk_message_interceptor(void* info, char* msg) {
 }
 
 #endif /* !(defined(PPL_GLPK_HAS_GLP_TERM_HOOK)
-            || defined(PPL_GLPK_HAS__GLP_LIB_PRINT_HOOK))
+            || defined(PPL_GLPK_HAS_GLP_LIB_PRINT_HOOK))
           && defined(PPL_GLPK_HAS_LIB_SET_PRINT_HOOK) */
 
 #endif /* !(defined(PPL_GLPK_HAS_GLP_TERM_OUT) && defined(GLP_OFF)) */
@@ -1598,7 +1598,7 @@ main(int argc, char* argv[]) {
   struct timeval master_thread_time;
 #endif
 
-#if defined(PPL_GLPK_HAS__GLP_LIB_PRINT_HOOK)
+#if defined(PPL_GLPK_HAS_GLP_LIB_PRINT_HOOK)
   extern void _glp_lib_print_hook(int (*func)(void *info, const char *buf),
                                   void *info);
 #endif
@@ -1626,7 +1626,7 @@ main(int argc, char* argv[]) {
   glp_term_out(GLP_OFF);
 #elif defined(PPL_GLPK_HAS_GLP_TERM_HOOK)
   glp_term_hook(glpk_message_interceptor, 0);
-#elif defined(PPL_GLPK_HAS__GLP_LIB_PRINT_HOOK)
+#elif defined(PPL_GLPK_HAS_GLP_LIB_PRINT_HOOK)
   _glp_lib_print_hook(glpk_message_interceptor, 0);
 #elif defined(PPL_GLPK_HAS_LIB_SET_PRINT_HOOK)
   lib_set_print_hook(0, glpk_message_interceptor);

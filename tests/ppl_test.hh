@@ -201,15 +201,15 @@ catch (const std::exception& e) {                                       \
 #define PPL_CPP_IS_NEGx_arg_neg 0)(0
 #define PPL_CPP_IS_NEGx(v) PPL_CPP_VAL_a(PPL_CPP_IS_NEGx_arg_##v)
 
-#define PPL_CPP_IS_NEG__(v) v ## _
-#define PPL_CPP_IS_NEG_(v) PPL_CPP_IS_NEG__(v)
+#define PPL_CPP_IS_NEG_p(v) v ## _
+#define PPL_CPP_IS_NEG_(v) PPL_CPP_IS_NEG_p(v)
 #define PPL_CPP_IS_NEG(v) PPL_CPP_IS_NEG_(PPL_CPP_IS_NEGx(v))
 
 #define PPL_CPP_IS_ZEROx_arg_0 0)(0
 #define PPL_CPP_IS_ZEROx(v) PPL_CPP_VAL_a(PPL_CPP_IS_ZEROx_arg_##v)
 
-#define PPL_CPP_IS_ZERO__(v) v ## _
-#define PPL_CPP_IS_ZERO_(v) PPL_CPP_IS_ZERO__(v)
+#define PPL_CPP_IS_ZERO_p(v) v ## _
+#define PPL_CPP_IS_ZERO_(v) PPL_CPP_IS_ZERO_p(v)
 #define PPL_CPP_IS_ZERO(v) PPL_CPP_IS_ZERO_(PPL_CPP_IS_ZEROx(v))
 
 #define PPL_CPP_DECR_neg neg

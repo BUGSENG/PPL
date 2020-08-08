@@ -106,16 +106,7 @@ AH_BOTTOM([
 # define NDEBUG PPL_NDEBUG
 #endif
 
-/* In order for the definition of `int64_t' to be seen by Comeau C/C++,
-   we must make sure <stdint.h> is included before <sys/types.hh> is
-   (even indirectly) included.  Moreover we need to define
-   __STDC_LIMIT_MACROS before the first inclusion of <stdint.h>
-   in order to have the macros defined also in C++.  */
-
 #ifdef PPL_HAVE_STDINT_H
-# ifndef __STDC_LIMIT_MACROS
-#  define __STDC_LIMIT_MACROS 1
-# endif
 # include <stdint.h>
 #endif
 
@@ -1561,7 +1552,7 @@ then
 #endif
                 ])
   AC_CHECK_FUNC(_glp_lib_print_hook,
-                AC_DEFINE(PPL_GLPK_HAS__GLP_LIB_PRINT_HOOK,
+                AC_DEFINE(PPL_GLPK_HAS_GLP_LIB_PRINT_HOOK,
                           1,
                           [Defined if GLPK provides _glp_lib_print_hook().]))
   AC_CHECK_DECL(glp_term_out,
