@@ -155,7 +155,6 @@ Parma_Polyhedra_Library_thread_initializer_p;
 
 } // namespace
 
-#ifdef PPL_NO_AUTOMATIC_INITIALIZATION
 void
 initialize_aux() {
   if (Parma_Polyhedra_Library_initializer_p == nullptr) {
@@ -169,7 +168,6 @@ finalize_aux() {
   delete Parma_Polyhedra_Library_initializer_p;
   Parma_Polyhedra_Library_initializer_p = nullptr;
 }
-#endif
 
 void
 thread_initialize_aux() {

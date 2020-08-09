@@ -61,11 +61,8 @@ void restore_pre_PPL_rounding();
 
 namespace Implementation {
 
-#ifdef PPL_NO_AUTOMATIC_INITIALIZATION
 void initialize_aux();
 void finalize_aux();
-#endif
-
 void thread_initialize_aux();
 void thread_finalize_aux();
 
