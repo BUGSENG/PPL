@@ -326,7 +326,7 @@ BEGIN_MAIN
   DO_TEST(test03);
   DO_TEST(test04);
   DO_TEST(test05);
-  DO_TEST(test07);
+  DO_TEST(test06);
   // test07() only fails when using C_Polyhedron and 8 bit coefficients.
 #ifdef DERIVED_TEST
   DO_TEST(test07);
