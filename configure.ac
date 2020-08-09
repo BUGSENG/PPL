@@ -1625,8 +1625,9 @@ AC_CXX_SUPPORTS_LIMITING_MEMORY
 # Checks for library functions.
 # Nothing for the time being.
 
-# If we are using GCC or the Intel C/C++ compiler we want to compile
-# with lots of warnings enabled.
+# If we are using GCC or clang the Intel C/C++ compiler we want to compile
+# with lots of warnings enabled, but we still want to disable some warnings
+# that give rise to false positives.
 if test x"$GCC" = xyes
 then
   if test x"$ICC" = xyes
@@ -1634,7 +1635,7 @@ then
     CFLAGS="$CFLAGS -w2 -wd161,177,193,279,383,444,981,1098,1188,1418,1419,1572"
   elif test x"$CLANG" = xyes
   then
-    CFLAGS="$CFLAGS -Weverything -Wno-exit-time-destructors -Wno-global-constructors -Wno-documentation -Wno-missing-noreturn -Wno-covered-switch-default -Wno-unreachable-code -Wno-c++98-compat-pedantic -Wno-switch-enum -Wno-sign-conversion -Wno-c++98-compat -Wno-padded -Wno-disabled-macro-expansion -Wno-c++11-long-long -Wno-zero-length-array"
+    CFLAGS="$CFLAGS -Weverything -Wno-exit-time-destructors -Wno-global-constructors -Wno-documentation -Wno-missing-noreturn -Wno-covered-switch-default -Wno-unreachable-code -Wno-c++98-compat-pedantic -Wno-switch-enum -Wno-sign-conversion -Wno-c++98-compat -Wno-padded -Wno-disabled-macro-expansion -Wno-c++11-long-long -Wno-zero-length-array -Wno-documentation-unknown-command"
   else
     CFLAGS="$CFLAGS -W -Wall"
   fi
@@ -1646,7 +1647,7 @@ then
     CXXFLAGS="$CXXFLAGS -w2 -wd161,177,193,279,383,444,981,1098,1188,1418,1419,1572"
   elif test x"$CLANGXX" = xyes
   then
-    CXXFLAGS="$CXXFLAGS -Weverything -Wno-exit-time-destructors -Wno-global-constructors -Wno-documentation -Wno-missing-noreturn -Wno-covered-switch-default -Wno-unreachable-code -Wno-c++98-compat-pedantic -Wno-switch-enum -Wno-sign-conversion -Wno-c++98-compat -Wno-padded -Wno-disabled-macro-expansion -Wno-c++11-long-long -Wno-zero-length-array"
+    CXXFLAGS="$CXXFLAGS -Weverything -Wno-exit-time-destructors -Wno-global-constructors -Wno-documentation -Wno-missing-noreturn -Wno-covered-switch-default -Wno-unreachable-code -Wno-c++98-compat-pedantic -Wno-switch-enum -Wno-sign-conversion -Wno-c++98-compat -Wno-padded -Wno-disabled-macro-expansion -Wno-c++11-long-long -Wno-zero-length-array -Wno-documentation-unknown-command"
   else
     CXXFLAGS="$CXXFLAGS -W -Wall"
   fi
