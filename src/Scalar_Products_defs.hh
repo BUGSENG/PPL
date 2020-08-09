@@ -214,11 +214,10 @@ public:
 
 private:
   //! The type of the scalar product sign function pointer.
-  typedef int (* const SPS_type)(const Linear_Expression&,
-                                 const Linear_Expression&);
+  typedef int (*SPS_type)(const Linear_Expression&, const Linear_Expression&);
 
   //! The scalar product sign function pointer.
-  SPS_type sps_fp;
+  const SPS_type sps_fp;
 };
 
 // NOTE: Scalar_Products_inlines.hh is NOT included here, to avoid cyclic
