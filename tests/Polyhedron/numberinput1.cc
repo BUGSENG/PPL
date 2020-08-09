@@ -41,8 +41,8 @@ struct Test_Extended_Number_Policy {
   const_bool_nodef(check_sqrt_neg, false);
   const_bool_nodef(has_nan, true);
   const_bool_nodef(has_infinity, true);
-  const_bool_nodef(fpu_check_inexact, false);
-  const_bool_nodef(check_nan_result, true);
+  const_bool_nodef(check_fpu_inexact, false);
+  const_bool_nodef(check_fpu_nan_result, true);
   static const Rounding_Dir ROUND_DEFAULT = ROUND_UP;
   static void handle_result(Result r);
 };

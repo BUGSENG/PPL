@@ -651,10 +651,10 @@ struct Checked_Number_Transparent_Policy {
   const_bool_nodef(convertible, true);
 
   //! Do not honor requests to check for FPU inexact results.
-  const_bool_nodef(fpu_check_inexact, false);
+  const_bool_nodef(check_fpu_inexact, false);
 
   //! Do not make extra checks to detect FPU NaN results.
-  const_bool_nodef(fpu_check_nan_result, false);
+  const_bool_nodef(check_fpu_nan_result, false);
 
   /*! \brief
     For constructors, by default use the same rounding used by

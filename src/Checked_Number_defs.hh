@@ -50,8 +50,8 @@ struct Extended_Number_Policy {
   // `convertible' is intentionally not defined: the compile time
   // error on conversions is the expected behavior.
 
-  const_bool_nodef(fpu_check_inexact, true);
-  const_bool_nodef(fpu_check_nan_result, true);
+  const_bool_nodef(check_fpu_inexact, true);
+  const_bool_nodef(check_fpu_nan_result, true);
 
   // ROUND_DEFAULT_CONSTRUCTOR is intentionally not defined.
   // ROUND_DEFAULT_OPERATOR is intentionally not defined.
@@ -79,8 +79,8 @@ struct Check_Overflow_Policy {
   const_bool_nodef(has_nan, std::numeric_limits<T>::has_quiet_NaN);
   const_bool_nodef(has_infinity, std::numeric_limits<T>::has_infinity);
   const_bool_nodef(convertible, true);
-  const_bool_nodef(fpu_check_inexact, true);
-  const_bool_nodef(fpu_check_nan_result, true);
+  const_bool_nodef(check_fpu_inexact, true);
+  const_bool_nodef(check_fpu_nan_result, true);
 };
 
 #ifdef PPL_DOXYGEN_INCLUDE_IMPLEMENTATION_DETAILS

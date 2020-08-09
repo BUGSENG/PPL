@@ -69,10 +69,10 @@ struct WRD_Extended_Number_Policy {
   // error on conversions is the expected behavior.
 
   //! Honor requests to check for FPU inexact results.
-  const_bool_nodef(fpu_check_inexact, true);
+  const_bool_nodef(check_fpu_inexact, true);
 
   //! Do not make extra checks to detect FPU NaN results.
-  const_bool_nodef(fpu_check_nan_result, false);
+  const_bool_nodef(check_fpu_nan_result, false);
 
   // ROUND_DEFAULT_CONSTRUCTOR is intentionally not defined.
   // ROUND_DEFAULT_OPERATOR is intentionally not defined.
@@ -128,10 +128,10 @@ struct Debug_WRD_Extended_Number_Policy {
   // error on conversions is the expected behavior.
 
   //! Honor requests to check for FPU inexact results.
-  const_bool_nodef(fpu_check_inexact, true);
+  const_bool_nodef(check_fpu_inexact, true);
 
   //! Make extra checks to detect FPU NaN results.
-  const_bool_nodef(fpu_check_nan_result, true);
+  const_bool_nodef(check_fpu_nan_result, true);
 
   // ROUND_DEFAULT_CONSTRUCTOR is intentionally not defined.
   // ROUND_DEFAULT_OPERATOR is intentionally not defined.

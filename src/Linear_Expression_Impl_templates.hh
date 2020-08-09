@@ -1130,11 +1130,11 @@ void
 Linear_Expression_Impl<Row>::construct(const Linear_Expression_Interface& y) {
   typedef const Linear_Expression_Impl<Dense_Row>* Dense_Ptr;
   typedef const Linear_Expression_Impl<Sparse_Row>* Sparse_Ptr;
-  if (const Dense_Ptr p = dynamic_cast<Dense_Ptr>(&y)) {
-    return construct(*p);
+  if (const Dense_Ptr dp = dynamic_cast<Dense_Ptr>(&y)) {
+    return construct(*dp);
   }
-  else if (const Sparse_Ptr p = dynamic_cast<Sparse_Ptr>(&y)) {
-    return construct(*p);
+  else if (const Sparse_Ptr sp = dynamic_cast<Sparse_Ptr>(&y)) {
+    return construct(*sp);
   }
   else {
     // Add implementations for new derived classes here.

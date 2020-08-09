@@ -545,12 +545,14 @@ private:
   /*! \brief
     A mapping between the tableau rows/columns and the original variables.
 
-    The value of <CODE>mapping[i]</CODE> depends of the value of <CODE>basis[i]</CODE>.
+    The value of <CODE>mapping[i]</CODE> depends of the value of
+    <CODE>basis[i]</CODE>.
 
-     - If <CODE>basis[i]</CODE> is \b true, <CODE>mapping[i]</CODE> encodes the column
-       index of variable \p i in the \p s matrix of the tableau.
-     - If <CODE>basis[i]</CODE> is \b false, <CODE>mapping[i]</CODE> encodes the row
-       index of variable \p i in the tableau.
+     - If <CODE>basis[i]</CODE> is \b true, <CODE>mapping[i]</CODE>
+       encodes the column index of variable \p i in the \p s matrix of
+       the tableau.
+     - If <CODE>basis[i]</CODE> is \b false, <CODE>mapping[i]</CODE>
+       encodes the row index of variable \p i in the tableau.
   */
   std::vector<dimension_type> mapping;
 
