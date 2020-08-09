@@ -49,9 +49,9 @@ main() {
 
 #else
 
-     float  nf1 =  -3, pf1 = 3,  f2 =  5;
-     double nd1 =  -7, pd1 = 7,  d2 = 11;
-long double nl1 = -13, pl1 = 13, l2 = 17;
+     volatile float  nf1 =  -3, pf1 = 3,  f2 =  5;
+     volatile double nd1 =  -7, pd1 = 7,  d2 = 11;
+volatile long double nl1 = -13, pl1 = 13, l2 = 17;
 
       float nf[2], pf[2];
      double nd[2], pd[2];
