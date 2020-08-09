@@ -30,6 +30,10 @@ namespace Implementation {
 namespace Boxes {
 
 // These are the keywords that indicate the individual assertions.
+extern const char* empty_up_to_date;
+extern const char* empty;
+extern const char* universe;
+
 const char* empty_up_to_date = "EUP";
 const char* empty = "EM";
 const char* universe = "UN";

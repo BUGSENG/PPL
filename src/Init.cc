@@ -155,28 +155,28 @@ Parma_Polyhedra_Library_thread_initializer_p;
 
 } // namespace
 
-void
+static void
 initialize_aux() {
   if (Parma_Polyhedra_Library_initializer_p == nullptr) {
     Parma_Polyhedra_Library_initializer_p = new Init();
   }
 }
 
-void
+static void
 finalize_aux() {
   PPL_ASSERT(Parma_Polyhedra_Library_initializer_p != nullptr);
   delete Parma_Polyhedra_Library_initializer_p;
   Parma_Polyhedra_Library_initializer_p = nullptr;
 }
 
-void
+static void
 thread_initialize_aux() {
   if (Parma_Polyhedra_Library_thread_initializer_p == nullptr) {
     Parma_Polyhedra_Library_thread_initializer_p = new Thread_Init();
   }
 }
 
-void
+static void
 thread_finalize_aux() {
   PPL_ASSERT(Parma_Polyhedra_Library_thread_initializer_p != nullptr);
   delete Parma_Polyhedra_Library_thread_initializer_p;

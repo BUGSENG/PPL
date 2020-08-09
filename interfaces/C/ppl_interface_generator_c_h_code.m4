@@ -283,7 +283,7 @@ PPL_PROTO((ppl_const_@CLASS@_t ph,
 m4_define(`ppl_@CLASS@_has_@UPPERLOWER@_bound_code',
 `/*! \relates ppl_@CLASS@_tag */
 int
-ppl_@CLASS@_get_@UPPERLOWER@_bound
+ppl_@CLASS@_has_@UPPERLOWER@_bound
 PPL_PROTO((ppl_@CLASS@_t ps,
            ppl_dimension_type var,
            ppl_Coefficient_t ext_n,
@@ -612,7 +612,7 @@ int
 ppl_@CLASS@_BGP99_@DISJUNCT_WIDEN@_extrapolation_assign
 PPL_PROTO((ppl_@CLASS@_t x,
            ppl_const_@CLASS@_t y,
-           int disjuncts));
+           unsigned disjuncts));
 
 ')
 

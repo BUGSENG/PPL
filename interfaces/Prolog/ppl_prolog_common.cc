@@ -55,7 +55,7 @@ Allocation_Tracker allocation_tracker;
 
 
 // For the out-of-memory exception.
-Prolog_atom out_of_memory_exception_atom;
+static Prolog_atom out_of_memory_exception_atom;
 
 // For variables.
 Prolog_atom a_dollar_VAR;
@@ -91,7 +91,7 @@ Prolog_atom a_parameter;
 Prolog_atom a_grid_point;
 
 // For artificial_parameters.
-Prolog_atom a_divided_by;
+static Prolog_atom a_divided_by;
 
 // For the relation between a polyhedron and a constraint.
 Prolog_atom a_is_disjoint;
@@ -109,13 +109,13 @@ Prolog_atom a_c;
 Prolog_atom a_empty;
 
 // Denotes the universe polyhedron.
-Prolog_atom a_universe;
+static Prolog_atom a_universe;
 
 // Denotes the maximization mode for optimization problems.
-Prolog_atom a_max;
+static Prolog_atom a_max;
 
 // Denotes the minimization mode for optimization problems.
-Prolog_atom a_min;
+static Prolog_atom a_min;
 
 // Denote possible widths of bounded integer types.
 Prolog_atom a_bits_8;
@@ -134,9 +134,9 @@ Prolog_atom a_overflow_undefined;
 Prolog_atom a_overflow_impossible;
 
 // Denote possible outcomes of MIP and PIP problems solution attempts.
-Prolog_atom a_unfeasible;
-Prolog_atom a_unbounded;
-Prolog_atom a_optimized;
+static Prolog_atom a_unfeasible;
+static Prolog_atom a_unbounded;
+static Prolog_atom a_optimized;
 
 // Denotes an open interval boundary.
 Prolog_atom a_o;
@@ -154,40 +154,40 @@ Prolog_atom a_simplex;
 Prolog_atom a_any;
 
 // Denote control_parameters.
-Prolog_atom a_pricing;
-Prolog_atom a_pricing_steepest_edge_float;
-Prolog_atom a_pricing_steepest_edge_exact;
-Prolog_atom a_pricing_textbook;
+static Prolog_atom a_pricing;
+static Prolog_atom a_pricing_steepest_edge_float;
+static Prolog_atom a_pricing_steepest_edge_exact;
+static Prolog_atom a_pricing_textbook;
 
-Prolog_atom a_cutting_strategy;
-Prolog_atom a_cutting_strategy_first;
-Prolog_atom a_cutting_strategy_deepest;
-Prolog_atom a_cutting_strategy_all;
+static Prolog_atom a_cutting_strategy;
+static Prolog_atom a_cutting_strategy_first;
+static Prolog_atom a_cutting_strategy_deepest;
+static Prolog_atom a_cutting_strategy_all;
 
-Prolog_atom a_pivot_row_strategy;
-Prolog_atom a_pivot_row_strategy_first;
-Prolog_atom a_pivot_row_strategy_max_column;
+static Prolog_atom a_pivot_row_strategy;
+static Prolog_atom a_pivot_row_strategy_first;
+static Prolog_atom a_pivot_row_strategy_max_column;
 
 // Default timeout exception atom.
-Prolog_atom a_time_out;
+static Prolog_atom a_time_out;
 
 // "Out of memory" exception atom.
-Prolog_atom a_out_of_memory;
+static Prolog_atom a_out_of_memory;
 
 // Boolean constants.
 Prolog_atom a_true;
 Prolog_atom a_false;
 
 // To build exception terms.
-Prolog_atom a_ppl_overflow_error;
-Prolog_atom a_ppl_domain_error;
-Prolog_atom a_ppl_length_error;
-Prolog_atom a_ppl_invalid_argument;
-Prolog_atom a_ppl_logic_error;
-Prolog_atom a_ppl_representation_error;
-Prolog_atom a_expected;
-Prolog_atom a_found;
-Prolog_atom a_where;
+static Prolog_atom a_ppl_overflow_error;
+static Prolog_atom a_ppl_domain_error;
+static Prolog_atom a_ppl_length_error;
+static Prolog_atom a_ppl_invalid_argument;
+static Prolog_atom a_ppl_logic_error;
+static Prolog_atom a_ppl_representation_error;
+static Prolog_atom a_expected;
+static Prolog_atom a_found;
+static Prolog_atom a_where;
 
 const Prolog_Interface_Atom prolog_interface_atoms[] = {
   { &a_dollar_VAR,               "$VAR" },
@@ -296,7 +296,7 @@ const Prolog_Interface_Atom prolog_interface_atoms[] = {
   { nullptr,                     nullptr }
 };
 
-Prolog_term_ref
+static Prolog_term_ref
 Prolog_atom_term_from_string(const char* s) {
   Prolog_term_ref t = Prolog_new_term_ref();
   Prolog_put_atom(t, Prolog_atom_from_string(s));
@@ -825,15 +825,15 @@ handle_exception() {
   Prolog_raise_exception(et);
 }
 
-Parma_Polyhedra_Library::Watchdog* p_timeout_object = nullptr;
+static Parma_Polyhedra_Library::Watchdog* p_timeout_object = nullptr;
 
 typedef
 Parma_Polyhedra_Library::Threshold_Watcher
 <Parma_Polyhedra_Library::Weightwatch_Traits> Weightwatch;
 
-Weightwatch* p_deterministic_timeout_object = nullptr;
+static Weightwatch* p_deterministic_timeout_object = nullptr;
 
-void
+static void
 reset_timeout() {
   if (p_timeout_object) {
     delete p_timeout_object;
@@ -842,7 +842,7 @@ reset_timeout() {
   }
 }
 
-void
+static void
 reset_deterministic_timeout() {
   if (p_deterministic_timeout_object) {
     delete p_deterministic_timeout_object;
@@ -851,7 +851,7 @@ reset_deterministic_timeout() {
   }
 }
 
-Prolog_atom timeout_exception_atom;
+static Prolog_atom timeout_exception_atom;
 
 void
 handle_exception(const timeout_exception&) {
@@ -1393,7 +1393,7 @@ grid_generator_term(const Grid_Generator& g) {
   return t;
 }
 
-Prolog_term_ref
+static Prolog_term_ref
 artificial_parameter_term(const PIP_Tree_Node::Artificial_Parameter& art) {
   Prolog_term_ref t = Prolog_new_term_ref();
   Prolog_construct_compound(t, a_divided_by,
@@ -1529,7 +1529,7 @@ term_to_pip_problem_control_parameter_value(Prolog_term_ref t,
   throw not_a_pip_problem_control_parameter_value(t, where);
 }
 
-bool Prolog_interface_initialized = false;
+static bool Prolog_interface_initialized = false;
 
 void
 check_nil_terminating(Prolog_term_ref t, const char* where) {
@@ -1607,7 +1607,7 @@ term_to_boundary(Prolog_term_ref t_b, Boundary_Kind kind,
   return true;
 }
 
-Prolog_atom
+static Prolog_atom
 term_to_relation(Prolog_term_ref t, const char* where) {
   if (Prolog_is_atom(t)) {
     Prolog_atom name;
@@ -1641,7 +1641,7 @@ term_to_relation_symbol(Prolog_term_ref t_r, const char* where) {
   return r;
 }
 
-Prolog_term_ref
+static Prolog_term_ref
 rational_term(const Rational_Box::interval_type::boundary_type& q) {
   Prolog_term_ref t = Prolog_new_term_ref();
   PPL_DIRTY_TEMP_COEFFICIENT(numerator);

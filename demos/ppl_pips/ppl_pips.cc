@@ -548,7 +548,7 @@ bool print_timings = false;
 bool verbose = false;
 const char* check_file_name = nullptr;
 
-void
+static void
 fatal(const char* format, ...) {
   va_list ap;
   va_start(ap, format);
@@ -603,11 +603,7 @@ set_output(const char* const file_name) {
   }
 }
 
-bool piplib_format = false;
-
-} // namespace
-
-void
+static void
 error(const char* format, ...) {
   va_list ap;
   va_start(ap, format);
@@ -618,7 +614,7 @@ error(const char* format, ...) {
   exit(1);
 }
 
-void
+static void
 warning(const char* format, ...) {
   va_list ap;
   va_start(ap, format);
@@ -627,6 +623,10 @@ warning(const char* format, ...) {
   fprintf(stderr, "\n");
   va_end(ap);
 }
+
+bool piplib_format = false;
+
+} // namespace
 
 #if PPL_CXX_SUPPORTS_LIMITING_MEMORY && PPL_HAVE_DECL_RLIMIT_AS
 
@@ -647,13 +647,13 @@ limit_virtual_memory(const unsigned long bytes) {
 
 #else
 
-void
+static void
 limit_virtual_memory(const unsigned long) {
 }
 
 #endif // !PPL_HAVE_DECL_RLIMIT_AS
 
-void
+static void
 process_options(const int argc, char* const argv[]) {
   while (true) {
 #ifdef PPL_HAVE_GETOPT_H
@@ -773,14 +773,14 @@ process_options(const int argc, char* const argv[]) {
   }
 }
 
-void
+static void
 maybe_start_clock() {
   if (print_timings) {
     start_clock();
   }
 }
 
-void
+static void
 maybe_print_clock() {
   if (print_timings) {
     std::cerr << input_file_name << " ";

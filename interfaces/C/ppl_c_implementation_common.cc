@@ -33,7 +33,7 @@ namespace C {
 
 PPL_C_TLS error_handler_type user_error_handler = nullptr;
 
-extern "C" const char*
+static const char*
 c_variable_default_output_function(ppl_dimension_type var) {
 #if PPL_SIZEOF_SIZE_T == PPL_SIZEOF_INT
 # define FORMAT "%u"
@@ -70,9 +70,10 @@ c_variable_default_output_function(ppl_dimension_type var) {
 }
 
 // Holds a pointer to the C current output function.
-PPL_C_TLS ppl_io_variable_output_function_type* c_variable_output_function;
+static PPL_C_TLS ppl_io_variable_output_function_type*
+c_variable_output_function;
 
-void
+static void
 cxx_Variable_output_function(std::ostream& s, const Variable v) {
   const char* f = c_variable_output_function(v.id());
   if (f == nullptr) {
@@ -87,7 +88,8 @@ extern "C" typedef const char*
 c_variable_output_function_type(ppl_dimension_type var);
 
 // Holds a pointer to the C++ saved output function.
-PPL_C_TLS Variable::output_function_type* saved_cxx_Variable_output_function;
+static PPL_C_TLS Variable::output_function_type*
+saved_cxx_Variable_output_function;
 
 void
 notify_error(enum ppl_enum_error_code code, const char* description) {
@@ -96,14 +98,14 @@ notify_error(enum ppl_enum_error_code code, const char* description) {
 }
 
 // FIXME: current implementation is not thread-safe.
-Parma_Polyhedra_Library::Watchdog* p_timeout_object = nullptr;
+static Parma_Polyhedra_Library::Watchdog* p_timeout_object = nullptr;
 
 typedef
 Parma_Polyhedra_Library::Threshold_Watcher
 <Parma_Polyhedra_Library::Weightwatch_Traits> Weightwatch;
 
 // FIXME: current implementation is not thread-safe.
-Weightwatch* p_deterministic_timeout_object = nullptr;
+static Weightwatch* p_deterministic_timeout_object = nullptr;
 
 void
 reset_timeout() {

@@ -398,7 +398,7 @@ limit_virtual_memory(const unsigned long) {
 
 #endif // !PPL_HAVE_DECL_RLIMIT_AS
 
-extern "C" void
+static void
 timeout(const int) {
   try {
     std::cerr << "TIMEOUT"

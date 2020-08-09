@@ -3148,6 +3148,14 @@ PPL_PROTO((ppl_const_PIP_Tree_Node_t pip_tree,
            ppl_Artificial_Parameter_Sequence_const_iterator_t pit));
 
 /*! \relates ppl_PIP_Solution_Node_tag \brief
+  Returns a positive integer if \p pip_sol is well formed, i.e., if it
+  satisfies all its implementation invariants; returns 0 and perhaps
+  makes some noise if \p pip_sol is broken.  Useful for debugging purposes.
+*/
+int
+ppl_PIP_Solution_Node_OK(ppl_const_PIP_Solution_Node_t pip_sol);
+
+/*! \relates ppl_PIP_Solution_Node_tag \brief
   Writes to \p le a const pointer to the parametric expression of the values
   of variable \p var in solution node \p pip_sol.
 
@@ -3172,6 +3180,14 @@ ppl_PIP_Solution_Node_get_parametric_values
 PPL_PROTO((ppl_const_PIP_Solution_Node_t pip_sol,
            ppl_dimension_type var,
            ppl_const_Linear_Expression_t* le));
+
+/*! \relates ppl_PIP_Decision_Node_tag \brief
+  Returns a positive integer if \p pip_dec is well formed, i.e., if it
+  satisfies all its implementation invariants; returns 0 and perhaps
+  makes some noise if \p pip_dec is broken.  Useful for debugging purposes.
+*/
+int
+ppl_PIP_Decision_Node_OK(ppl_const_PIP_Decision_Node_t pip_dec);
 
 /*! \relates ppl_PIP_Decision_Node_tag \brief
   Writes to \p pip_tree a const pointer to either the true branch
@@ -3206,7 +3222,7 @@ PPL_PROTO((ppl_const_Artificial_Parameter_t ap,
   parameter \p ap.
 */
 int
-ppl_Artificial_Parameter_get_inhomogeneous_term
+ppl_Artificial_Parameter_inhomogeneous_term
 PPL_PROTO((ppl_const_Artificial_Parameter_t ap,
            ppl_Coefficient_t n));
 

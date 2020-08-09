@@ -130,7 +130,7 @@ assign_all_inequalities_approximation(const C_Polyhedron& ph,
   - \f$ z_1, ..., z_m, z_{m+1}, z_{m+2} \f$ go onto space dimensions
     \f$ n+1, ..., n+m+2 \f$.
 */
-void
+static void
 fill_constraint_systems_MS(const Constraint_System& cs,
                            Constraint_System& cs_out1,
                            Constraint_System& cs_out2) {
@@ -344,7 +344,7 @@ fill_constraint_systems_MS(const Constraint_System& cs,
   The expression to be minimized in the context of \p cs_out:
   a value of \f$ -1 \f$ or less entails termination.
 */
-void
+static void
 fill_constraint_system_PR(const Constraint_System& cs_before,
                           const Constraint_System& cs_after,
                           Constraint_System& cs_out,
@@ -427,7 +427,7 @@ fill_constraint_system_PR(const Constraint_System& cs_before,
   }
 }
 
-void
+static void
 fill_constraint_system_PR_original(const Constraint_System& cs,
                                    Constraint_System& cs_out,
                                    Linear_Expression& le_out) {

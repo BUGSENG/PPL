@@ -27,7 +27,7 @@ namespace {
 
 namespace test01_namespace {
 
-void
+static void
 add_constraint(TOctagonal_Shape& oct, const Constraint& c) {
   const memory_size_type oct_memory_before = oct.total_memory_in_bytes();
   const memory_size_type c_memory = c.total_memory_in_bytes();

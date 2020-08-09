@@ -131,7 +131,7 @@ sum_sign(bool& a_neg, unsigned long& a_mod,
   denominator part of a number from \p is into \p numer, returning the
   appropriate Result value.
 */
-Result
+static Result
 parse_number_part(std::istream& is, number_struct& numer) {
   enum anonymous_enum { BASE, INTEGER, FRACTIONAL, EXPONENT } state = BASE;
   PPL_UNINITIALIZED(unsigned long, max_exp_div);
@@ -383,7 +383,7 @@ parse_number_part(std::istream& is, number_struct& numer) {
   and \p denom, the denominator; the appropriate Result value is
   returned.
 */
-Result
+static Result
 parse_number(std::istream& is, number_struct& numer, number_struct& denom) {
   // Read the numerator.
   Result r = parse_number_part(is, numer);

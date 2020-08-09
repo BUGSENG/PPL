@@ -30,6 +30,10 @@ namespace Implementation {
 namespace Octagonal_Shapes {
 
 // These are the keywords that indicate the individual assertions.
+extern const char* zero_dim_univ;
+extern const char* empty;
+extern const char* strong_closed;
+
 const char* zero_dim_univ = "ZE";
 const char* empty = "EM";
 const char* strong_closed = "SC";

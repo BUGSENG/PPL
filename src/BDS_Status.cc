@@ -30,6 +30,11 @@ namespace Implementation {
 namespace BD_Shapes {
 
 // These are the keywords that indicate the individual assertions.
+extern const char* zero_dim_univ;
+extern const char* empty;
+extern const char* sp_closed;
+extern const char* sp_reduced;
+
 const char* zero_dim_univ = "ZE";
 const char* empty = "EM";
 const char* sp_closed = "SPC";
