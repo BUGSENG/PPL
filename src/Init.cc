@@ -169,6 +169,7 @@ finalize_aux() {
   delete Parma_Polyhedra_Library_initializer_p;
   Parma_Polyhedra_Library_initializer_p = nullptr;
 }
+#endif
 
 void
 thread_initialize_aux() {
@@ -183,7 +184,6 @@ thread_finalize_aux() {
   delete Parma_Polyhedra_Library_thread_initializer_p;
   Parma_Polyhedra_Library_thread_initializer_p = nullptr;
 }
-#endif
 
 } // namespace Implementation
 

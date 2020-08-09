@@ -59,6 +59,18 @@ void set_rounding_for_PPL();
 */
 void restore_pre_PPL_rounding();
 
+namespace Implementation {
+
+#ifdef PPL_NO_AUTOMATIC_INITIALIZATION
+void initialize_aux();
+void finalize_aux();
+#endif
+
+void thread_initialize_aux();
+void thread_finalize_aux();
+
+} // namespace Implementation
+
 } // namespace Parma_Polyhedra_Library
 
 #ifdef PPL_DOXYGEN_INCLUDE_IMPLEMENTATION_DETAILS
