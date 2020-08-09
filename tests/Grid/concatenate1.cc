@@ -298,6 +298,7 @@ test09() {
   return ok;
 }
 
+#if 0
 // Space dimension exception.
 bool
 test11() {
@@ -324,6 +325,7 @@ test11() {
   }
   return false;
 }
+#endif
 
 } // namespace
 
