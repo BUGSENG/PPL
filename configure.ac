@@ -1637,7 +1637,7 @@ then
   then
     CFLAGS="$CFLAGS -Weverything -Wno-exit-time-destructors -Wno-global-constructors -Wno-documentation -Wno-missing-noreturn -Wno-covered-switch-default -Wno-unreachable-code -Wno-c++98-compat-pedantic -Wno-switch-enum -Wno-sign-conversion -Wno-c++98-compat -Wno-padded -Wno-disabled-macro-expansion -Wno-c++11-long-long -Wno-zero-length-array -Wno-documentation-unknown-command"
   else
-    CFLAGS="$CFLAGS -W -Wall"
+    CFLAGS="$CFLAGS -W -Wall -Wno-type-limits"
   fi
 fi
 if test x"$GXX" = xyes
@@ -1649,7 +1649,7 @@ then
   then
     CXXFLAGS="$CXXFLAGS -Weverything -Wno-exit-time-destructors -Wno-global-constructors -Wno-documentation -Wno-missing-noreturn -Wno-covered-switch-default -Wno-unreachable-code -Wno-c++98-compat-pedantic -Wno-switch-enum -Wno-sign-conversion -Wno-c++98-compat -Wno-padded -Wno-disabled-macro-expansion -Wno-c++11-long-long -Wno-zero-length-array -Wno-documentation-unknown-command"
   else
-    CXXFLAGS="$CXXFLAGS -W -Wall"
+    CXXFLAGS="$CXXFLAGS -W -Wall -Wno-type-limits"
   fi
 fi
 
