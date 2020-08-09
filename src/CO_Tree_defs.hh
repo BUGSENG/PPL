@@ -1352,6 +1352,9 @@ public:
   */
   tree_iterator(CO_Tree& tree, dimension_type i);
 
+  //! Copy constructor.
+  tree_iterator(const tree_iterator& itr);
+
   //! Constructs a tree_iterator from an iterator.
   /*!
     \param itr

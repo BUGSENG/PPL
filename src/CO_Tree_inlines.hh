@@ -346,6 +346,13 @@ CO_Tree::refresh_cached_iterators() {
 
 inline void
 CO_Tree::move_data_element(data_type& to, data_type& from) {
+
+#if defined(__GNUC__) && !defined(__INTEL_COMPILER)     \
+  && (((__GNUC__ * 100) + __GNUC_MINOR__) >= 800)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wclass-memaccess"
+#endif
+
   /*
     The following code is equivalent (but slower):
 
@@ -355,8 +362,13 @@ CO_Tree::move_data_element(data_type& to, data_type& from) {
     </CODE>
   */
   std::memcpy(&to, &from, sizeof(data_type));
-}
 
+#if defined(__GNUC__) && !defined(__INTEL_COMPILER) \
+  && (((__GNUC__ * 100) + __GNUC_MINOR__) >= 800)
+#pragma GCC diagnostic pop
+#endif
+
+}
 
 inline
 CO_Tree::const_iterator::const_iterator()
@@ -722,6 +734,13 @@ CO_Tree::tree_iterator::tree_iterator(const iterator& itr, CO_Tree& tree1)
   PPL_ASSERT(tree.reserved_size != 0);
   *this = itr;
   PPL_ASSERT(OK());
+}
+
+inline
+CO_Tree::tree_iterator::tree_iterator(const tree_iterator& itr)
+  : tree(itr.tree),
+    i(itr.i),
+    offset(itr.offset) {
 }
 
 inline CO_Tree::tree_iterator&

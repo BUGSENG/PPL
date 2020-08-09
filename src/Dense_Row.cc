@@ -56,7 +56,20 @@ PPL::Dense_Row::resize(const dimension_type new_size) {
       Coefficient* const new_vec = impl.coeff_allocator.allocate(new_capacity);
 
       if (impl.vec != nullptr) {
+
+#if defined(__GNUC__) && !defined(__INTEL_COMPILER)     \
+  && (((__GNUC__ * 100) + __GNUC_MINOR__) >= 800)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wclass-memaccess"
+#endif
+
         memcpy(new_vec, impl.vec, sizeof(Coefficient) * impl.size);
+
+#if defined(__GNUC__) && !defined(__INTEL_COMPILER) \
+  && (((__GNUC__ * 100) + __GNUC_MINOR__) >= 800)
+#pragma GCC diagnostic pop
+#endif
+
         impl.coeff_allocator.deallocate(impl.vec, impl.capacity);
       }
 
@@ -102,7 +115,18 @@ PPL::Dense_Row::resize(const dimension_type new_size,
 
     PPL_ASSERT(impl.vec != 0);
 
+#if defined(__GNUC__) && !defined(__INTEL_COMPILER)     \
+  && (((__GNUC__ * 100) + __GNUC_MINOR__) >= 800)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wclass-memaccess"
+#endif
+
     memcpy(new_vec, impl.vec, sizeof(Coefficient) * impl.size);
+
+#if defined(__GNUC__) && !defined(__INTEL_COMPILER) \
+  && (((__GNUC__ * 100) + __GNUC_MINOR__) >= 800)
+#pragma GCC diagnostic pop
+#endif
 
     impl.coeff_allocator.deallocate(impl.vec, impl.capacity);
 
@@ -115,7 +139,20 @@ PPL::Dense_Row::resize(const dimension_type new_size,
       Coefficient* const new_vec = impl.coeff_allocator.allocate(new_capacity);
 
       if (impl.vec != nullptr) {
+
+#if defined(__GNUC__) && !defined(__INTEL_COMPILER)     \
+  && (((__GNUC__ * 100) + __GNUC_MINOR__) >= 800)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wclass-memaccess"
+#endif
+
         memcpy(new_vec, impl.vec, sizeof(Coefficient) * impl.size);
+
+#if defined(__GNUC__) && !defined(__INTEL_COMPILER) \
+  && (((__GNUC__ * 100) + __GNUC_MINOR__) >= 800)
+#pragma GCC diagnostic pop
+#endif
+
         impl.coeff_allocator.deallocate(impl.vec, impl.capacity);
       }
 
@@ -167,10 +204,21 @@ PPL::Dense_Row::add_zeroes_and_shift(const dimension_type n,
       throw;
     }
 
+#if defined(__GNUC__) && !defined(__INTEL_COMPILER)     \
+  && (((__GNUC__ * 100) + __GNUC_MINOR__) >= 800)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wclass-memaccess"
+#endif
+
     // Raw-copy the coefficients.
     memcpy(new_row.impl.vec, impl.vec, sizeof(Coefficient) * i);
     memcpy(&(new_row.impl.vec[i + n]), &impl.vec[i],
            sizeof(Coefficient) * (impl.size - i));
+
+#if defined(__GNUC__) && !defined(__INTEL_COMPILER) \
+  && (((__GNUC__ * 100) + __GNUC_MINOR__) >= 800)
+#pragma GCC diagnostic pop
+#endif
 
     using std::swap;
     swap(impl.vec, new_row.impl.vec);
@@ -183,8 +231,21 @@ PPL::Dense_Row::add_zeroes_and_shift(const dimension_type n,
 
   }
   else {
+
+#if defined(__GNUC__) && !defined(__INTEL_COMPILER)     \
+  && (((__GNUC__ * 100) + __GNUC_MINOR__) >= 800)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wclass-memaccess"
+#endif
+
     memmove(&impl.vec[n + i], &impl.vec[i], sizeof(Coefficient)
             * (impl.size - i));
+
+#if defined(__GNUC__) && !defined(__INTEL_COMPILER) \
+  && (((__GNUC__ * 100) + __GNUC_MINOR__) >= 800)
+#pragma GCC diagnostic pop
+#endif
+
     impl.size = i;
     const dimension_type target_size = impl.size + n;
     PPL_ASSERT(target_size == i + n);
