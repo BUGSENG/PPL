@@ -50,6 +50,9 @@ public:
   //! Ordinary copy constructor.
   Status(const Status& y);
 
+  //! Assignment operator.
+  constexpr Status& operator=(const Status& y) = default;
+
   //! Copy constructor from a box of different type.
   template <typename Other_ITV>
   Status(const typename Box<Other_ITV>::Status& y);

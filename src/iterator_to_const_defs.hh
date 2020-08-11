@@ -80,6 +80,9 @@ public:
   //! Copy constructor.
   iterator_to_const(const iterator_to_const& y);
 
+  //! Assignment operator.
+  iterator_to_const& operator=(const iterator_to_const& y);
+
   //! Dereference operator.
   reference operator*() const;
 
@@ -150,6 +153,10 @@ public:
 
   //! Copy constructor.
   const_iterator_to_const(const const_iterator_to_const& y);
+
+  //! Assignment operator.
+  constexpr const_iterator_to_const&
+  operator=(const const_iterator_to_const& y) = default;
 
   //! Constructs from the corresponding non-const iterator.
   const_iterator_to_const(const iterator_to_const<Container>& y);

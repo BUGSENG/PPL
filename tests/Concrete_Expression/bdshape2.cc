@@ -38,7 +38,7 @@ test01() {
     bd1.refine_with_linear_form_inequality(l1,l2);
     std::cout <<"no eccezione" <<std::endl;
   }
-  catch(std::invalid_argument e) {
+  catch(std::invalid_argument& e) {
     ok1 = true;
   }
 
@@ -48,7 +48,7 @@ test01() {
     bd1.refine_with_linear_form_inequality(l2,l1);
     std::cout <<"no eccezione" <<std::endl;
   }
-  catch(std::invalid_argument e){
+  catch(std::invalid_argument& e){
     FP_BD_Shape bd2(1);
     bd2.refine_with_linear_form_inequality(l1, l1);
     bd2.refine_with_linear_form_inequality(-l1, l1);

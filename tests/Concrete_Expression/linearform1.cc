@@ -230,7 +230,7 @@ test08() {
   try {
     f = FP_Linear_Form(A);
   }
-  catch(std::length_error e) {
+  catch(std::length_error& e) {
       nout << "Overflow in Linear_Form(const Variable v)." << endl;
       ok1 = true;
   }
@@ -239,7 +239,7 @@ test08() {
   try {
     f += A;
   }
-  catch(std::length_error e) {
+  catch(std::length_error& e) {
       nout << "Overflow in operator+=(Linear_Form<C>& f, const Variable v)."
            << endl;
       ok2 = true;
@@ -249,7 +249,7 @@ test08() {
   try {
     f -= A;
   }
-  catch(std::length_error e) {
+  catch(std::length_error& e) {
       nout << "Overflow in operator-=(Linear_Form<C>& f, const Variable v)."
            << endl;
       Variable B(1);
@@ -264,7 +264,7 @@ test08() {
   try {
     g = f - A;
   }
-  catch(std::length_error e) {
+  catch(std::length_error& e) {
       nout << "Overflow in operator-(Linear_Form<C>& f, const Variable v)."
            << endl;
       ok4 = true;
@@ -274,7 +274,7 @@ test08() {
   try {
     g = A - f;
   }
-  catch(std::length_error e) {
+  catch(std::length_error& e) {
       nout << "Overflow in operator-(const Variable v, Linear_Form<C>& f)."
            << endl;
       ok5 = true;
@@ -284,7 +284,7 @@ test08() {
   try {
     g = A + f;
   }
-  catch(std::length_error e) {
+  catch(std::length_error& e) {
       nout << "Overflow in operator+(const Variable v, Linear_Form<C>& f)."
            << endl;
       ok6 = true;

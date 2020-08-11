@@ -37,7 +37,7 @@ test01() {
   try {
       oc1.affine_form_image(A, l);
   }
-  catch(std::invalid_argument e) {
+  catch(std::invalid_argument& e) {
     nout << "oc1_space_dim < lf_space_dim" << endl;
     ok1 = true;
   }
@@ -48,7 +48,7 @@ test01() {
   try {
     oc2.affine_form_image(B, l);
   }
-  catch(std::invalid_argument e) {
+  catch(std::invalid_argument& e) {
     nout << "space_dim < var_id + 1" << endl;
     oc2.affine_form_image(A, l);
     Constraint_System cs(A < A);

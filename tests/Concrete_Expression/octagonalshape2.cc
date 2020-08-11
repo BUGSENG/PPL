@@ -37,7 +37,7 @@ test01() {
   try {
       oc1.refine_with_linear_form_inequality(l1, l2);
   }
-  catch(std::invalid_argument e) {
+  catch(std::invalid_argument& e) {
     nout << "space_dim < left_space_dim" << endl;
     ok1 = true;
   }
@@ -46,7 +46,7 @@ test01() {
   try {
     oc1.refine_with_linear_form_inequality(l2, l1);
   }
-  catch(std::invalid_argument e) {
+  catch(std::invalid_argument& e) {
     nout << "space_dim < right_space_dim" << endl;
     FP_Octagonal_Shape oc2(1);
     oc2.refine_with_linear_form_inequality(l1, l1);

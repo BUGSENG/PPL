@@ -38,13 +38,13 @@ test01() {
     FP_Linear_Form l2;
     pol.refine_with_linear_form_inequality(l1, l2);
   }
-  catch (std::invalid_argument) {
+  catch (std::invalid_argument&) {
     try {
       FP_Linear_Form l1;
       FP_Linear_Form l2(Variable(3));
       pol.refine_with_linear_form_inequality(l1, l2);
     }
-    catch (std::invalid_argument) {
+    catch (std::invalid_argument&) {
       nout << "incompatible dimensions." << endl;
       return true;
     }

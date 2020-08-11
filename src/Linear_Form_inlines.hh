@@ -57,6 +57,13 @@ Linear_Form<C>::Linear_Form(const Linear_Form& f)
 }
 
 template <typename C>
+inline Linear_Form<C>&
+Linear_Form<C>::operator=(const Linear_Form& f) {
+  vec = f.vec;
+  return *this;
+}
+
+template <typename C>
 inline
 Linear_Form<C>::~Linear_Form() {
 }

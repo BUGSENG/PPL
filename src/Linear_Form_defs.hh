@@ -266,6 +266,9 @@ public:
   //! Ordinary copy constructor.
   Linear_Form(const Linear_Form& f);
 
+  //! Assignment operator.
+  Linear_Form& operator=(const Linear_Form& f);
+
   //! Destructor.
   ~Linear_Form();
 

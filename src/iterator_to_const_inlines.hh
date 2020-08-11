@@ -40,6 +40,13 @@ iterator_to_const<Container>::iterator_to_const(const iterator_to_const& y)
 }
 
 template <typename Container>
+inline iterator_to_const<Container>&
+iterator_to_const<Container>::operator=(const iterator_to_const& y) {
+  base = y.base;
+  return *this;
+}
+
+template <typename Container>
 inline
 iterator_to_const<Container>::iterator_to_const(const Base& b)
   : base(b) {
