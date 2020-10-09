@@ -32,9 +32,9 @@ export CXX_ALIASES="@CXX@"
 export ECLAIR_PROJECT_NAME="PPL"
 export ECLAIR_PROJECT_ROOT="@abs_top_srcdir@"
 
-export ECLAIR_OUTPUT_DIR="${HERE}/out_${BUILD_ID}_${ANALYSIS}"
+export ECLAIR_OUTPUT_DIR="${HERE}/out"
 export ECLAIR_DATA_DIR="${ECLAIR_OUTPUT_DIR}/.data"
-export PROJECT_ECD="${ECLAIR_DATA_DIR}/PROJECT.ecd"
+export PROJECT_ECD="${ECLAIR_OUTPUT_DIR}/PROJECT.ecd"
 rm -rf "$ECLAIR_OUTPUT_DIR"
 mkdir -p "$ECLAIR_DATA_DIR"
 export ECLAIR_DIAGNOSTICS_OUTPUT="$ECLAIR_OUTPUT_DIR/DIAGNOSTICS.txt"
@@ -58,4 +58,4 @@ fi
 )
 
 eclair_report "-create_db='$PROJECT_ECD'" "$ECLAIR_DATA_DIR"/FRAME.*.ecb \
-              -load -reports1_txt=service,analysis.log
+              -load
