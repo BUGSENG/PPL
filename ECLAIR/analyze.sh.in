@@ -35,9 +35,10 @@ export ECLAIR_PROJECT_ROOT="@abs_top_srcdir@"
 export ECLAIR_OUTPUT_DIR="${HERE}/out"
 export ECLAIR_DATA_DIR="${ECLAIR_OUTPUT_DIR}/.data"
 export PROJECT_ECD="${ECLAIR_OUTPUT_DIR}/PROJECT.ecd"
-rm -rf "$ECLAIR_OUTPUT_DIR"
-mkdir -p "$ECLAIR_DATA_DIR"
-export ECLAIR_DIAGNOSTICS_OUTPUT="$ECLAIR_OUTPUT_DIR/DIAGNOSTICS.txt"
+export JENKINS_XML="${HERE}/jenkins.xml"
+rm -rf "${ECLAIR_OUTPUT_DIR}"
+mkdir -p "${ECLAIR_DATA_DIR}"
+export ECLAIR_DIAGNOSTICS_OUTPUT="${ECLAIR_OUTPUT_DIR}/DIAGNOSTICS.txt"
 
 (
     cd "@abs_top_builddir@"
@@ -57,5 +58,7 @@ fi
                -- make -j${PROCESSORS}
 )
 
-eclair_report "-create_db='$PROJECT_ECD'" "$ECLAIR_DATA_DIR"/FRAME.*.ecb \
+eclair_report "-create_db='${PROJECT_ECD}'" "${ECLAIR_DATA_DIR}"/FRAME.*.ecb \
               -load
+
+eclair_report "-db='${PROJECT_ECD}'" "-reports_jenkins='${JENKINS_XML}'"
