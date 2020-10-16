@@ -246,13 +246,13 @@ else
       echo "*** Could not run PPL test program, checking why..."
       CPPFLAGS="$CPPFLAGS $PPL_CPPFLAGS"
       LDFLAGS="$LDFLAGS $PPL_LDFLAGS"
-      AC_TRY_LINK([
+      AC_LINK_IFELSE([AC_LANG_PROGRAM([[
 #include <ppl_c.h>
-],
-[
+]],
+[[
   return ppl_version_major() || ppl_version_minor()
   || ppl_version_revision() || ppl_version_beta();
-],
+]])],
 [
   echo "*** The test program compiled, but did not run.  This usually means"
   echo "*** that the run-time linker is not finding the PPL or finding the"

@@ -247,14 +247,14 @@ else
       echo "*** Could not run PPL test program, checking why..."
       CPPFLAGS="$CPPFLAGS $PPL_CPPFLAGS"
       LDFLAGS="$LDFLAGS $PPL_LDFLAGS"
-      AC_TRY_LINK([
+      AC_LINK_IFELSE([AC_LANG_PROGRAM([[
 #include <ppl.hh>
 using namespace Parma_Polyhedra_Library;
-],
-[
+]],
+[[
   return version_major() || version_minor()
   || version_revision() || version_beta();
-],
+]])],
 [
   echo "*** The test program compiled, but did not run.  This usually means"
   echo "*** that the run-time linker is not finding the PPL or finding the"
