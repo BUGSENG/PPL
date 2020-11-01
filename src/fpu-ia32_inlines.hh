@@ -24,6 +24,7 @@ site: http://bugseng.com/products/ppl/ . */
 #ifndef PPL_fpu_ia32_inlines_hh
 #define PPL_fpu_ia32_inlines_hh 1
 
+#include "thread_safe.hh"
 #include <csetjmp>
 #include <csignal>
 
