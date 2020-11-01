@@ -155,7 +155,7 @@ public:
   const_iterator_to_const(const const_iterator_to_const& y);
 
   //! Assignment operator.
-  constexpr const_iterator_to_const&
+  const_iterator_to_const&
   operator=(const const_iterator_to_const& y) = default;
 
   //! Constructs from the corresponding non-const iterator.

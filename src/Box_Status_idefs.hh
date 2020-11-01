@@ -51,7 +51,7 @@ public:
   Status(const Status& y);
 
   //! Assignment operator.
-  constexpr Status& operator=(const Status& y) = default;
+  Status& operator=(const Status& y) = default;
 
   //! Copy constructor from a box of different type.
   template <typename Other_ITV>

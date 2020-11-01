@@ -129,7 +129,7 @@ private:
     Pseudo_Row();
 
     //! Copy constructor.
-    constexpr Pseudo_Row(const Pseudo_Row& y) = default;
+    Pseudo_Row(const Pseudo_Row& y) = default;
 
     //! Assignment operator.
     Pseudo_Row& operator=(const Pseudo_Row& y);
