@@ -45,11 +45,21 @@ then
 fi
 if test x$swi_prolog != x
 then
-  swi_prolog_base=`$swi_prolog --dump-runtime-variables | grep PLBASE= | sed 's/PLBASE="\([[a-z]]:\)\{0,1\}\(.*\)";.*/\2/'`
-  swi_prolog_version=`$swi_prolog --dump-runtime-variables | grep PLVERSION= | sed 's/PLVERSION="\(.*\)";.*/\1/'`
-  swi_prolog_arch=`$swi_prolog --dump-runtime-variables | grep PLARCH= | sed 's/PLARCH="\(.*\)";.*/\1/'`
-  swi_prolog_libs=`$swi_prolog --dump-runtime-variables | grep PLLIBS= | sed 's/PLLIBS="\(.*\)";.*/\1/'`
-  swi_prolog_lib=`$swi_prolog --dump-runtime-variables | grep PLLIB= | sed 's/PLLIB="\(.*\)";.*/\1/'`
+  case $host_os in
+  *mingw*)
+    if test "$cross_compiling" = yes
+    then
+      EXEINTERPRETER=wine
+    fi
+    ;;
+  *)
+    ;;
+  esac
+  swi_prolog_base=`$EXEINTERPRETER $swi_prolog --dump-runtime-variables | grep PLBASE= | sed 's/PLBASE="\([[a-z]]:\)\{0,1\}\(.*\)";.*/\2/'`
+  swi_prolog_version=`$EXEINTERPRETER $swi_prolog --dump-runtime-variables | grep PLVERSION= | sed 's/PLVERSION="\(.*\)";.*/\1/'`
+  swi_prolog_arch=`$EXEINTERPRETER $swi_prolog --dump-runtime-variables | grep PLARCH= | sed 's/PLARCH="\(.*\)";.*/\1/'`
+  swi_prolog_libs=`$EXEINTERPRETER $swi_prolog --dump-runtime-variables | grep PLLIBS= | sed 's/PLLIBS="\(.*\)";.*/\1/'`
+  swi_prolog_lib=`$EXEINTERPRETER $swi_prolog --dump-runtime-variables | grep PLLIB= | sed 's/PLLIB="\(.*\)";.*/\1/'`
 
   dnl Additional version checks could be inserted here, if necessary.
 
