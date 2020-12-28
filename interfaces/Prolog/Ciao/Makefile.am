@@ -171,7 +171,7 @@ ciao_prolog_generated_test.pl: $(interface_generator_dependencies)
 	$(M4) --prefix-builtin -I../.. -I$(srcdir)/.. -I$(srcdir)/../.. \
            $(srcdir)/ppl_interface_generator_ciao_prolog_generated_test_pl.m4 > $@
 
-ppl_ciao.po: ppl_ciao.pl
+ppl_ciao.po: .libs/libppl_ciao.so ppl_ciao.pl
 	ciaoc -c ppl_ciao.pl
 
 # All the invocations of `ciaoc' to build `ciao_pl_check', `ciao_clpq',
