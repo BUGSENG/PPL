@@ -37,10 +37,10 @@ m4_include(`../../../../ppl/interfaces/ppl_interface_generator_copyright')
 */
 
 :- module(_, [main/0], []).
-:- use_module(library(debugger)).
-:- use_module(library(dynamic)).
+:- use_package(dynamic).
 :- use_module(library(lists)).
-:- use_module(library(prolog_sys)).
+:- use_module(engine(runtime_control)).
+:- use_module(library(streams)).
 :- use_module(library(read)).
 :- use_module(library(write)).
 :- use_module(ppl_ciao,
