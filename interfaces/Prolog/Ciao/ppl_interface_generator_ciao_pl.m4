@@ -32,28 +32,13 @@ m4_divert`'dnl
 m4_include(`ppl_interface_generator_copyright')dnl
 */
 
-:- export(
-[
-m4_divert(1)
-]).
-
-:- use_package([
-        assertions,
-        basicmodes,
-        regtypes,
-        foreign_interface
-]).
+:- module(_, [
+m4_divert(1)dnl
+], [assertions, basicmodes, regtypes, foreign_interface]).
 
 m4_divert(2)dnl
 :- extra_linker_opts('-L.libs').
 :- use_foreign_library(ppl_ciao).
-
-:- impl_defined(
-[
-m4_divert(3)
-]).
-
-:- comment(version_maintenance,off).
 
 m4_divert`'dnl
 m4_define(`m4_expanded_procedure_schema', `m4_ifelse($4, 0, , `COMMA
@@ -80,10 +65,5 @@ $1`'m4_ifelse(`$2', 0, ,`(m4_term_sequence($2, `term'))') :-
 ')')dnl
 ppl_prolog_sys_code`'dnl
 m4_undivert(2)dnl
-m4_divert`'dnl
-m4_define(`m4_expanded_procedure_schema',
-  `m4_ifelse(check_fail($3), nofail, ,m4_ifelse($4, 0, , `COMMA
-')	`'$1_2/m4_incr($2))')dnl
-m4_patsubst(ppl_prolog_sys_code, COMMA, `,')`'dnl
 dnl
 dnl End of file generation.
