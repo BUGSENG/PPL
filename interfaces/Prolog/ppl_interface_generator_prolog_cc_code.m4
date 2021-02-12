@@ -1936,7 +1936,7 @@ m4_define(`ppl_@CLASS@_map_space_dimensions_code',
     while (Prolog_is_cons(t_pfunc)) {
       Prolog_get_cons(t_pfunc, t_pair, t_pfunc);
       Prolog_atom functor;
-      int arity;
+      size_t arity;
       Prolog_get_compound_name_arity(t_pair, &functor, &arity);
       if (arity != 2 || functor != a_minus)
         return PROLOG_FAILURE;

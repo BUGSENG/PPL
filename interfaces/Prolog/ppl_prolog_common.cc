@@ -937,7 +937,7 @@ build_linear_expression(Prolog_term_ref t, const char* where) {
     return Linear_Expression(integer_term_to_Coefficient(t));
   else if (Prolog_is_compound(t)) {
     Prolog_atom functor;
-    int arity;
+    size_t arity;
     Prolog_get_compound_name_arity(t, &functor, &arity);
     switch (arity) {
     case 1:
@@ -1000,7 +1000,7 @@ Constraint
 build_constraint(Prolog_term_ref t, const char* where) {
   if (Prolog_is_compound(t)) {
     Prolog_atom functor;
-    int arity;
+    size_t arity;
     Prolog_get_compound_name_arity(t, &functor, &arity);
     if (arity == 2) {
       Prolog_term_ref arg1 = Prolog_new_term_ref();
@@ -1073,7 +1073,7 @@ Congruence
 build_congruence(Prolog_term_ref t, const char* where) {
   if (Prolog_is_compound(t)) {
     Prolog_atom functor;
-    int arity;
+    size_t arity;
     Prolog_get_compound_name_arity(t, &functor, &arity);
     if (arity == 2) {
       Prolog_term_ref arg1 = Prolog_new_term_ref();
@@ -1084,7 +1084,7 @@ build_congruence(Prolog_term_ref t, const char* where) {
         // /
         if (Prolog_is_integer(arg2)) {
           Prolog_atom functor1;
-          int arity1;
+          size_t arity1;
           Prolog_get_compound_name_arity(arg1, &functor1, &arity1);
           if (arity1 == 2) {
             if (functor1 == a_is_congruent_to) {
@@ -1137,7 +1137,7 @@ Generator
 build_generator(Prolog_term_ref t, const char* where) {
   if (Prolog_is_compound(t)) {
     Prolog_atom functor;
-    int arity;
+    size_t arity;
     Prolog_get_compound_name_arity(t, &functor, &arity);
     if (arity == 1) {
       Prolog_term_ref arg = Prolog_new_term_ref();
@@ -1174,7 +1174,7 @@ Grid_Generator
 build_grid_generator(Prolog_term_ref t, const char* where) {
   if (Prolog_is_compound(t)) {
     Prolog_atom functor;
-    int arity;
+    size_t arity;
     Prolog_get_compound_name_arity(t, &functor, &arity);
     if (arity == 1) {
       Prolog_term_ref arg = Prolog_new_term_ref();
@@ -1406,7 +1406,7 @@ Variable
 term_to_Variable(Prolog_term_ref t, const char* where) {
   if (Prolog_is_compound(t)) {
     Prolog_atom functor;
-    int arity;
+    size_t arity;
     Prolog_get_compound_name_arity(t, &functor, &arity);
     if (functor == a_dollar_VAR && arity == 1) {
       Prolog_term_ref arg = Prolog_new_term_ref();
@@ -1554,7 +1554,7 @@ term_to_boundary(Prolog_term_ref t_b, Boundary_Kind kind,
     return false;
 
   Prolog_atom functor;
-  int arity;
+  size_t arity;
 
   Prolog_get_compound_name_arity(t_b, &functor, &arity);
   // A boundary term is either of the form c(Limit) or o(Limit).

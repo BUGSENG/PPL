@@ -134,7 +134,7 @@ Prolog_get_atom_name(Prolog_term_ref t, Prolog_atom& name);
 
 PCFLI_DECLSPEC int
 Prolog_get_compound_name_arity(Prolog_term_ref t,
-                               Prolog_atom& name, int& arity);
+                               Prolog_atom& name, size_t* arity);
 
 PCFLI_DECLSPEC int
 Prolog_get_arg(int i, Prolog_term_ref t, Prolog_term_ref a);

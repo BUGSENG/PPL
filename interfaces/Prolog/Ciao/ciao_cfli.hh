@@ -306,7 +306,7 @@ Prolog_get_atom_name(Prolog_term_ref t, Prolog_atom* ap) {
   The behavior is undefined if \p t is not a Prolog compound term.
 */
 inline int
-Prolog_get_compound_name_arity(Prolog_term_ref t, Prolog_atom* ap, int* ip) {
+Prolog_get_compound_name_arity(Prolog_term_ref t, Prolog_atom* ap, size_t* ip) {
   assert(Prolog_is_compound(t));
   *ap = ciao_structure_name(t);
   *ip = ciao_structure_arity(t);
