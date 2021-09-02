@@ -24,10 +24,10 @@
 # Process this file with Autoconf to produce a configure script.
 
 # Every other copy of the package version number gets its value from here.
-AC_INIT([the Parma Polyhedra Library], [1.3pre1], [ppl-devel@cs.unipr.it], [ppl])
+AC_INIT([the Parma Polyhedra Library],[1.3pre1],[ppl-devel@cs.unipr.it],[ppl])
 
 # Minimum Autoconf version required.
-AC_PREREQ(2.61)
+AC_PREREQ([2.69])
 
 # Make sure the sources are there.
 AC_CONFIG_SRCDIR(src/Polyhedron_public.cc)
@@ -69,7 +69,7 @@ AC_SUBST(PPL_VERSION_REVISION)
 AC_SUBST(PPL_VERSION_BETA)
 
 # Generate a configuration header file.
-AC_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADERS([config.h])
 
 ISODATE=`date +%Y-%m-%d`
 AC_SUBST(ISODATE)
