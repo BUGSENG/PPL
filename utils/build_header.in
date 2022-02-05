@@ -44,7 +44,7 @@ sub filter($$$$) {
     my $print_from = 1;
     while (my $line = <$fh>) {
 	my $iname;
-	if (($iname) = ($line =~ '^\s*#include\s+"([^"]+)"\s*\n$')) {
+	if (($iname) = ($line =~ '^\s*#\s*include\s+"([^"]+)"\s*\n$')) {
 	    my $lineno = $.;
 	    my $ifile;
 	    foreach my $idir (@$dirs) {
@@ -60,9 +60,9 @@ sub filter($$$$) {
 		print "/* Automatically generated from PPL source file $file line $.. */\n";
 		$print_from = 0;
 	    }
-	    next if ($line =~ '^\s*#ifndef\s+PPL_[A-Za-z0-9_]+_hh\s*$');
-	    next if ($line =~ '^\s*#define\s+PPL_[A-Za-z0-9_]+_hh(\s+1)?\s*$');
-	    next if ($line =~ '^\s*#endif\s*//\s*!defined\(PPL_[A-Za-z0-9_]+_hh\)\s*$');
+	    next if ($line =~ '^\s*#\s*ifndef\s+PPL_[A-Za-z0-9_]+_hh\s*$');
+	    next if ($line =~ '^\s*#\s*define\s+PPL_[A-Za-z0-9_]+_hh(\s+1)?\s*$');
+	    next if ($line =~ '^\s*#\s*endif\s*//\s*!defined\(PPL_[A-Za-z0-9_]+_hh\)\s*$');
 	    if ($line =~ '/\*') {
 		$comment = 1;
 	    }
