@@ -21,8 +21,8 @@ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
 For the most up-to-date information see the Parma Polyhedra Library
 site: http://bugseng.com/products/ppl/ . */
 
-#ifndef Weight_Profiler_defs_hh
-#define Weight_Profiler_defs_hh 1
+#ifndef PPL_Weight_Profiler_defs_hh
+#define PPL_Weight_Profiler_defs_hh 1
 
 #include <cassert>
 
@@ -154,4 +154,4 @@ public:
 
 }
 
-#endif // Weight_Profiler_defs_hh
+#endif // PPL_Weight_Profiler_defs_hh
