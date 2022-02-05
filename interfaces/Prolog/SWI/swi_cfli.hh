@@ -354,7 +354,7 @@ Prolog_get_compound_name_arity(Prolog_term_ref t, Prolog_atom* ap, size_t* ip) {
   return PL_get_name_arity_sz(t, ap, ip);
 #else
   int i;
-  if bool r = PL_get_name_arity(t, ap, &i);
+  bool r = PL_get_name_arity(t, ap, &i);
   *ip = i;
   return r;
 #endif
