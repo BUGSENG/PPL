@@ -60,9 +60,10 @@ sub filter($$$$) {
 		print "/* Automatically generated from PPL source file $file line $.. */\n";
 		$print_from = 0;
 	    }
-	    next if ($line =~ '^\s*#\s*ifndef\s+PPL_[A-Za-z0-9_]+_hh\s*$');
-	    next if ($line =~ '^\s*#\s*define\s+PPL_[A-Za-z0-9_]+_hh(\s+1)?\s*$');
+	    next if ($line =~ '^\s*#\s*ifndef\s+PPL_[A-Za-z0-9_]+_hh?\s*$');
+	    next if ($line =~ '^\s*#\s*define\s+PPL_[A-Za-z0-9_]+_hh?(\s+1)?\s*$');
 	    next if ($line =~ '^\s*#\s*endif\s*//\s*!defined\(PPL_[A-Za-z0-9_]+_hh\)\s*$');
+	    next if ($line =~ '^\s*#\s*endif\s*/\*\s*!defined\(PPL_[A-Za-z0-9_]+_h\)\s*\*/$');
 	    if ($line =~ '/\*') {
 		$comment = 1;
 	    }
