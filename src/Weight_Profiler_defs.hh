@@ -154,4 +154,4 @@ public:
 
 }
 
-#endif // PPL_Weight_Profiler_defs_hh
+#endif // !defined(PPL_Weight_Profiler_defs_hh)
