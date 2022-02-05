@@ -48,18 +48,19 @@ site: http://bugseng.com/products/ppl/ . */
 #define TRY try
 
 #define CATCH \
-catch (const std::overflow_error& e) { \
-  std::cerr << "arithmetic overflow (" << e.what() << ")" \
-            << std::endl; \
-  exit(1); \
-} \
-catch (const std::exception& e) { \
-  std::cerr << "std::exception caught: " \
+catch (const std::overflow_error& e) {                             \
+  std::cerr << "arithmetic overflow (" << e.what() << ")"          \
+            << std::endl;                                          \
+  exit(1);                                                         \
+}                                                                  \
+catch (const std::exception& e) {                                  \
+  std::cerr << "std::exception caught: "                           \
             << e.what() << " (type == " << typeid(e).name() << ")" \
-            << std::endl; \
-  exit(1); \
+            << std::endl;                                          \
+  exit(1);                                                         \
 }
 
+// *ECLAIR_FORMAT-OFF*
 #define BEGIN_MAIN                                       \
 int                                                      \
 main() try {                                             \
@@ -69,6 +70,7 @@ main() try {                                             \
   (void) overflow;                                       \
   std::list<std::string> failed_tests;                   \
   std::list<std::string> unexpectedly_succeeded_tests;
+// *ECLAIR_FORMAT-ON*
 
 #define END_MAIN                                                        \
   if (!failed_tests.empty()) {                                          \
@@ -198,15 +200,19 @@ catch (const std::exception& e) {                                       \
 #define PPL_CPP_VAL_b(v) PPL_CPP_VAL_false
 #define PPL_CPP_VAL_a(v) PPL_CPP_VAL_b(v)
 
+// *ECLAIR_FORMAT-OFF*
 #define PPL_CPP_IS_NEGx_arg_neg 0)(0
 #define PPL_CPP_IS_NEGx(v) PPL_CPP_VAL_a(PPL_CPP_IS_NEGx_arg_##v)
+// *ECLAIR_FORMAT-ON*
 
 #define PPL_CPP_IS_NEG_p(v) v ## _
 #define PPL_CPP_IS_NEG_(v) PPL_CPP_IS_NEG_p(v)
 #define PPL_CPP_IS_NEG(v) PPL_CPP_IS_NEG_(PPL_CPP_IS_NEGx(v))
 
+// *ECLAIR_FORMAT-OFF*
 #define PPL_CPP_IS_ZEROx_arg_0 0)(0
 #define PPL_CPP_IS_ZEROx(v) PPL_CPP_VAL_a(PPL_CPP_IS_ZEROx_arg_##v)
+// *ECLAIR_FORMAT-ON*
 
 #define PPL_CPP_IS_ZERO_p(v) v ## _
 #define PPL_CPP_IS_ZERO_(v) PPL_CPP_IS_ZERO_p(v)
