@@ -191,8 +191,9 @@ catch (...) { \
     stdiobuf sb(stdout);                                                \
     std::ostream os(&sb);                                               \
     os << *to_const(x);                                                 \
-    if (!os)                                                            \
+    if (!os) {                                                          \
       return PPL_STDIO_ERROR;                                           \
+    }                                                                   \
     return 0;                                                           \
   }                                                                     \
   CATCH_ALL                                                             \
@@ -203,8 +204,9 @@ catch (...) { \
     stdiobuf sb(file);                                                  \
     std::ostream os(&sb);                                               \
     os << *to_const(x);                                                 \
-    if (!os)                                                            \
+    if (!os) {                                                          \
       return PPL_STDIO_ERROR;                                           \
+    }                                                                   \
     return 0;                                                           \
   }                                                                     \
   CATCH_ALL                                                             \
@@ -214,8 +216,9 @@ catch (...) { \
     using namespace IO_Operators;                                       \
     std::ostringstream os;                                              \
     os << *to_const(x);                                                 \
-    if (!os)                                                            \
+    if (!os) {                                                          \
       return PPL_STDIO_ERROR;                                           \
+    }                                                                   \
     *strp = strdup(os.str().c_str());                                   \
     if (*strp == nullptr) {                                             \
       return PPL_ERROR_OUT_OF_MEMORY;                                   \
@@ -230,8 +233,9 @@ catch (...) { \
     stdiobuf sb(file);                                                  \
     std::ostream os(&sb);                                               \
     to_const(x)->ascii_dump(os);                                        \
-    if (!os)                                                            \
+    if (!os) {                                                          \
       return PPL_STDIO_ERROR;                                           \
+    }                                                                   \
     return 0;                                                           \
   }                                                                     \
   CATCH_ALL
@@ -241,8 +245,9 @@ catch (...) { \
   ppl_##Type##_ascii_load(ppl_##Type##_t x, FILE* file) try {           \
     stdiobuf sb(file);                                                  \
     std::istream is(&sb);                                               \
-    if (!to_nonconst(x)->ascii_load(is))                                \
+    if (!to_nonconst(x)->ascii_load(is)) {                              \
       return PPL_STDIO_ERROR;                                           \
+    }                                                                   \
     return 0;                                                           \
   }                                                                     \
   CATCH_ALL
