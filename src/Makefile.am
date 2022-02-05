@@ -582,11 +582,12 @@ endif !BUILD_CXX_INTERFACE
 
 nodist_noinst_HEADERS = ppl_include_files.hh
 
+i="\"$$file\""
+
 ppl_include_files.hh: $(INCLUDE_FILES) Makefile
 	for file in $(INCLUDE_FILES) ; \
 	do \
-	  i="#include \"$$file\"" ; \
-	  ( cd $(top_srcdir)/src ; $(FGREP) -q "$$i" $(INCLUDE_FILES) ) || echo "$$i" ; \
+	  ( cd $(top_srcdir)/src ; $(FGREP) "\"$$file\"" $(INCLUDE_FILES) ) | $(GREP) -q "# *include *\"" || echo "#include \"$$file\"" ; \
 	done > $@
 
 EXTRA_DIST = ppl_header.hh ppl-config.cc.in version.hh.in
