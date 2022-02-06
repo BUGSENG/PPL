@@ -1,5 +1,5 @@
 /* A class providing customized variable output for Java.
-   Copyright (C) 2010-2020 BUGSENG srl (http://bugseng.com)
+   Copyright (C) 2010-2022 BUGSENG srl (http://bugseng.com)
 
 This file is part of the Parma Polyhedra Library (PPL).
 

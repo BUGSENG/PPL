@@ -7,7 +7,7 @@ dnl in ppl_interface instantiations.m4 using the code in
 dnl ppl_interface_generator_ocaml_hh_code.m4.
 
 dnl Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
-dnl Copyright (C) 2010-2020 BUGSENG srl (http://bugseng.com)
+dnl Copyright (C) 2010-2022 BUGSENG srl (http://bugseng.com)
 dnl
 dnl This file is part of the Parma Polyhedra Library (PPL).
 dnl

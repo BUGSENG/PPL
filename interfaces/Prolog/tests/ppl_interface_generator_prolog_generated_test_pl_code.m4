@@ -6,7 +6,7 @@ dnl the generated Prolog interface predicates
 dnl and the main file ppl_prolog_generated_test_main.pl.
 
 dnl Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
-dnl Copyright (C) 2010-2020 BUGSENG srl (http://bugseng.com)
+dnl Copyright (C) 2010-2022 BUGSENG srl (http://bugseng.com)
 dnl
 dnl This file is part of the Parma Polyhedra Library (PPL).
 dnl

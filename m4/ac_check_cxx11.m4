@@ -1,5 +1,5 @@
 dnl A function to check for the existence and usability of GMP.
-dnl Copyright (C) 2010-2020 BUGSENG srl (http://bugseng.com)
+dnl Copyright (C) 2010-2022 BUGSENG srl (http://bugseng.com)
 dnl
 dnl This file is part of the Parma Polyhedra Library (PPL).
 dnl

@@ -2,7 +2,7 @@ dnl A function to test for the existence and usability of particular
 dnl versions of the PPL, defining macros containing the required paths.
 dnl Copyright (C) 1997 Owen Taylor
 dnl Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
-dnl Copyright (C) 2010-2020 BUGSENG srl (http://bugseng.com)
+dnl Copyright (C) 2010-2022 BUGSENG srl (http://bugseng.com)
 dnl
 dnl This file is part of the Parma Polyhedra Library (PPL).
 dnl
