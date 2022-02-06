@@ -43,4 +43,49 @@
 
 -eval_file=common_config.ecl
 
--reports={hide,all_exp_external}
+-doc_begin="These source files are automatically generated."
+-file_tag+={generated,"^ppl-config\\.h$"}
+-file_tag+={generated,"^interfaces/C/ppl_c\\.h$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_BD_Shape_double\\.cc$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_BD_Shape_double\\.hh$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_BD_Shape_mpq_class\\.cc$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_BD_Shape_mpq_class\\.hh$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_BD_Shape_mpz_class\\.cc$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_BD_Shape_mpz_class\\.hh$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_Constraints_Product_C_Polyhedron_Grid\\.cc$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_Constraints_Product_C_Polyhedron_Grid\\.hh$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_Double_Box\\.cc$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_Double_Box\\.hh$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_Grid\\.cc$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_Grid\\.hh$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_Octagonal_Shape_double\\.cc$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_Octagonal_Shape_double\\.hh$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_Octagonal_Shape_mpq_class\\.cc$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_Octagonal_Shape_mpq_class\\.hh$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_Octagonal_Shape_mpz_class\\.cc$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_Octagonal_Shape_mpz_class\\.hh$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_Pointset_Powerset_C_Polyhedron\\.cc$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_Pointset_Powerset_C_Polyhedron\\.hh$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_Pointset_Powerset_NNC_Polyhedron\\.cc$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_Pointset_Powerset_NNC_Polyhedron\\.hh$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_Polyhedron\\.cc$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_Polyhedron\\.hh$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_Rational_Box\\.cc$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_Rational_Box\\.hh$"}
+-file_tag+={generated,"^interfaces/C/ppl_c_implementation_domains\\.hh$"}
+-file_tag+={generated,"^src/BUGS\\.cc$"}
+-file_tag+={generated,"^src/BUGS\\.hh$"}
+-file_tag+={generated,"^src/COPYING\\.cc$"}
+-file_tag+={generated,"^src/COPYING\\.hh$"}
+-file_tag+={generated,"^src/CREDITS\\.cc$"}
+-file_tag+={generated,"^src/CREDITS\\.hh$"}
+-file_tag+={generated,"^src/ppl-config\\.cc$"}
+-file_tag+={generated,"^src/ppl\\.hh$"}
+-file_tag+={generated,"^src/version\\.hh$"}
+-doc_end
+
+-doc="Selection for reports that are fully contained in generated code."
+-report_selector+={generated_report,"all_area(!kind(culprit||evidence)||all_loc(all_exp(generated||pseudo)))"}
+
+-reports={hide,generated_report}
+-reports+={hide,all_exp_external}
