@@ -41,7 +41,7 @@ export ECLAIR_DIAGNOSTICS_OUTPUT="${ECLAIR_OUTPUT_DIR}/DIAGNOSTICS.txt"
 export ECLAIR_PROJECT_NAME="PPL_${ANALYSIS}"
 # All paths mentioned in ECLAIR reports that are below this directory
 # will be presented as relative to ECLAIR_PROJECT_ROOT.
-export ECLAIR_PROJECT_ROOT="${PWD}../../"
+export ECLAIR_PROJECT_ROOT="${PWD}"
 
 # Erase and recreate the output directory and the data directory.
 rm -rf "${ECLAIR_OUTPUT_DIR}"
