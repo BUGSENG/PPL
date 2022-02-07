@@ -2,24 +2,24 @@
    Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
    Copyright (C) 2010-2022 BUGSENG srl (http://bugseng.com)
 
-This file is part of the Parma Polyhedra Library (PPL).
+   This file is part of the Parma Polyhedra Library (PPL).
 
-The PPL is free software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation; either version 3 of the License, or (at your
-option) any later version.
+   The PPL is free software; you can redistribute it and/or modify it
+   under the terms of the GNU General Public License as published by the
+   Free Software Foundation; either version 3 of the License, or (at your
+   option) any later version.
 
-The PPL is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-for more details.
+   The PPL is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+   for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software Foundation,
-Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software Foundation,
+   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
 
-For the most up-to-date information see the Parma Polyhedra Library
-site: http://bugseng.com/products/ppl/ . */
+   For the most up-to-date information see the Parma Polyhedra Library
+   site: http://bugseng.com/products/ppl/ . */
 
 #ifndef PPL_Init_defs_hh
 #define PPL_Init_defs_hh 1
@@ -29,37 +29,39 @@ site: http://bugseng.com/products/ppl/ . */
 #include "thread_safe.hh"
 
 #ifdef PPL_THREAD_SAFE
-#include <atomic>
+#    include <atomic>
 #endif
 
-namespace Parma_Polyhedra_Library {
+namespace Parma_Polyhedra_Library
+{
 
 /*! \brief
-  Sets the FPU rounding mode so that the PPL abstractions based on
-  floating point numbers work correctly.
+   Sets the FPU rounding mode so that the PPL abstractions based on
+   floating point numbers work correctly.
 
-  This is performed automatically at initialization-time.  Calling
-  this function is needed only if restore_pre_PPL_rounding() has been
-  previously called.
-*/
+   This is performed automatically at initialization-time.  Calling
+   this function is needed only if restore_pre_PPL_rounding() has been
+   previously called.
+ */
 void set_rounding_for_PPL();
 
 /*! \brief
-  Sets the FPU rounding mode as it was before initialization of the PPL.
+   Sets the FPU rounding mode as it was before initialization of the PPL.
 
-  This is important if the application uses floating-point computations
-  outside the PPL.  It is crucial when the application uses functions
-  from a mathematical library that are not guaranteed to work correctly
-  under all rounding modes.
+   This is important if the application uses floating-point computations
+   outside the PPL.  It is crucial when the application uses functions
+   from a mathematical library that are not guaranteed to work correctly
+   under all rounding modes.
 
-  After calling this function it is absolutely necessary to call
-  set_rounding_for_PPL() before using any PPL abstractions based on
-  floating point numbers.
-  This is performed automatically at finalization-time.
-*/
+   After calling this function it is absolutely necessary to call
+   set_rounding_for_PPL() before using any PPL abstractions based on
+   floating point numbers.
+   This is performed automatically at finalization-time.
+ */
 void restore_pre_PPL_rounding();
 
-namespace Implementation {
+namespace Implementation
+{
 
 void initialize_aux();
 void finalize_aux();
@@ -73,62 +75,65 @@ void thread_finalize_aux();
 #ifdef PPL_DOXYGEN_INCLUDE_IMPLEMENTATION_DETAILS
 //! Class for library initialization and finalization.
 /*! \ingroup PPL_CXX_interface
-  <EM>Nifty Counter</EM> initialization class,
-  ensuring that the library is initialized only once
-  and before its first use.
-  A count of the number of translation units using the library
-  is maintained. A static object of Init type will be declared
-  by each translation unit using the library.  As a result,
-  only one of them will initialize and properly finalize
-  the library.
-*/
+   <EM>Nifty Counter</EM> initialization class,
+   ensuring that the library is initialized only once
+   and before its first use.
+   A count of the number of translation units using the library
+   is maintained. A static object of Init type will be declared
+   by each translation unit using the library.  As a result,
+   only one of them will initialize and properly finalize
+   the library.
+ */
 #endif // defined(PPL_DOXYGEN_INCLUDE_IMPLEMENTATION_DETAILS)
-class Parma_Polyhedra_Library::Init {
+class Parma_Polyhedra_Library::Init
+{
 public:
-  //! Initializes the PPL.
-  Init();
+//! Initializes the PPL.
+Init ();
 
-  //! Finalizes the PPL.
-  ~Init();
+//! Finalizes the PPL.
+~Init ();
 
 private:
 #ifdef PPL_THREAD_SAFE
-  typedef std::atomic<unsigned int> counter_type;
+typedef std::atomic<unsigned int> counter_type;
 #else
-  typedef unsigned int counter_type;
+typedef unsigned int counter_type;
 #endif
-  //! Count the number of objects created.
-  static counter_type count;
+//! Count the number of objects created.
+static counter_type count;
 }; // class Init
 
 #ifdef PPL_DOXYGEN_INCLUDE_IMPLEMENTATION_DETAILS
 //! Class for thread initialization and finalization.
 /*! \ingroup PPL_CXX_interface */
 #endif // defined(PPL_DOXYGEN_INCLUDE_IMPLEMENTATION_DETAILS)
-class Parma_Polyhedra_Library::Thread_Init {
+class Parma_Polyhedra_Library::Thread_Init
+{
 public:
-  //! Initializes the PPL thread.
-  Thread_Init();
+//! Initializes the PPL thread.
+Thread_Init ();
 
-  //! Finalizes the PPL thread.
-  ~Thread_Init();
+//! Finalizes the PPL thread.
+~Thread_Init ();
 
 private:
-  /*! \brief
-    Default precision parameter used for irrational calculations.
+/*! \brief
+   Default precision parameter used for irrational calculations.
 
-    The default is chosen to have a precision greater than most
-    precise IEC 559 floating point (112 bits of mantissa).
-  */
-  static const unsigned DEFAULT_IRRATIONAL_PRECISION = 128U;
+   The default is chosen to have a precision greater than most
+   precise IEC 559 floating point (112 bits of mantissa).
+ */
+static const unsigned DEFAULT_IRRATIONAL_PRECISION = 128U;
 
-  static PPL_TLS fpu_rounding_direction_type old_rounding_direction;
+static PPL_TLS fpu_rounding_direction_type old_rounding_direction;
 
-  friend void set_rounding_for_PPL();
-  friend void restore_pre_PPL_rounding();
+friend void set_rounding_for_PPL();
+friend void restore_pre_PPL_rounding();
 }; // class Thread_Init
 
 #include "Init_inlines.hh"
 
 
 #endif // !defined(PPL_Init_defs_hh)
+

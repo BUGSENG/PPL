@@ -2,129 +2,154 @@
    Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
    Copyright (C) 2010-2022 BUGSENG srl (http://bugseng.com)
 
-This file is part of the Parma Polyhedra Library (PPL).
+   This file is part of the Parma Polyhedra Library (PPL).
 
-The PPL is free software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation; either version 3 of the License, or (at your
-option) any later version.
+   The PPL is free software; you can redistribute it and/or modify it
+   under the terms of the GNU General Public License as published by the
+   Free Software Foundation; either version 3 of the License, or (at your
+   option) any later version.
 
-The PPL is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-for more details.
+   The PPL is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+   for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software Foundation,
-Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software Foundation,
+   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
 
-For the most up-to-date information see the Parma Polyhedra Library
-site: http://bugseng.com/products/ppl/ . */
+   For the most up-to-date information see the Parma Polyhedra Library
+   site: http://bugseng.com/products/ppl/ . */
 
 #include "ppl_test.hh"
 
-namespace {
+namespace
+{
 
 bool
-test01() {
-  Variable A(0);
-  Variable B(1);
+test01 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  Generator_System gs;
-  gs.insert(point());
-  gs.insert(ray(A));
-  gs.insert(line(B));
-  NNC_Polyhedron ph1(gs);
+    Generator_System gs;
 
-  print_generators(ph1, "*** ph1 ***");
+    gs.insert(point());
+    gs.insert(ray(A));
+    gs.insert(line(B));
 
-  C_Polyhedron ph2(2, EMPTY);
-  ph2.add_generator(point(-A));
+    NNC_Polyhedron ph1(gs);
 
-  print_generators(ph2, "*** ph2 ***");
+    print_generators(ph1, "*** ph1 ***");
 
-  const Generator_System& gs1 = ph1.minimized_generators();
-  for (Generator_System::const_iterator i = gs1.begin(),
+    C_Polyhedron ph2(2, EMPTY);
+
+    ph2.add_generator(point(-A));
+
+    print_generators(ph2, "*** ph2 ***");
+
+    const Generator_System & gs1 = ph1.minimized_generators();
+
+    for (Generator_System::const_iterator i = gs1.begin(),
          gs1_end = gs1.end(); i != gs1_end; ++i)
-    ph2.add_generator(*i);
+    {
+        ph2.add_generator(*i);
+    }
 
-  C_Polyhedron known_result(2);
-  known_result.add_constraint(A >= -1);
+    C_Polyhedron known_result(2);
 
-  bool ok = (ph2 == known_result);
+    known_result.add_constraint(A >= -1);
 
-  print_generators(ph2, "*** after ph2add_generator(*i) ***");
+    bool ok = (ph2 == known_result);
 
-  return ok;
+    print_generators(ph2, "*** after ph2add_generator(*i) ***");
+
+    return ok;
 }
 
 bool
-test02() {
-  Variable A(0);
-  Variable B(1);
+test02 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  Generator_System gs;
-  gs.insert(point(A + B));
-  NNC_Polyhedron ph1(gs);
+    Generator_System gs;
 
-  print_generators(ph1, "*** ph1 ***");
+    gs.insert(point(A + B));
 
-  C_Polyhedron ph2(2, EMPTY);
+    NNC_Polyhedron ph1(gs);
 
-  print_generators(ph2, "*** ph2 ***");
+    print_generators(ph1, "*** ph1 ***");
 
-  const Generator_System& gs1 = ph1.minimized_generators();
-  for (Generator_System::const_iterator i = gs1.begin(),
+    C_Polyhedron ph2(2, EMPTY);
+
+    print_generators(ph2, "*** ph2 ***");
+
+    const Generator_System & gs1 = ph1.minimized_generators();
+
+    for (Generator_System::const_iterator i = gs1.begin(),
          gs1_end = gs1.end(); i != gs1_end; ++i)
-    ph2.add_generator(*i);
+    {
+        ph2.add_generator(*i);
+    }
 
-  C_Polyhedron known_result(2);
-  known_result.add_constraint(A == 1);
-  known_result.add_constraint(B == 1);
+    C_Polyhedron known_result(2);
 
-  bool ok = (ph2 == known_result);
+    known_result.add_constraint(A == 1);
+    known_result.add_constraint(B == 1);
 
-  print_generators(ph2, "*** after ph2.add_generator(*i) ***");
+    bool ok = (ph2 == known_result);
 
-  return ok;
+    print_generators(ph2, "*** after ph2.add_generator(*i) ***");
+
+    return ok;
 }
 
 bool
-test03() {
-  Variable A(0);
-  Variable B(1);
+test03 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  Generator_System gs;
-  gs.insert(closure_point(3*A, 2));
-  gs.insert(point(7*A, 4));
-  gs.insert(ray(A - B));
+    Generator_System gs;
 
-  print_generators(gs, "*** gs ***");
+    gs.insert(closure_point(3 * A, 2));
+    gs.insert(point(7 * A, 4));
+    gs.insert(ray(A - B));
 
-  C_Polyhedron ph(2, EMPTY);
+    print_generators(gs, "*** gs ***");
 
-  for (Generator_System::const_iterator i = gs.begin(),
+    C_Polyhedron ph(2, EMPTY);
+
+    for (Generator_System::const_iterator i = gs.begin(),
          gs_end = gs.end(); i != gs_end; ++i)
-    if (!(*i).is_closure_point())
-      ph.add_generator(*i);
+    {
+        if (!(*i).is_closure_point())
+        {
+            ph.add_generator(*i);
+        }
+    }
 
-  Generator_System gs_known;
-  gs_known.insert(point(7*A + 0*B, 4));
-  gs_known.insert(ray(A - B));
-  C_Polyhedron known_result(gs_known);
+    Generator_System gs_known;
 
-  bool ok = (ph == known_result);
+    gs_known.insert(point(7 * A + 0 * B, 4));
+    gs_known.insert(ray(A - B));
 
-  print_generators(gs, "*** gs ***");
-  print_generators(ph, "*** ph ***");
+    C_Polyhedron known_result(gs_known);
 
-  return ok;
+    bool ok = (ph == known_result);
+
+    print_generators(gs, "*** gs ***");
+    print_generators(ph, "*** ph ***");
+
+    return ok;
 }
 
 } // namespace
 
 BEGIN_MAIN
-  DO_TEST(test01);
-  DO_TEST(test02);
-  DO_TEST(test03);
+    DO_TEST(test01);
+DO_TEST(test02);
+DO_TEST(test03);
 END_MAIN
+

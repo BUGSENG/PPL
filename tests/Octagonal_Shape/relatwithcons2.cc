@@ -2,476 +2,518 @@
    Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
    Copyright (C) 2010-2022 BUGSENG srl (http://bugseng.com)
 
-This file is part of the Parma Polyhedra Library (PPL).
+   This file is part of the Parma Polyhedra Library (PPL).
 
-The PPL is free software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation; either version 3 of the License, or (at your
-option) any later version.
+   The PPL is free software; you can redistribute it and/or modify it
+   under the terms of the GNU General Public License as published by the
+   Free Software Foundation; either version 3 of the License, or (at your
+   option) any later version.
 
-The PPL is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-for more details.
+   The PPL is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+   for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software Foundation,
-Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software Foundation,
+   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
 
-For the most up-to-date information see the Parma Polyhedra Library
-site: http://bugseng.com/products/ppl/ . */
+   For the most up-to-date information see the Parma Polyhedra Library
+   site: http://bugseng.com/products/ppl/ . */
 
 #include "ppl_test.hh"
 
-namespace {
+namespace
+{
 
 bool
-test01() {
-  // The zero-dim universe octagon.
-  TOctagonal_Shape oct(0);
+test01 ()
+{
+    // The zero-dim universe octagon.
+    TOctagonal_Shape oct(0);
 
-  print_constraints(oct, "*** oct ***");
+    print_constraints(oct, "*** oct ***");
 
-  Poly_Con_Relation rel = oct.relation_with(Linear_Expression(0) > 0);
+    Poly_Con_Relation rel = oct.relation_with(Linear_Expression(0) > 0);
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(0 > 0) == " << rel << endl;
+    using namespace IO_Operators;
+    nout << "oct.relation_with(0 > 0) == " << rel << endl;
 
-  Poly_Con_Relation known_result = Poly_Con_Relation::saturates()
-    && Poly_Con_Relation::is_disjoint();
+    Poly_Con_Relation known_result = Poly_Con_Relation::saturates()
+                                     && Poly_Con_Relation::is_disjoint();
 
-  return rel == known_result;
+    return rel == known_result;
 }
 
 bool
-test02() {
-  // The zero-dim universe octagon.
-  TOctagonal_Shape oct(0);
+test02 ()
+{
+    // The zero-dim universe octagon.
+    TOctagonal_Shape oct(0);
 
-  print_constraints(oct, "*** oct ***");
+    print_constraints(oct, "*** oct ***");
 
-  Poly_Con_Relation rel = oct.relation_with(Linear_Expression(0) > 1);
+    Poly_Con_Relation rel = oct.relation_with(Linear_Expression(0) > 1);
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(0 > 1) == " << rel << endl;
+    using namespace IO_Operators;
+    nout << "oct.relation_with(0 > 1) == " << rel << endl;
 
-  Poly_Con_Relation known_result = Poly_Con_Relation::is_disjoint();
+    Poly_Con_Relation known_result = Poly_Con_Relation::is_disjoint();
 
-  return rel == known_result;
+    return rel == known_result;
 }
 
 bool
-test03() {
-  // The zero-dim universe octagon.
-  TOctagonal_Shape oct(0);
+test03 ()
+{
+    // The zero-dim universe octagon.
+    TOctagonal_Shape oct(0);
 
-  print_constraints(oct, "*** oct ***");
+    print_constraints(oct, "*** oct ***");
 
-  Poly_Con_Relation rel = oct.relation_with(Linear_Expression(1) > 0);
+    Poly_Con_Relation rel = oct.relation_with(Linear_Expression(1) > 0);
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(1 > 0) == " << rel << endl;
+    using namespace IO_Operators;
+    nout << "oct.relation_with(1 > 0) == " << rel << endl;
 
-  Poly_Con_Relation known_result = Poly_Con_Relation::is_included();
+    Poly_Con_Relation known_result = Poly_Con_Relation::is_included();
 
-  return rel == known_result;
+    return rel == known_result;
 }
 
 bool
-test04() {
-  Variable A(0);
+test04 ()
+{
+    Variable A(0);
 
-  // An empty octagon.
-  TOctagonal_Shape oct(1, EMPTY);
+    // An empty octagon.
+    TOctagonal_Shape oct(1, EMPTY);
 
-  print_constraints(oct, "*** oct ***");
+    print_constraints(oct, "*** oct ***");
 
-  Poly_Con_Relation rel = oct.relation_with(A > 0);
+    Poly_Con_Relation rel = oct.relation_with(A > 0);
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(A > 0) == " << rel << endl;
+    using namespace IO_Operators;
+    nout << "oct.relation_with(A > 0) == " << rel << endl;
 
-  Poly_Con_Relation known_result = Poly_Con_Relation::saturates()
-    && Poly_Con_Relation::is_included()
-    && Poly_Con_Relation::is_disjoint();
+    Poly_Con_Relation known_result = Poly_Con_Relation::saturates()
+                                     && Poly_Con_Relation::is_included()
+                                     && Poly_Con_Relation::is_disjoint();
 
-  return rel == known_result;
+    return rel == known_result;
 }
 
 bool
-test05() {
-  Variable A(0);
-  Variable B(1);
-  Constraint_System cs(A + B == 3);
-  TOctagonal_Shape oct(cs);
+test05 ()
+{
+    Variable          A(0);
+    Variable          B(1);
+    Constraint_System cs(A + B == 3);
+    TOctagonal_Shape  oct(cs);
 
-  print_constraints(oct, "*** oct ***");
+    print_constraints(oct, "*** oct ***");
 
-  Poly_Con_Relation rel = oct.relation_with(A + B > 3);
+    Poly_Con_Relation rel = oct.relation_with(A + B > 3);
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(A + B > 3) == " << rel << endl;
+    using namespace IO_Operators;
+    nout << "oct.relation_with(A + B > 3) == " << rel << endl;
 
-  Poly_Con_Relation known_result = Poly_Con_Relation::saturates()
-    && Poly_Con_Relation::is_disjoint();
+    Poly_Con_Relation known_result = Poly_Con_Relation::saturates()
+                                     && Poly_Con_Relation::is_disjoint();
 
-  return rel == known_result;
+    return rel == known_result;
 }
 
 bool
-test06() {
-  Variable A(0);
-  Variable B(1);
-  Constraint_System cs(A + B <= 3);
-  TOctagonal_Shape oct(cs);
+test06 ()
+{
+    Variable          A(0);
+    Variable          B(1);
+    Constraint_System cs(A + B <= 3);
+    TOctagonal_Shape  oct(cs);
 
-  print_constraints(oct, "*** oct ***");
+    print_constraints(oct, "*** oct ***");
 
-  Poly_Con_Relation rel = oct.relation_with(A + B > 3);
+    Poly_Con_Relation rel = oct.relation_with(A + B > 3);
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(A + B > 3) == " << rel << endl;
+    using namespace IO_Operators;
+    nout << "oct.relation_with(A + B > 3) == " << rel << endl;
 
-  Poly_Con_Relation known_result = Poly_Con_Relation::is_disjoint();
+    Poly_Con_Relation known_result = Poly_Con_Relation::is_disjoint();
 
-  return rel == known_result;
+    return rel == known_result;
 }
 
 bool
-test07() {
-  Variable A(0);
-  Variable B(1);
+test07 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  Constraint_System cs;
-  cs.insert(A >= 1);
-  cs.insert(B >= 0);
-  cs.insert(A + B <= 3);
-  TOctagonal_Shape oct(cs);
+    Constraint_System cs;
 
-  print_constraints(oct, "*** oct ***");
+    cs.insert(A >= 1);
+    cs.insert(B >= 0);
+    cs.insert(A + B <= 3);
 
-  Poly_Con_Relation rel = oct.relation_with(A + B < 10);
+    TOctagonal_Shape oct(cs);
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(A + B < 10) == " << rel << endl;
+    print_constraints(oct, "*** oct ***");
 
-  Poly_Con_Relation known_result = Poly_Con_Relation::is_included();
+    Poly_Con_Relation rel = oct.relation_with(A + B < 10);
 
-  return rel == known_result;
+    using namespace IO_Operators;
+    nout << "oct.relation_with(A + B < 10) == " << rel << endl;
+
+    Poly_Con_Relation known_result = Poly_Con_Relation::is_included();
+
+    return rel == known_result;
 }
 
 bool
-test08() {
-  Variable A(0);
-  Variable B(1);
+test08 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  Constraint_System cs;
-  cs.insert(A >= 1);
-  cs.insert(B >= 0);
-  cs.insert(A + B <= 3);
-  TOctagonal_Shape oct(cs);
+    Constraint_System cs;
 
-  print_constraints(oct, "*** oct ***");
+    cs.insert(A >= 1);
+    cs.insert(B >= 0);
+    cs.insert(A + B <= 3);
 
-  Poly_Con_Relation rel = oct.relation_with(A + B > 1);
+    TOctagonal_Shape oct(cs);
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(A + B > 1) == " << rel << endl;
+    print_constraints(oct, "*** oct ***");
 
-  Poly_Con_Relation known_result = Poly_Con_Relation::strictly_intersects();
+    Poly_Con_Relation rel = oct.relation_with(A + B > 1);
 
-  return rel == known_result;
+    using namespace IO_Operators;
+    nout << "oct.relation_with(A + B > 1) == " << rel << endl;
+
+    Poly_Con_Relation known_result = Poly_Con_Relation::strictly_intersects();
+
+    return rel == known_result;
 }
 
 bool
-test09() {
-  Variable A(0);
-  Variable B(1);
+test09 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  Constraint_System cs;
-  cs.insert(A >= 1);
-  cs.insert(B >= 0);
-  cs.insert(A + B <= 3);
-  TOctagonal_Shape oct(cs);
+    Constraint_System cs;
 
-  print_constraints(oct, "*** oct ***");
+    cs.insert(A >= 1);
+    cs.insert(B >= 0);
+    cs.insert(A + B <= 3);
 
-  Poly_Con_Relation rel = oct.relation_with(B - A > 1);
+    TOctagonal_Shape oct(cs);
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(B - A > 1) == " << rel << endl;
+    print_constraints(oct, "*** oct ***");
 
-  Poly_Con_Relation known_result = Poly_Con_Relation::is_disjoint();
+    Poly_Con_Relation rel = oct.relation_with(B - A > 1);
 
-  return rel == known_result;
+    using namespace IO_Operators;
+    nout << "oct.relation_with(B - A > 1) == " << rel << endl;
+
+    Poly_Con_Relation known_result = Poly_Con_Relation::is_disjoint();
+
+    return rel == known_result;
 }
 
 bool
-test10() {
-  Variable A(0);
+test10 ()
+{
+    Variable A(0);
 
-  TOctagonal_Shape oct(1);
-  oct.add_constraint(A >= 0);
+    TOctagonal_Shape oct(1);
 
-  print_constraints(oct, "*** oct ***");
+    oct.add_constraint(A >= 0);
 
-  Poly_Con_Relation rel = oct.relation_with(Linear_Expression(1) >= 1);
+    print_constraints(oct, "*** oct ***");
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(1 >= 1) == " << rel << endl;
+    Poly_Con_Relation rel = oct.relation_with(Linear_Expression(1) >= 1);
 
-  Poly_Con_Relation known_result = Poly_Con_Relation::saturates()
-    && Poly_Con_Relation::is_included();
+    using namespace IO_Operators;
+    nout << "oct.relation_with(1 >= 1) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Con_Relation known_result = Poly_Con_Relation::saturates()
+                                     && Poly_Con_Relation::is_included();
+
+    return rel == known_result;
 }
 
 bool
-test11() {
-  Variable A(0);
-  Variable B(1);
+test11 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TOctagonal_Shape oct(2);
-  oct.add_constraint(A == 1);
-  oct.add_constraint(B >= 2);
+    TOctagonal_Shape oct(2);
 
-  print_constraints(oct, "*** oct ***");
+    oct.add_constraint(A == 1);
+    oct.add_constraint(B >= 2);
 
-  Poly_Con_Relation rel = oct.relation_with(Linear_Expression(1) > 1);
+    print_constraints(oct, "*** oct ***");
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(1 > 1) == " << rel << endl;
+    Poly_Con_Relation rel = oct.relation_with(Linear_Expression(1) > 1);
 
-  Poly_Con_Relation known_result = Poly_Con_Relation::saturates()
-    && Poly_Con_Relation::is_disjoint();
+    using namespace IO_Operators;
+    nout << "oct.relation_with(1 > 1) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Con_Relation known_result = Poly_Con_Relation::saturates()
+                                     && Poly_Con_Relation::is_disjoint();
+
+    return rel == known_result;
 }
 
 bool
-test12() {
-  Variable A(0);
-  Variable B(1);
-  Variable C(2);
+test12 ()
+{
+    Variable A(0);
+    Variable B(1);
+    Variable C(2);
 
-  TOctagonal_Shape oct(3);
-  oct.add_constraint(A == 1);
-  oct.add_constraint(B >= 2);
-  oct.add_constraint(C <= 1);
+    TOctagonal_Shape oct(3);
 
-  print_constraints(oct, "*** oct ***");
+    oct.add_constraint(A == 1);
+    oct.add_constraint(B >= 2);
+    oct.add_constraint(C <= 1);
 
-  Poly_Con_Relation rel = oct.relation_with(Linear_Expression(1) == 1);
+    print_constraints(oct, "*** oct ***");
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(1 == 1) == " << rel << endl;
+    Poly_Con_Relation rel = oct.relation_with(Linear_Expression(1) == 1);
 
-  Poly_Con_Relation known_result = Poly_Con_Relation::saturates()
-    && Poly_Con_Relation::is_included();
+    using namespace IO_Operators;
+    nout << "oct.relation_with(1 == 1) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Con_Relation known_result = Poly_Con_Relation::saturates()
+                                     && Poly_Con_Relation::is_included();
+
+    return rel == known_result;
 }
 
 bool
-test13() {
-  Variable A(0);
+test13 ()
+{
+    Variable A(0);
 
-  TOctagonal_Shape oct(1);
-  oct.add_constraint(A >= 0);
+    TOctagonal_Shape oct(1);
 
-  print_constraints(oct, "*** oct ***");
+    oct.add_constraint(A >= 0);
 
-  Poly_Con_Relation rel = oct.relation_with(Linear_Expression(0) >= -1);
+    print_constraints(oct, "*** oct ***");
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(0 >= -1) == " << rel << endl;
+    Poly_Con_Relation rel = oct.relation_with(Linear_Expression(0) >= -1);
 
-  Poly_Con_Relation known_result = Poly_Con_Relation::is_included();
+    using namespace IO_Operators;
+    nout << "oct.relation_with(0 >= -1) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Con_Relation known_result = Poly_Con_Relation::is_included();
+
+    return rel == known_result;
 }
 
 bool
-test14() {
-  Variable A(0);
-  Variable B(1);
-  Variable C(2);
+test14 ()
+{
+    Variable A(0);
+    Variable B(1);
+    Variable C(2);
 
-  TOctagonal_Shape oc(2);
-  oc.add_constraint(A >= 1);
+    TOctagonal_Shape oc(2);
 
-  try {
-    // This is an incorrect use of method
-    // Octagon::relation_with(c):
-    // it is illegal to use a constraint that is not dimension-compatible
-    // with the octagon.
-    Poly_Con_Relation rel = oc.relation_with(-C - B <= 2);
-    (void) rel;
-  }
-  catch (std::invalid_argument& e) {
-    nout << "std::invalid_argument: " << e.what() << endl;
-    return true;
-  }
-  catch (...) {
+    oc.add_constraint(A >= 1);
+
+    try
+    {
+        // This is an incorrect use of method
+        // Octagon::relation_with(c):
+        // it is illegal to use a constraint that is not dimension-compatible
+        // with the octagon.
+        Poly_Con_Relation rel = oc.relation_with(-C - B <= 2);
+
+        (void) rel;
+    }
+    catch (std::invalid_argument & e)
+    {
+        nout << "std::invalid_argument: " << e.what() << endl;
+        return true;
+    }
+    catch (...)
+    {
+        return false;
+    }
     return false;
-  }
-  return false;
 }
 
 bool
-test15() {
-  Variable A(0);
-  Variable B(1);
+test15 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TOctagonal_Shape oct(2);
-  oct.add_constraint(A + B == 3);
-  oct.add_constraint(A <= 4);
-  oct.add_constraint(B >= 2);
+    TOctagonal_Shape oct(2);
 
-  print_constraints(oct, "*** oct ***");
+    oct.add_constraint(A + B == 3);
+    oct.add_constraint(A <= 4);
+    oct.add_constraint(B >= 2);
 
-  Constraint c(A + B == 3);
+    print_constraints(oct, "*** oct ***");
 
-  print_constraint(c, "*** c ***");
+    Constraint c(A + B == 3);
 
-  Poly_Con_Relation rel = oct.relation_with(c);
+    print_constraint(c, "*** c ***");
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(c) == " << rel << endl;
+    Poly_Con_Relation rel = oct.relation_with(c);
 
-  Poly_Con_Relation known_result = Poly_Con_Relation::saturates()
-    && Poly_Con_Relation::is_included();
+    using namespace IO_Operators;
+    nout << "oct.relation_with(c) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Con_Relation known_result = Poly_Con_Relation::saturates()
+                                     && Poly_Con_Relation::is_included();
+
+    return rel == known_result;
 }
 
 bool
-test16() {
-  Variable A(0);
+test16 ()
+{
+    Variable A(0);
 
-  TOctagonal_Shape oct(1);
-  oct.add_constraint(A == -1);
+    TOctagonal_Shape oct(1);
 
-  Poly_Con_Relation rel = oct.relation_with(A == 0);
+    oct.add_constraint(A == -1);
 
-  print_constraints(oct, "*** oct ***");
-  using namespace IO_Operators;
-  nout << "oct.relation_with(A == 0) == " << rel << endl;
+    Poly_Con_Relation rel = oct.relation_with(A == 0);
 
-  Poly_Con_Relation known_result = Poly_Con_Relation::is_disjoint();
+    print_constraints(oct, "*** oct ***");
+    using namespace IO_Operators;
+    nout << "oct.relation_with(A == 0) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Con_Relation known_result = Poly_Con_Relation::is_disjoint();
+
+    return rel == known_result;
 }
 
 bool
-test17() {
-  // A single point does not subsume another (different) point.
-  Variable A(0);
+test17 ()
+{
+    // A single point does not subsume another (different) point.
+    Variable A(0);
 
-  Octagonal_Shape<mpz_class> oc(1);
-  oc.add_constraint(A >= 0);
-  oc.add_constraint(A <= 1);
+    Octagonal_Shape<mpz_class> oc(1);
 
-  Constraint c(2*A == 1);
-  Poly_Con_Relation rel = oc.relation_with(c);
+    oc.add_constraint(A >= 0);
+    oc.add_constraint(A <= 1);
 
-  print_constraints(oc, "--- oc ---");
-  print_constraint(c, "--- c ---");
-  using namespace IO_Operators;
-  nout << "oc.relation_with(c) == " << rel << endl;
+    Constraint        c(2 * A == 1);
+    Poly_Con_Relation rel = oc.relation_with(c);
 
-  Poly_Con_Relation known_result = Poly_Con_Relation::strictly_intersects();
+    print_constraints(oc, "--- oc ---");
+    print_constraint(c, "--- c ---");
+    using namespace IO_Operators;
+    nout << "oc.relation_with(c) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Con_Relation known_result = Poly_Con_Relation::strictly_intersects();
+
+    return rel == known_result;
 }
 
 bool
-test18() {
-  Variable A(0);
+test18 ()
+{
+    Variable A(0);
 
-  TOctagonal_Shape oc(1);
-  oc.add_constraint(A >= 0);
-  oc.add_constraint(A <= 1);
+    TOctagonal_Shape oc(1);
 
-  Constraint c(Linear_Expression(1) == 0);
-  Poly_Con_Relation rel = oc.relation_with(c);
+    oc.add_constraint(A >= 0);
+    oc.add_constraint(A <= 1);
 
-  print_constraints(oc, "--- oc ---");
-  print_constraint(c, "--- c ---");
-  using namespace IO_Operators;
-  nout << "oc.relation_with(1 == 0) == " << rel << endl;
+    Constraint        c(Linear_Expression(1) == 0);
+    Poly_Con_Relation rel = oc.relation_with(c);
 
-  Poly_Con_Relation known_result = Poly_Con_Relation::is_disjoint();
+    print_constraints(oc, "--- oc ---");
+    print_constraint(c, "--- c ---");
+    using namespace IO_Operators;
+    nout << "oc.relation_with(1 == 0) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Con_Relation known_result = Poly_Con_Relation::is_disjoint();
+
+    return rel == known_result;
 }
 
 bool
-test19() {
-  Variable A(0);
+test19 ()
+{
+    Variable A(0);
 
-  TOctagonal_Shape oc(1);
-  oc.add_constraint(A >= 0);
-  oc.add_constraint(A <= 1);
+    TOctagonal_Shape oc(1);
 
-  Congruence cg((A %= 0) / 0);
-  Poly_Con_Relation rel = oc.relation_with(cg);
+    oc.add_constraint(A >= 0);
+    oc.add_constraint(A <= 1);
 
-  print_constraints(oc, "--- oc ---");
-  print_congruence(cg, "--- cg ---");
-  using namespace IO_Operators;
-  nout << "oc.relation_with(A == 0) == " << rel << endl;
+    Congruence        cg((A %= 0) / 0);
+    Poly_Con_Relation rel = oc.relation_with(cg);
 
-  Poly_Con_Relation known_result = Poly_Con_Relation::strictly_intersects();
+    print_constraints(oc, "--- oc ---");
+    print_congruence(cg, "--- cg ---");
+    using namespace IO_Operators;
+    nout << "oc.relation_with(A == 0) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Con_Relation known_result = Poly_Con_Relation::strictly_intersects();
+
+    return rel == known_result;
 }
 
 bool
-test20() {
-  Variable A(0);
-  Variable B(1);
+test20 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TOctagonal_Shape oc(2);
-  oc.add_constraint(A >= 0);
-  oc.add_constraint(A - B <= 1);
+    TOctagonal_Shape oc(2);
 
-  Congruence cg((A + 3*B %= 0) / 1);
-  Poly_Con_Relation rel = oc.relation_with(cg);
+    oc.add_constraint(A >= 0);
+    oc.add_constraint(A - B <= 1);
 
-  print_constraints(oc, "--- oc ---");
-  print_congruence(cg, "--- cg ---");
-  using namespace IO_Operators;
-  nout << "oc.relation_with((A + 3*B %= 0)/1) == " << rel << endl;
+    Congruence        cg((A + 3 * B %= 0) / 1);
+    Poly_Con_Relation rel = oc.relation_with(cg);
 
-  Poly_Con_Relation known_result = Poly_Con_Relation::strictly_intersects();
+    print_constraints(oc, "--- oc ---");
+    print_congruence(cg, "--- cg ---");
+    using namespace IO_Operators;
+    nout << "oc.relation_with((A + 3*B %= 0)/1) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Con_Relation known_result = Poly_Con_Relation::strictly_intersects();
+
+    return rel == known_result;
 }
 
 
 } // namespace
 
 BEGIN_MAIN
-  DO_TEST(test01);
-  DO_TEST(test02);
-  DO_TEST(test03);
-  DO_TEST(test04);
-  DO_TEST(test05);
-  DO_TEST(test06);
-  DO_TEST(test07);
-  DO_TEST(test08);
-  DO_TEST(test09);
-  DO_TEST(test10);
-  DO_TEST(test11);
-  DO_TEST(test12);
-  DO_TEST(test13);
-  DO_TEST(test14);
-  DO_TEST(test15);
-  DO_TEST(test16);
-  DO_TEST(test17);
-  DO_TEST(test18);
-  DO_TEST(test19);
-  DO_TEST(test20);
+    DO_TEST(test01);
+DO_TEST(test02);
+DO_TEST(test03);
+DO_TEST(test04);
+DO_TEST(test05);
+DO_TEST(test06);
+DO_TEST(test07);
+DO_TEST(test08);
+DO_TEST(test09);
+DO_TEST(test10);
+DO_TEST(test11);
+DO_TEST(test12);
+DO_TEST(test13);
+DO_TEST(test14);
+DO_TEST(test15);
+DO_TEST(test16);
+DO_TEST(test17);
+DO_TEST(test18);
+DO_TEST(test19);
+DO_TEST(test20);
 END_MAIN
 

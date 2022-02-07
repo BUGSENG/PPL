@@ -2,268 +2,296 @@
    Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
    Copyright (C) 2010-2022 BUGSENG srl (http://bugseng.com)
 
-This file is part of the Parma Polyhedra Library (PPL).
+   This file is part of the Parma Polyhedra Library (PPL).
 
-The PPL is free software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation; either version 3 of the License, or (at your
-option) any later version.
+   The PPL is free software; you can redistribute it and/or modify it
+   under the terms of the GNU General Public License as published by the
+   Free Software Foundation; either version 3 of the License, or (at your
+   option) any later version.
 
-The PPL is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-for more details.
+   The PPL is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+   for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software Foundation,
-Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software Foundation,
+   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
 
-For the most up-to-date information see the Parma Polyhedra Library
-site: http://bugseng.com/products/ppl/ . */
+   For the most up-to-date information see the Parma Polyhedra Library
+   site: http://bugseng.com/products/ppl/ . */
 
 #include "ppl_test.hh"
 
-namespace {
+namespace
+{
 
 bool
-test01() {
-  Variable A(0);
-  Variable B(1);
+test01 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TBox box(3);
+    TBox box(3);
 
-  print_constraints(box, "*** box ***");
+    print_constraints(box, "*** box ***");
 
-  // This is the set of the variables that we want to fold.
-  Variables_Set to_fold;
-  to_fold.insert(A);
+    // This is the set of the variables that we want to fold.
+    Variables_Set to_fold;
 
-  box.fold_space_dimensions(to_fold, B);
+    to_fold.insert(A);
 
-  TBox known_result(2);
+    box.fold_space_dimensions(to_fold, B);
 
-  bool ok = (box == known_result);
+    TBox known_result(2);
 
-  print_constraints(box, "*** after folding {A} into B ***");
+    bool ok = (box == known_result);
 
-  return ok;
+    print_constraints(box, "*** after folding {A} into B ***");
+
+    return ok;
 }
 
 bool
-test02() {
-  Variable A(0);
-  Variable B(1);
+test02 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TBox box(3, EMPTY);
+    TBox box(3, EMPTY);
 
-  print_constraints(box, "*** box ***");
+    print_constraints(box, "*** box ***");
 
-  // This is the set of the variables that we want to fold.
-  Variables_Set to_fold;
-  to_fold.insert(A);
+    // This is the set of the variables that we want to fold.
+    Variables_Set to_fold;
 
-  box.fold_space_dimensions(to_fold, B);
+    to_fold.insert(A);
 
-  TBox known_result(2, EMPTY);
+    box.fold_space_dimensions(to_fold, B);
 
-  bool ok = (box == known_result);
+    TBox known_result(2, EMPTY);
 
-  print_constraints(box, "*** after folding {A} into B ***");
+    bool ok = (box == known_result);
 
-  return ok;
+    print_constraints(box, "*** after folding {A} into B ***");
+
+    return ok;
 }
 
 bool
-test03() {
-  Variable A(0);
-  Variable B(1);
-  Variable C(2);
+test03 ()
+{
+    Variable A(0);
+    Variable B(1);
+    Variable C(2);
 
-  TBox box(3);
-  box.add_constraint(A >= 0);
+    TBox box(3);
 
-  print_constraints(box, "*** box ***");
+    box.add_constraint(A >= 0);
 
-  // This is the set of the variables that we want to fold.
-  Variables_Set to_fold;
+    print_constraints(box, "*** box ***");
 
-  box.fold_space_dimensions(to_fold, B);
+    // This is the set of the variables that we want to fold.
+    Variables_Set to_fold;
 
-  TBox known_result(3);
-  known_result.add_constraint(A >= 0);
+    box.fold_space_dimensions(to_fold, B);
 
-  bool ok = (box == known_result);
+    TBox known_result(3);
 
-  print_constraints(box, "*** after folding {} into B ***");
+    known_result.add_constraint(A >= 0);
 
-  return ok;
+    bool ok = (box == known_result);
+
+    print_constraints(box, "*** after folding {} into B ***");
+
+    return ok;
 }
 
 bool
-test04() {
-  Variable A(0);
-  Variable B(1);
+test04 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TBox box(2);
-  box.add_constraint(A >= 1);
-  box.add_constraint(A <= 3);
-  box.add_constraint(B >= 7);
-  box.add_constraint(B <= 12);
+    TBox box(2);
 
-  print_constraints(box, "*** box ***");
+    box.add_constraint(A >= 1);
+    box.add_constraint(A <= 3);
+    box.add_constraint(B >= 7);
+    box.add_constraint(B <= 12);
 
-  // This is the set of the variables that we want to fold.
-  Variables_Set to_fold;
-  to_fold.insert(A);
+    print_constraints(box, "*** box ***");
 
-  box.fold_space_dimensions(to_fold, B);
+    // This is the set of the variables that we want to fold.
+    Variables_Set to_fold;
 
-  TBox known_result(1);
-  known_result.add_constraint(A >= 1);
-  known_result.add_constraint(A <= 12);
+    to_fold.insert(A);
 
-  bool ok = (box == known_result);
+    box.fold_space_dimensions(to_fold, B);
 
-  print_constraints(box, "*** after folding {A} into B ***");
+    TBox known_result(1);
 
-  return ok;
+    known_result.add_constraint(A >= 1);
+    known_result.add_constraint(A <= 12);
+
+    bool ok = (box == known_result);
+
+    print_constraints(box, "*** after folding {A} into B ***");
+
+    return ok;
 }
 
 bool
-test05() {
-  Variable A(0);
-  Variable B(1);
-  Variable C(2);
+test05 ()
+{
+    Variable A(0);
+    Variable B(1);
+    Variable C(2);
 
-  TBox box(3);
-  box.add_constraint(A >= 1);
-  box.add_constraint(A <= 3);
-  box.add_constraint(B >= 7);
-  box.add_constraint(B <= 12);
-  box.add_constraint(C == 15);
+    TBox box(3);
 
-  print_constraints(box, "*** box ***");
+    box.add_constraint(A >= 1);
+    box.add_constraint(A <= 3);
+    box.add_constraint(B >= 7);
+    box.add_constraint(B <= 12);
+    box.add_constraint(C == 15);
 
-  // This is the set of the variables that we want to fold.
-  Variables_Set to_fold;
-  to_fold.insert(A);
-  to_fold.insert(B);
+    print_constraints(box, "*** box ***");
 
-  box.fold_space_dimensions(to_fold, C);
+    // This is the set of the variables that we want to fold.
+    Variables_Set to_fold;
 
-  TBox known_result(1);
-  known_result.add_constraint(A >= 1);
-  known_result.add_constraint(A <= 15);
+    to_fold.insert(A);
+    to_fold.insert(B);
 
-  bool ok = (box == known_result);
+    box.fold_space_dimensions(to_fold, C);
 
-  print_constraints(box, "*** after folding {A, B} into C ***");
+    TBox known_result(1);
 
-  return ok;
+    known_result.add_constraint(A >= 1);
+    known_result.add_constraint(A <= 15);
+
+    bool ok = (box == known_result);
+
+    print_constraints(box, "*** after folding {A, B} into C ***");
+
+    return ok;
 }
 
 // Test folding dimensions into a lower dimension.
 bool
-test06() {
-  Variable A(0);
-  Variable B(1);
-  Variable C(2);
-  Variable D(3);
+test06 ()
+{
+    Variable A(0);
+    Variable B(1);
+    Variable C(2);
+    Variable D(3);
 
-  TBox box(4);
-  box.add_constraint(A >= 0);
-  box.add_constraint(C >= 0);
-  box.add_constraint(D >= 0);
+    TBox box(4);
 
-  print_constraints(box, "*** box ***");
+    box.add_constraint(A >= 0);
+    box.add_constraint(C >= 0);
+    box.add_constraint(D >= 0);
 
-  // This is the set of the variables that we want to fold.
-  Variables_Set to_fold;
-  to_fold.insert(C);
-  to_fold.insert(D);
+    print_constraints(box, "*** box ***");
 
-  box.fold_space_dimensions(to_fold, A);
+    // This is the set of the variables that we want to fold.
+    Variables_Set to_fold;
 
-  TBox known_result(2);
-  known_result.add_constraint(A >= 0);
+    to_fold.insert(C);
+    to_fold.insert(D);
 
-  bool ok = (box == known_result);
+    box.fold_space_dimensions(to_fold, A);
 
-  print_constraints(box, "*** after folding {C, D} into A ***");
+    TBox known_result(2);
 
-  return ok;
+    known_result.add_constraint(A >= 0);
+
+    bool ok = (box == known_result);
+
+    print_constraints(box, "*** after folding {C, D} into A ***");
+
+    return ok;
 }
 
 bool
-test07() {
-  Variable A(0);
-  Variable B(1);
-  Variable C(2);
-  Variable D(3);
+test07 ()
+{
+    Variable A(0);
+    Variable B(1);
+    Variable C(2);
+    Variable D(3);
 
-  TBox box(4);
-  box.add_constraint(A >= 0);
-  box.add_constraint(B == 0);
-  box.add_constraint(C >= 0);
-  box.add_constraint(D >= 0);
+    TBox box(4);
 
-  print_constraints(box, "*** box ***");
+    box.add_constraint(A >= 0);
+    box.add_constraint(B == 0);
+    box.add_constraint(C >= 0);
+    box.add_constraint(D >= 0);
 
-  // This is the set of the variables that we want to fold.
-  Variables_Set to_fold;
-  to_fold.insert(B);
-  to_fold.insert(D);
+    print_constraints(box, "*** box ***");
 
-  box.fold_space_dimensions(to_fold, C);
+    // This is the set of the variables that we want to fold.
+    Variables_Set to_fold;
 
-  TBox known_result(2);
-  known_result.add_constraint(A >= 0);
-  known_result.add_constraint(B >= 0);
+    to_fold.insert(B);
+    to_fold.insert(D);
 
-  bool ok = (box == known_result);
+    box.fold_space_dimensions(to_fold, C);
 
-  print_constraints(box, "*** after folding {B, D} into C ***");
+    TBox known_result(2);
 
-  return ok;
+    known_result.add_constraint(A >= 0);
+    known_result.add_constraint(B >= 0);
+
+    bool ok = (box == known_result);
+
+    print_constraints(box, "*** after folding {B, D} into C ***");
+
+    return ok;
 }
 
 bool
-test08() {
-  Variable A(0);
-  Variable B(1);
-  Variable C(2);
+test08 ()
+{
+    Variable A(0);
+    Variable B(1);
+    Variable C(2);
 
-  TBox box(3);
-  box.add_constraint(A >= 0);
-  box.add_constraint(A <= -1);
-  box.add_constraint(C >= 0);
+    TBox box(3);
 
-  print_constraints(box, "*** box ***");
+    box.add_constraint(A >= 0);
+    box.add_constraint(A <= -1);
+    box.add_constraint(C >= 0);
 
-  // This is the set of the variables that we want to fold.
-  Variables_Set to_fold;
-  to_fold.insert(B);
+    print_constraints(box, "*** box ***");
 
-  box.fold_space_dimensions(to_fold, A);
+    // This is the set of the variables that we want to fold.
+    Variables_Set to_fold;
 
-  TBox known_result(2, EMPTY);
+    to_fold.insert(B);
 
-  bool ok = (box == known_result);
+    box.fold_space_dimensions(to_fold, A);
 
-  print_constraints(box, "*** after folding {B, D} into C ***");
+    TBox known_result(2, EMPTY);
 
-  return ok;
+    bool ok = (box == known_result);
+
+    print_constraints(box, "*** after folding {B, D} into C ***");
+
+    return ok;
 }
 
 } // namespace
 
 BEGIN_MAIN
-  DO_TEST(test01);
-  DO_TEST(test02);
-  DO_TEST(test03);
-  DO_TEST(test04);
-  DO_TEST(test05);
-  DO_TEST(test06);
-  DO_TEST(test07);
-  DO_TEST(test08);
+    DO_TEST(test01);
+DO_TEST(test02);
+DO_TEST(test03);
+DO_TEST(test04);
+DO_TEST(test05);
+DO_TEST(test06);
+DO_TEST(test07);
+DO_TEST(test08);
 END_MAIN
+

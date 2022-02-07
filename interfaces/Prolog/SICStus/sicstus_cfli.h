@@ -2,24 +2,24 @@
    Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
    Copyright (C) 2010-2022 BUGSENG srl (http://bugseng.com)
 
-This file is part of the Parma Polyhedra Library (PPL).
+   This file is part of the Parma Polyhedra Library (PPL).
 
-The PPL is free software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation; either version 3 of the License, or (at your
-option) any later version.
+   The PPL is free software; you can redistribute it and/or modify it
+   under the terms of the GNU General Public License as published by the
+   Free Software Foundation; either version 3 of the License, or (at your
+   option) any later version.
 
-The PPL is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-for more details.
+   The PPL is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+   for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software Foundation,
-Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software Foundation,
+   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
 
-For the most up-to-date information see the Parma Polyhedra Library
-site: http://bugseng.com/products/ppl/ . */
+   For the most up-to-date information see the Parma Polyhedra Library
+   site: http://bugseng.com/products/ppl/ . */
 
 #ifndef PCFLI_sicstus_cfli_h
 #define PCFLI_sicstus_cfli_h 1
@@ -27,20 +27,20 @@ site: http://bugseng.com/products/ppl/ . */
 #include <sicstus/sicstus.h>
 
 #ifdef __GNUC__
-# define PCFLI_EXTERN_INLINE extern __inline__
-# define PCFLI_INLINE_PROTOTYPES 1
+#    define PCFLI_EXTERN_INLINE     extern __inline__
+#    define PCFLI_INLINE_PROTOTYPES 1
 #endif
 
 #if defined(__cplusplus) && !defined(PCFLI_EXTERN_INLINE)
-# define PCFLI_EXTERN_INLINE inline
+#    define PCFLI_EXTERN_INLINE inline
 #endif
 
 #ifdef PCFLI_EXTERN_INLINE
-# ifndef PCFLI_INLINE_PROTOTYPES
-#  define PCFLI_INLINE_PROTOTYPES 0
-# endif
+#    ifndef PCFLI_INLINE_PROTOTYPES
+#        define PCFLI_INLINE_PROTOTYPES 0
+#    endif
 #else
-# define PCFLI_INLINE_PROTOTYPES 1
+#    define PCFLI_INLINE_PROTOTYPES 1
 #endif
 
 /* Temporary. */
@@ -69,16 +69,16 @@ PCFLI_DECLSPEC int
 Prolog_put_long(Prolog_term_ref t, long i);
 
 PCFLI_DECLSPEC int
-Prolog_put_atom_chars(Prolog_term_ref t, const char* s);
+Prolog_put_atom_chars(Prolog_term_ref t, const char * s);
 
 PCFLI_DECLSPEC int
 Prolog_put_atom(Prolog_term_ref t, Prolog_atom a);
 
 PCFLI_DECLSPEC int
-Prolog_put_address(Prolog_term_ref t, void* p);
+Prolog_put_address(Prolog_term_ref t, void * p);
 
 Prolog_atom
-Prolog_atom_from_string(const char* s);
+Prolog_atom_from_string(const char * s);
 
 PCFLI_DECLSPEC int
 Prolog_construct_compound(Prolog_term_ref t, Prolog_atom f,
@@ -124,17 +124,17 @@ PCFLI_DECLSPEC int
 Prolog_is_cons(Prolog_term_ref t);
 
 PCFLI_DECLSPEC int
-Prolog_get_long(Prolog_term_ref t, long& v);
+Prolog_get_long(Prolog_term_ref t, long & v);
 
 PCFLI_DECLSPEC int
-Prolog_get_address(Prolog_term_ref t, void*& p);
+Prolog_get_address(Prolog_term_ref t, void * & p);
 
 PCFLI_DECLSPEC int
-Prolog_get_atom_name(Prolog_term_ref t, Prolog_atom& name);
+Prolog_get_atom_name(Prolog_term_ref t, Prolog_atom & name);
 
 PCFLI_DECLSPEC int
 Prolog_get_compound_name_arity(Prolog_term_ref t,
-                               Prolog_atom& name, size_t* arity);
+                               Prolog_atom & name, size_t * arity);
 
 PCFLI_DECLSPEC int
 Prolog_get_arg(int i, Prolog_term_ref t, Prolog_term_ref a);
@@ -154,3 +154,4 @@ Prolog_unify(Prolog_term_ref t, Prolog_term_ref u);
 #endif
 
 #endif // !defined(PCFLI_sicstus_cfli_h)
+

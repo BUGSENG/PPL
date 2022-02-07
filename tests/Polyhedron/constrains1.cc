@@ -2,236 +2,256 @@
    Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
    Copyright (C) 2010-2022 BUGSENG srl (http://bugseng.com)
 
-This file is part of the Parma Polyhedra Library (PPL).
+   This file is part of the Parma Polyhedra Library (PPL).
 
-The PPL is free software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation; either version 3 of the License, or (at your
-option) any later version.
+   The PPL is free software; you can redistribute it and/or modify it
+   under the terms of the GNU General Public License as published by the
+   Free Software Foundation; either version 3 of the License, or (at your
+   option) any later version.
 
-The PPL is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-for more details.
+   The PPL is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+   for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software Foundation,
-Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software Foundation,
+   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
 
-For the most up-to-date information see the Parma Polyhedra Library
-site: http://bugseng.com/products/ppl/ . */
+   For the most up-to-date information see the Parma Polyhedra Library
+   site: http://bugseng.com/products/ppl/ . */
 
 #include "ppl_test.hh"
 
-#define TEST_PREDICATE_TRUE(pred)               \
-  do {                                          \
-    if (!pred) {                                \
-      nout << "!" #pred << endl;                \
-      ok = false;                               \
-    }                                           \
-  } while (false)
+#define TEST_PREDICATE_TRUE(pred)      \
+    do {                               \
+        if (!pred) {                   \
+            nout << "!" #pred << endl; \
+            ok = false;                \
+        }                              \
+    } while (false)
 
-#define TEST_PREDICATE_FALSE(pred)              \
-  do {                                          \
-    if (pred) {                                 \
-      nout << #pred << endl;                    \
-      ok = false;                               \
-    }                                           \
-  } while (false)
+#define TEST_PREDICATE_FALSE(pred) \
+    do {                           \
+        if (pred) {                \
+            nout << #pred << endl; \
+            ok = false;            \
+        }                          \
+    } while (false)
 
-namespace {
+namespace
+{
 
 bool
-test01() {
-  Variable A(0);
-  Variable B(1);
+test01 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  C_Polyhedron ph(2);
-  ph.add_constraint(0*A == 0);
+    C_Polyhedron ph(2);
 
-  bool ok = true;
+    ph.add_constraint(0 * A == 0);
 
-  TEST_PREDICATE_FALSE(ph.constrains(A));
-  TEST_PREDICATE_FALSE(ph.constrains(B));
+    bool ok = true;
 
-  ph.add_constraint(0*A == 1);
+    TEST_PREDICATE_FALSE(ph.constrains(A));
+    TEST_PREDICATE_FALSE(ph.constrains(B));
 
-  TEST_PREDICATE_TRUE(ph.constrains(A));
-  TEST_PREDICATE_TRUE(ph.constrains(B));
+    ph.add_constraint(0 * A == 1);
 
-  ph.add_generator(point());
-  ph.add_generator(line(A+B));
+    TEST_PREDICATE_TRUE(ph.constrains(A));
+    TEST_PREDICATE_TRUE(ph.constrains(B));
 
-  TEST_PREDICATE_TRUE(ph.constrains(A));
-  TEST_PREDICATE_TRUE(ph.constrains(B));
+    ph.add_generator(point());
+    ph.add_generator(line(A + B));
 
-  ph.add_generator(line(A-B));
+    TEST_PREDICATE_TRUE(ph.constrains(A));
+    TEST_PREDICATE_TRUE(ph.constrains(B));
 
-  TEST_PREDICATE_FALSE(ph.constrains(A));
-  TEST_PREDICATE_FALSE(ph.constrains(B));
+    ph.add_generator(line(A - B));
 
-  ph.add_constraint(A >= 1);
+    TEST_PREDICATE_FALSE(ph.constrains(A));
+    TEST_PREDICATE_FALSE(ph.constrains(B));
 
-  TEST_PREDICATE_TRUE(ph.constrains(A));
-  TEST_PREDICATE_FALSE(ph.constrains(B));
+    ph.add_constraint(A >= 1);
 
-  ph.add_constraint(B >= 2);
+    TEST_PREDICATE_TRUE(ph.constrains(A));
+    TEST_PREDICATE_FALSE(ph.constrains(B));
 
-  TEST_PREDICATE_TRUE(ph.constrains(A));
-  TEST_PREDICATE_TRUE(ph.constrains(B));
+    ph.add_constraint(B >= 2);
 
-  ph.add_constraint(A <= B);
+    TEST_PREDICATE_TRUE(ph.constrains(A));
+    TEST_PREDICATE_TRUE(ph.constrains(B));
 
-  TEST_PREDICATE_TRUE(ph.constrains(A));
-  TEST_PREDICATE_TRUE(ph.constrains(B));
+    ph.add_constraint(A <= B);
 
-  return ok;
+    TEST_PREDICATE_TRUE(ph.constrains(A));
+    TEST_PREDICATE_TRUE(ph.constrains(B));
+
+    return ok;
 }
 
 bool
-test02() {
-  Variable A(0);
-  Variable B(1);
-  Variable C(2);
+test02 ()
+{
+    Variable A(0);
+    Variable B(1);
+    Variable C(2);
 
-  C_Polyhedron ph(3, EMPTY);
+    C_Polyhedron ph(3, EMPTY);
 
-  bool ok = true;
+    bool ok = true;
 
-  TEST_PREDICATE_TRUE(ph.constrains(A));
-  TEST_PREDICATE_TRUE(ph.constrains(B));
-  TEST_PREDICATE_TRUE(ph.constrains(C));
+    TEST_PREDICATE_TRUE(ph.constrains(A));
+    TEST_PREDICATE_TRUE(ph.constrains(B));
+    TEST_PREDICATE_TRUE(ph.constrains(C));
 
-  return ok;
+    return ok;
 }
 
 bool
-test03() {
-  Variable A(0);
+test03 ()
+{
+    Variable A(0);
 
-  C_Polyhedron ph(0);
-  ph.add_constraint(Linear_Expression::zero() == 1);
+    C_Polyhedron ph(0);
 
-  try {
-    (void) ph.constrains(A);
-  }
-  catch (std::invalid_argument& e) {
-    return true;
-  }
-  catch (...) {
+    ph.add_constraint(Linear_Expression::zero() == 1);
+
+    try
+    {
+        (void) ph.constrains(A);
+    }
+    catch (std::invalid_argument & e)
+    {
+        return true;
+    }
+    catch (...)
+    {
+        return false;
+    }
+
     return false;
-  }
-
-  return false;
 }
 
 bool
-test04() {
-  Variable A(0);
-  Variable B(1);
+test04 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  C_Polyhedron ph(2);
-  ph.add_constraint(B >= 0);
-  ph.generators();
-  ph.add_constraint(B >= 7);
+    C_Polyhedron ph(2);
 
-  bool ok = true;
+    ph.add_constraint(B >= 0);
+    ph.generators();
+    ph.add_constraint(B >= 7);
 
-  TEST_PREDICATE_FALSE(ph.constrains(A));
-  TEST_PREDICATE_TRUE(ph.constrains(B));
+    bool ok = true;
 
-  return ok;
+    TEST_PREDICATE_FALSE(ph.constrains(A));
+    TEST_PREDICATE_TRUE(ph.constrains(B));
+
+    return ok;
 }
 
 bool
-test05() {
-  Variable A(0);
-  Variable B(1);
+test05 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  C_Polyhedron ph(2, EMPTY);
-  ph.add_generator(point());
-  ph.constraints();
-  ph.add_generator(ray(A));
-  ph.add_generator(ray(-A));
+    C_Polyhedron ph(2, EMPTY);
 
-  bool ok = true;
+    ph.add_generator(point());
+    ph.constraints();
+    ph.add_generator(ray(A));
+    ph.add_generator(ray(-A));
 
-  TEST_PREDICATE_FALSE(ph.constrains(A));
-  TEST_PREDICATE_TRUE(ph.constrains(B));
+    bool ok = true;
 
-  return ok;
+    TEST_PREDICATE_FALSE(ph.constrains(A));
+    TEST_PREDICATE_TRUE(ph.constrains(B));
+
+    return ok;
 }
 
 bool
-test06() {
-  Variable A(0);
-  Variable B(1);
+test06 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  C_Polyhedron ph(2);
-  ph.add_constraint(A >= 0);
+    C_Polyhedron ph(2);
 
-  bool ok = true;
+    ph.add_constraint(A >= 0);
 
-  TEST_PREDICATE_TRUE(ph.constrains(A));
-  TEST_PREDICATE_FALSE(ph.constrains(B));
+    bool ok = true;
 
-  ph.add_constraint(B >= A);
+    TEST_PREDICATE_TRUE(ph.constrains(A));
+    TEST_PREDICATE_FALSE(ph.constrains(B));
 
-  TEST_PREDICATE_TRUE(ph.constrains(A));
-  TEST_PREDICATE_TRUE(ph.constrains(B));
+    ph.add_constraint(B >= A);
 
-  return ok;
+    TEST_PREDICATE_TRUE(ph.constrains(A));
+    TEST_PREDICATE_TRUE(ph.constrains(B));
+
+    return ok;
 }
 
 bool
-test07() {
-  Variable A(0);
-  Variable B(1);
-  Variable C(2);
+test07 ()
+{
+    Variable A(0);
+    Variable B(1);
+    Variable C(2);
 
-  C_Polyhedron ph(3);
-  ph.add_constraint(A >= B+1);
-  ph.add_constraint(A <= B);
+    C_Polyhedron ph(3);
 
-  bool ok = true;
+    ph.add_constraint(A >= B + 1);
+    ph.add_constraint(A <= B);
 
-  TEST_PREDICATE_TRUE(ph.constrains(C));
-  TEST_PREDICATE_TRUE(ph.constrains(B));
-  TEST_PREDICATE_TRUE(ph.constrains(A));
+    bool ok = true;
 
-  return ok;
+    TEST_PREDICATE_TRUE(ph.constrains(C));
+    TEST_PREDICATE_TRUE(ph.constrains(B));
+    TEST_PREDICATE_TRUE(ph.constrains(A));
+
+    return ok;
 }
 
 bool
-test08() {
-  Variable A(0);
-  Variable B(1);
-  Variable C(2);
+test08 ()
+{
+    Variable A(0);
+    Variable B(1);
+    Variable C(2);
 
-  C_Polyhedron ph(3);
-  ph.add_constraint(A >= B);
-  ph.add_generator(point());
-  ph.generators();
-  ph.add_constraint(A <= B-1);
+    C_Polyhedron ph(3);
 
-  bool ok = true;
+    ph.add_constraint(A >= B);
+    ph.add_generator(point());
+    ph.generators();
+    ph.add_constraint(A <= B - 1);
 
-  TEST_PREDICATE_TRUE(ph.constrains(C));
-  TEST_PREDICATE_TRUE(ph.constrains(B));
-  TEST_PREDICATE_TRUE(ph.constrains(A));
+    bool ok = true;
 
-  return ok;
+    TEST_PREDICATE_TRUE(ph.constrains(C));
+    TEST_PREDICATE_TRUE(ph.constrains(B));
+    TEST_PREDICATE_TRUE(ph.constrains(A));
+
+    return ok;
 }
 
 } // namespace
 
 BEGIN_MAIN
-  DO_TEST(test01);
-  DO_TEST(test02);
-  DO_TEST(test03);
-  DO_TEST(test04);
-  DO_TEST(test05);
-  DO_TEST(test06);
-  DO_TEST(test07);
-  DO_TEST(test08);
+    DO_TEST(test01);
+DO_TEST(test02);
+DO_TEST(test03);
+DO_TEST(test04);
+DO_TEST(test05);
+DO_TEST(test06);
+DO_TEST(test07);
+DO_TEST(test08);
 END_MAIN
+

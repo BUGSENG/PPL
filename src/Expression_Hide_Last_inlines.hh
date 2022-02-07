@@ -2,295 +2,364 @@
    Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
    Copyright (C) 2010-2022 BUGSENG srl (http://bugseng.com)
 
-This file is part of the Parma Polyhedra Library (PPL).
+   This file is part of the Parma Polyhedra Library (PPL).
 
-The PPL is free software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation; either version 3 of the License, or (at your
-option) any later version.
+   The PPL is free software; you can redistribute it and/or modify it
+   under the terms of the GNU General Public License as published by the
+   Free Software Foundation; either version 3 of the License, or (at your
+   option) any later version.
 
-The PPL is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-for more details.
+   The PPL is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+   for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software Foundation,
-Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software Foundation,
+   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
 
-For the most up-to-date information see the Parma Polyhedra Library
-site: http://bugseng.com/products/ppl/ . */
+   For the most up-to-date information see the Parma Polyhedra Library
+   site: http://bugseng.com/products/ppl/ . */
 
 #ifndef PPL_Expression_Hide_Last_inlines_hh
 #define PPL_Expression_Hide_Last_inlines_hh 1
 
 #include "Variables_Set_defs.hh"
 
-namespace Parma_Polyhedra_Library {
+namespace Parma_Polyhedra_Library
+{
 
 template <typename T>
 inline
-Expression_Hide_Last<T>::Expression_Hide_Last(const raw_type& expr,
-                                              const bool hide_last)
-  : base_type(expr), hide_last_(hide_last) {
+Expression_Hide_Last<T>::Expression_Hide_Last (const raw_type & expr,
+                                               const bool       hide_last)
+    : base_type(expr), hide_last_(hide_last)
+{
 }
 
 template <typename T>
 inline dimension_type
-Expression_Hide_Last<T>::space_dimension() const {
-  dimension_type dim = this->inner().space_dimension();
-  if (hide_last_) {
-    PPL_ASSERT(dim > 0);
-    --dim;
-  }
-  return dim;
+Expression_Hide_Last<T>::space_dimension () const
+{
+    dimension_type dim = this->inner().space_dimension();
+
+    if (hide_last_)
+    {
+        PPL_ASSERT(dim > 0);
+        --dim;
+    }
+
+    return dim;
 }
 
 template <typename T>
 inline typename Expression_Hide_Last<T>::const_iterator
-Expression_Hide_Last<T>::end() const {
-  if (hide_last_) {
-    return this->inner().lower_bound(Variable(space_dimension()));
-  }
-  else {
-    return this->inner().end();
-  }
+Expression_Hide_Last<T>::end () const
+{
+    if (hide_last_)
+    {
+        return this->inner().lower_bound(Variable(space_dimension()));
+    }
+    else
+    {
+        return this->inner().end();
+    }
 }
 
 template <typename T>
 inline typename Expression_Hide_Last<T>::const_iterator
-Expression_Hide_Last<T>::lower_bound(const Variable v) const {
-  PPL_ASSERT(v.space_dimension() <= space_dimension() + 1);
-  return this->inner().lower_bound(v);
+Expression_Hide_Last<T>::lower_bound (const Variable v) const
+{
+    PPL_ASSERT(v.space_dimension() <= space_dimension() + 1);
+    return this->inner().lower_bound(v);
 }
 
 template <typename T>
 inline Coefficient_traits::const_reference
-Expression_Hide_Last<T>::coefficient(const Variable v) const {
-  PPL_ASSERT(v.space_dimension() <= space_dimension());
-  return this->inner().coefficient(v);
+Expression_Hide_Last<T>::coefficient (const Variable v) const
+{
+    PPL_ASSERT(v.space_dimension() <= space_dimension());
+    return this->inner().coefficient(v);
 }
 
 template <typename T>
 inline bool
-Expression_Hide_Last<T>::is_zero() const {
-  return this->inner().all_zeroes(0, space_dimension() + 1);
+Expression_Hide_Last<T>::is_zero () const
+{
+    return this->inner().all_zeroes(0, space_dimension() + 1);
 }
 
 template <typename T>
 inline bool
-Expression_Hide_Last<T>::all_homogeneous_terms_are_zero() const {
-  return this->inner().all_zeroes(1, space_dimension() + 1);
+Expression_Hide_Last<T>::all_homogeneous_terms_are_zero () const
+{
+    return this->inner().all_zeroes(1, space_dimension() + 1);
 }
 
 template <typename T>
 template <typename Expression>
 inline bool
 Expression_Hide_Last<T>
-::is_equal_to(const Expression& y) const {
-  const dimension_type x_dim = space_dimension();
-  const dimension_type y_dim = y.space_dimension();
-  if (x_dim != y_dim) {
-    return false;
-  }
-  return is_equal_to(y, 0, x_dim + 1);
+::is_equal_to (const Expression & y) const
+{
+    const dimension_type x_dim = space_dimension();
+    const dimension_type y_dim = y.space_dimension();
+
+    if (x_dim != y_dim)
+    {
+        return false;
+    }
+
+    return is_equal_to(y, 0, x_dim + 1);
 }
 
 template <typename T>
 inline bool
-Expression_Hide_Last<T>::all_zeroes(const Variables_Set& vars) const {
-  PPL_ASSERT(vars.space_dimension() <= space_dimension());
-  return this->inner().all_zeroes(vars);
+Expression_Hide_Last<T>::all_zeroes (const Variables_Set & vars) const
+{
+    PPL_ASSERT(vars.space_dimension() <= space_dimension());
+    return this->inner().all_zeroes(vars);
 }
 
 template <typename T>
 inline Coefficient_traits::const_reference
-Expression_Hide_Last<T>::get(dimension_type i) const {
-  PPL_ASSERT(i <= space_dimension());
-  return this->inner().get(i);
+Expression_Hide_Last<T>::get (dimension_type i) const
+{
+    PPL_ASSERT(i <= space_dimension());
+    return this->inner().get(i);
 }
 
 template <typename T>
 inline Coefficient_traits::const_reference
-Expression_Hide_Last<T>::get(const Variable v) const {
-  PPL_ASSERT(v.space_dimension() <= space_dimension());
-  return this->inner().get(v);
+Expression_Hide_Last<T>::get (const Variable v) const
+{
+    PPL_ASSERT(v.space_dimension() <= space_dimension());
+    return this->inner().get(v);
 }
 
 template <typename T>
 inline bool
-Expression_Hide_Last<T>::all_zeroes(const dimension_type start,
-                                    const dimension_type end) const {
-  PPL_ASSERT(end <= space_dimension() + 1);
-  return this->inner().all_zeroes(start, end);
+Expression_Hide_Last<T>::all_zeroes (const dimension_type start,
+                                     const dimension_type end) const
+{
+    PPL_ASSERT(end <= space_dimension() + 1);
+    return this->inner().all_zeroes(start, end);
 }
 
 template <typename T>
 inline dimension_type
-Expression_Hide_Last<T>::num_zeroes(const dimension_type start,
-                                    const dimension_type end) const {
-  PPL_ASSERT(end <= space_dimension() + 1);
-  return this->inner().num_zeroes(start, end);
+Expression_Hide_Last<T>::num_zeroes (const dimension_type start,
+                                     const dimension_type end) const
+{
+    PPL_ASSERT(end <= space_dimension() + 1);
+    return this->inner().num_zeroes(start, end);
 }
 
 template <typename T>
 inline Coefficient
-Expression_Hide_Last<T>::gcd(const dimension_type start,
-                             const dimension_type end) const {
-  PPL_ASSERT(end <= space_dimension() + 1);
-  return this->inner().gcd(start, end);
+Expression_Hide_Last<T>::gcd (const dimension_type start,
+                              const dimension_type end) const
+{
+    PPL_ASSERT(end <= space_dimension() + 1);
+    return this->inner().gcd(start, end);
 }
 
 template <typename T>
 inline dimension_type
-Expression_Hide_Last<T>::last_nonzero() const {
-  return this->inner().last_nonzero(0, space_dimension() + 1);
+Expression_Hide_Last<T>::last_nonzero () const
+{
+    return this->inner().last_nonzero(0, space_dimension() + 1);
 }
 
 template <typename T>
 inline dimension_type
-Expression_Hide_Last<T>::last_nonzero(const dimension_type first,
-                                      const dimension_type last) const {
-  PPL_ASSERT(last <= space_dimension() + 1);
-  return this->inner().last_nonzero(first, last);
+Expression_Hide_Last<T>::last_nonzero (const dimension_type first,
+                                       const dimension_type last) const
+{
+    PPL_ASSERT(last <= space_dimension() + 1);
+    return this->inner().last_nonzero(first, last);
 }
 
 template <typename T>
 inline dimension_type
-Expression_Hide_Last<T>::first_nonzero(const dimension_type first,
-                                       const dimension_type last) const {
-  PPL_ASSERT(last <= space_dimension() + 1);
-  return this->inner().first_nonzero(first, last);
+Expression_Hide_Last<T>::first_nonzero (const dimension_type first,
+                                        const dimension_type last) const
+{
+    PPL_ASSERT(last <= space_dimension() + 1);
+    return this->inner().first_nonzero(first, last);
 }
 
 template <typename T>
 inline bool
 Expression_Hide_Last<T>
-::all_zeroes_except(const Variables_Set& vars,
-                    const dimension_type start,
-                    const dimension_type end) const {
-  PPL_ASSERT(end <= space_dimension() + 1);
-  return this->inner().all_zeroes_except(vars, start, end);
+::all_zeroes_except (const Variables_Set & vars,
+                     const dimension_type  start,
+                     const dimension_type  end) const
+{
+    PPL_ASSERT(end <= space_dimension() + 1);
+    return this->inner().all_zeroes_except(vars, start, end);
 }
 
 template <typename T>
 inline void
 Expression_Hide_Last<T>
-::has_a_free_dimension_helper(std::set<dimension_type>& x) const {
-  if (x.empty()) {
-    return;
-  }
-  PPL_ASSERT(*(--x.end()) <= space_dimension());
-  this->inner().has_a_free_dimension_helper(x);
+::has_a_free_dimension_helper (std::set<dimension_type> & x) const
+{
+    if (x.empty())
+    {
+        return;
+    }
+
+    PPL_ASSERT(*(--x.end()) <= space_dimension());
+    this->inner().has_a_free_dimension_helper(x);
 }
 
 template <typename T>
 template <typename Expression>
 inline bool
 Expression_Hide_Last<T>
-::is_equal_to(const Expression& y,
-              dimension_type start, dimension_type end) const {
-  PPL_ASSERT(end <= space_dimension() + 1);
-  PPL_ASSERT(end <= y.space_dimension() + 1);
-  return this->inner().is_equal_to(y, start, end);
+::is_equal_to (const Expression & y,
+               dimension_type start, dimension_type end) const
+{
+    PPL_ASSERT(end <= space_dimension() + 1);
+    PPL_ASSERT(end <= y.space_dimension() + 1);
+    return this->inner().is_equal_to(y, start, end);
 }
 
 template <typename T>
 template <typename Expression>
 inline bool
 Expression_Hide_Last<T>
-::is_equal_to(const Expression& y,
-              Coefficient_traits::const_reference c1,
-              Coefficient_traits::const_reference c2,
-              dimension_type start, dimension_type end) const {
-  PPL_ASSERT(end <= space_dimension() + 1);
-  PPL_ASSERT(end <= y.space_dimension() + 1);
-  return this->inner().is_equal_to(y, c1, c2, start, end);
+::is_equal_to (const Expression & y,
+               Coefficient_traits::const_reference c1,
+               Coefficient_traits::const_reference c2,
+               dimension_type start, dimension_type end) const
+{
+    PPL_ASSERT(end <= space_dimension() + 1);
+    PPL_ASSERT(end <= y.space_dimension() + 1);
+    return this->inner().is_equal_to(y, c1, c2, start, end);
 }
 
 template <typename T>
 inline void
-Expression_Hide_Last<T>::get_row(Dense_Row& r) const {
-  this->inner().get_row(r);
-  if (hide_last_) {
-    PPL_ASSERT(r.size() != 0);
-    r.resize(r.size() - 1);
-  }
+Expression_Hide_Last<T>::get_row (Dense_Row & r) const
+{
+    this->inner().get_row(r);
+
+    if (hide_last_)
+    {
+        PPL_ASSERT(r.size() != 0);
+        r.resize(r.size() - 1);
+    }
 }
 
 template <typename T>
 inline void
-Expression_Hide_Last<T>::get_row(Sparse_Row& r) const {
-  this->inner().get_row(r);
-  if (hide_last_) {
-    PPL_ASSERT(r.size() != 0);
-    r.resize(r.size() - 1);
-  }
+Expression_Hide_Last<T>::get_row (Sparse_Row & r) const
+{
+    this->inner().get_row(r);
+
+    if (hide_last_)
+    {
+        PPL_ASSERT(r.size() != 0);
+        r.resize(r.size() - 1);
+    }
 }
 
 template <typename T>
 template <typename Expression>
 inline bool
 Expression_Hide_Last<T>
-::have_a_common_variable(const Expression& y,
-                         Variable first, Variable last) const {
-  PPL_ASSERT(last.space_dimension() <= space_dimension() + 1);
-  PPL_ASSERT(last.space_dimension() <= y.space_dimension() + 1);
-  return this->inner().have_a_common_variable(y, first, last);
+::have_a_common_variable (const Expression & y,
+                          Variable first, Variable last) const
+{
+    PPL_ASSERT(last.space_dimension() <= space_dimension() + 1);
+    PPL_ASSERT(last.space_dimension() <= y.space_dimension() + 1);
+    return this->inner().have_a_common_variable(y, first, last);
 }
 
 template <typename T>
 inline int
-compare(const Expression_Hide_Last<T>& x, const Expression_Hide_Last<T>& y) {
-  typedef typename Expression_Hide_Last<T>::const_iterator CIter;
-  CIter i = x.begin();
-  CIter i_end = x.end();
-  CIter j = y.begin();
-  CIter j_end = y.end();
-  while (i != i_end && j != j_end) {
-    if (i.index() < j.index()) {
-      const int s = sgn(*i);
-      if (s != 0) {
-        return 2*s;
-      }
-      ++i;
-      continue;
+compare (const Expression_Hide_Last<T> & x, const Expression_Hide_Last<T> & y)
+{
+    typedef typename Expression_Hide_Last<T>::const_iterator CIter;
+
+    CIter i     = x.begin();
+    CIter i_end = x.end();
+    CIter j     = y.begin();
+    CIter j_end = y.end();
+
+    while (i != i_end && j != j_end)
+    {
+        if (i.index() < j.index())
+        {
+            const int s = sgn(*i);
+
+            if (s != 0)
+            {
+                return 2 * s;
+            }
+
+            ++i;
+            continue;
+        }
+
+        if (i.index() > j.index())
+        {
+            const int s = sgn(*j);
+
+            if (s != 0)
+            {
+                return -2 * s;
+            }
+
+            ++j;
+            continue;
+        }
+
+        PPL_ASSERT(i.index() == j.index());
+
+        const int s = cmp(*i, *j);
+
+        if (s < 0)
+        {
+            return -2;
+        }
+
+        if (s > 0)
+        {
+            return 2;
+        }
+
+        PPL_ASSERT(s == 0);
+        ++i;
+        ++j;
     }
-    if (i.index() > j.index()) {
-      const int s = sgn(*j);
-      if (s != 0) {
-        return -2*s;
-      }
-      ++j;
-      continue;
+
+    for ( ; i != i_end; ++i)
+    {
+        const int s = sgn(*i);
+
+        if (s != 0)
+        {
+            return 2 * s;
+        }
     }
-    PPL_ASSERT(i.index() == j.index());
-    const int s = cmp(*i, *j);
-    if (s < 0) {
-      return -2;
+
+    for ( ; j != j_end; ++j)
+    {
+        const int s = sgn(*j);
+
+        if (s != 0)
+        {
+            return -2 * s;
+        }
     }
-    if (s > 0) {
-      return 2;
-    }
-    PPL_ASSERT(s == 0);
-    ++i;
-    ++j;
-  }
-  for ( ; i != i_end; ++i) {
-    const int s = sgn(*i);
-    if (s != 0) {
-      return 2*s;
-    }
-  }
-  for ( ; j != j_end; ++j) {
-    const int s = sgn(*j);
-    if (s != 0) {
-      return -2*s;
-    }
-  }
-  return 0;
+
+    return 0;
 }
 
 } // namespace Parma_Polyhedra_Library
 
 #endif // !defined(PPL_Expression_Hide_Last_inlines_hh)
+

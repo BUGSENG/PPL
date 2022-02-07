@@ -2,349 +2,393 @@
    Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
    Copyright (C) 2010-2022 BUGSENG srl (http://bugseng.com)
 
-This file is part of the Parma Polyhedra Library (PPL).
+   This file is part of the Parma Polyhedra Library (PPL).
 
-The PPL is free software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation; either version 3 of the License, or (at your
-option) any later version.
+   The PPL is free software; you can redistribute it and/or modify it
+   under the terms of the GNU General Public License as published by the
+   Free Software Foundation; either version 3 of the License, or (at your
+   option) any later version.
 
-The PPL is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-for more details.
+   The PPL is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+   for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software Foundation,
-Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software Foundation,
+   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
 
-For the most up-to-date information see the Parma Polyhedra Library
-site: http://bugseng.com/products/ppl/ . */
+   For the most up-to-date information see the Parma Polyhedra Library
+   site: http://bugseng.com/products/ppl/ . */
 
 #include "ppl_test.hh"
 
-namespace {
+namespace
+{
 
 // Testing remove_space_dimensions
 
 // Simple grid.
 bool
-test01() {
-  Variable A(0);
-  Variable B(1);
+test01 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  Grid gr(2);
-  gr.add_constraint(A - B == 0);
-  gr.add_congruence(A %= 0);
-  print_congruences(gr, "*** gr ***");
+    Grid gr(2);
 
-  Variables_Set vars;
-  vars.insert(B);
+    gr.add_constraint(A - B == 0);
+    gr.add_congruence(A %= 0);
+    print_congruences(gr, "*** gr ***");
 
-  gr.remove_space_dimensions(vars);
+    Variables_Set vars;
 
-  Grid known_gr(1);
-  known_gr.add_congruence(A %= 0);
+    vars.insert(B);
 
-  bool ok = (gr == known_gr);
+    gr.remove_space_dimensions(vars);
 
-  print_congruences(gr, "*** gr.remove_space_dimensions(vars) ***");
+    Grid known_gr(1);
 
-  return ok;
+    known_gr.add_congruence(A %= 0);
+
+    bool ok = (gr == known_gr);
+
+    print_congruences(gr, "*** gr.remove_space_dimensions(vars) ***");
+
+    return ok;
 }
 
 // Empty grid.
 bool
-test02() {
-  Variable B(1);
+test02 ()
+{
+    Variable B(1);
 
-  Grid gr(4, EMPTY);
-  print_congruences(gr, "*** gr ***");
+    Grid gr(4, EMPTY);
 
-  Variables_Set vars;
-  vars.insert(B);
+    print_congruences(gr, "*** gr ***");
 
-  gr.remove_space_dimensions(vars);
+    Variables_Set vars;
 
-  Grid known_gr(3, EMPTY);
+    vars.insert(B);
 
-  bool ok = (gr == known_gr);
+    gr.remove_space_dimensions(vars);
 
-  print_congruences(gr, "*** gr.remove_space_dimensions(vars) ***");
+    Grid known_gr(3, EMPTY);
 
-  return ok;
+    bool ok = (gr == known_gr);
+
+    print_congruences(gr, "*** gr.remove_space_dimensions(vars) ***");
+
+    return ok;
 }
 
 // Universe grid.
 bool
-test03() {
-  Variable C(2);
-  Variable D(3);
+test03 ()
+{
+    Variable C(2);
+    Variable D(3);
 
-  Grid gr(7, UNIVERSE);
+    Grid gr(7, UNIVERSE);
 
-  Variables_Set vars;
-  vars.insert(C);
-  vars.insert(D);
+    Variables_Set vars;
 
-  gr.remove_space_dimensions(vars);
+    vars.insert(C);
+    vars.insert(D);
 
-  Grid known_gr(5, UNIVERSE);
+    gr.remove_space_dimensions(vars);
 
-  bool ok = (gr == known_gr);
+    Grid known_gr(5, UNIVERSE);
 
-  print_congruences(gr, "*** gr.remove_space_dimensions(vars) ***");
+    bool ok = (gr == known_gr);
 
-  return ok;
+    print_congruences(gr, "*** gr.remove_space_dimensions(vars) ***");
+
+    return ok;
 }
 
 // From generators.
 bool
-test04() {
-  Variable A(0);
-  Variable B(1);
+test04 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  Grid_Generator_System ggs;
-  ggs.insert(grid_point(0*A));
-  ggs.insert(grid_point(2*A));
-  ggs.insert(grid_point(3*B));
+    Grid_Generator_System ggs;
 
-  Grid gr(ggs);
-  print_generators(gr, "*** gr ***");
+    ggs.insert(grid_point(0 * A));
+    ggs.insert(grid_point(2 * A));
+    ggs.insert(grid_point(3 * B));
 
-  Variables_Set vars;
-  vars.insert(B);
+    Grid gr(ggs);
 
-  gr.remove_space_dimensions(vars);
+    print_generators(gr, "*** gr ***");
 
-  Congruence_System known_cgs;
-  known_cgs.insert((A %= 0) / 2);
+    Variables_Set vars;
 
-  Grid known_gr(known_cgs);
+    vars.insert(B);
 
-  bool ok = (gr == known_gr);
+    gr.remove_space_dimensions(vars);
 
-  print_congruences(gr, "*** gr.remove_space_dimensions(vars) ***");
+    Congruence_System known_cgs;
 
-  return ok;
+    known_cgs.insert((A %= 0) / 2);
+
+    Grid known_gr(known_cgs);
+
+    bool ok = (gr == known_gr);
+
+    print_congruences(gr, "*** gr.remove_space_dimensions(vars) ***");
+
+    return ok;
 }
 
 // From congruences.
 bool
-test05() {
-  Variable A(0);
-  Variable B(1);
-  Variable C(2);
-  Variable D(3);
-  Variable E(4);
+test05 ()
+{
+    Variable A(0);
+    Variable B(1);
+    Variable C(2);
+    Variable D(3);
+    Variable E(4);
 
-  Variables_Set vars;
-  vars.insert(B);
-  vars.insert(D);
+    Variables_Set vars;
 
-  Congruence_System cgs;
-  cgs.insert((A + 2*C %= 0) / 3);
-  cgs.insert((B - E %= 0) / 2);
+    vars.insert(B);
+    vars.insert(D);
 
-  Grid gr(cgs);
-  print_congruences(gr, "*** gr ***");
+    Congruence_System cgs;
 
-  gr.remove_space_dimensions(vars);
+    cgs.insert((A + 2 * C %= 0) / 3);
+    cgs.insert((B - E %= 0) / 2);
 
-  Grid_Generator_System known_ggs;
-  known_ggs.insert(grid_point());
-  known_ggs.insert(grid_line(2*A - B));
-  known_ggs.insert(grid_point(3*B, 2));
-  known_ggs.insert(grid_line(C));
+    Grid gr(cgs);
 
-  Grid known_gr(known_ggs);
+    print_congruences(gr, "*** gr ***");
 
-  bool ok = (gr == known_gr);
+    gr.remove_space_dimensions(vars);
 
-  print_congruences(gr, "*** gr.remove_space_dimensions(vars) ***");
+    Grid_Generator_System known_ggs;
 
-  return ok;
+    known_ggs.insert(grid_point());
+    known_ggs.insert(grid_line(2 * A - B));
+    known_ggs.insert(grid_point(3 * B, 2));
+    known_ggs.insert(grid_line(C));
+
+    Grid known_gr(known_ggs);
+
+    bool ok = (gr == known_gr);
+
+    print_congruences(gr, "*** gr.remove_space_dimensions(vars) ***");
+
+    return ok;
 }
 
 // Variable set includes first dimension.
 bool
-test06() {
-  Variable A(0);
-  Variable B(1);
-  Variable C(2);
+test06 ()
+{
+    Variable A(0);
+    Variable B(1);
+    Variable C(2);
 
-  Grid gr(3);
-  gr.add_constraint(A - B == 0);
-  gr.add_congruence(A %= 0);
-  print_congruences(gr, "*** gr ***");
+    Grid gr(3);
 
-  Variables_Set vars;
-  vars.insert(A);
-  vars.insert(C);
+    gr.add_constraint(A - B == 0);
+    gr.add_congruence(A %= 0);
+    print_congruences(gr, "*** gr ***");
 
-  gr.remove_space_dimensions(vars);
+    Variables_Set vars;
 
-  Grid known_gr(1);
-  known_gr.add_congruence(A %= 0);
+    vars.insert(A);
+    vars.insert(C);
 
-  bool ok = (gr == known_gr);
+    gr.remove_space_dimensions(vars);
 
-  print_congruences(gr, "*** gr.remove_space_dimensions(vars) ***");
+    Grid known_gr(1);
 
-  return ok;
+    known_gr.add_congruence(A %= 0);
+
+    bool ok = (gr == known_gr);
+
+    print_congruences(gr, "*** gr.remove_space_dimensions(vars) ***");
+
+    return ok;
 }
 
 // The resulting grid contains a parameter that is all zeros.
 bool
-test07() {
-  Variable A(0);
-  Variable B(1);
-  Variable C(2);
+test07 ()
+{
+    Variable A(0);
+    Variable B(1);
+    Variable C(2);
 
-  Grid gr(3, EMPTY);
-  gr.add_grid_generator(grid_point());
-  gr.add_grid_generator(grid_point(A));
-  gr.add_grid_generator(grid_point(B));
-  gr.add_grid_generator(grid_line(C));
-  print_generators(gr, "*** gr ***");
+    Grid gr(3, EMPTY);
 
-  Variables_Set vars;
-  vars.insert(B);
+    gr.add_grid_generator(grid_point());
+    gr.add_grid_generator(grid_point(A));
+    gr.add_grid_generator(grid_point(B));
+    gr.add_grid_generator(grid_line(C));
+    print_generators(gr, "*** gr ***");
 
-  gr.remove_space_dimensions(vars);
+    Variables_Set vars;
 
-  Grid known_gr(2);
-  known_gr.add_congruence(A %= 0);
+    vars.insert(B);
 
-  bool ok = (gr == known_gr);
+    gr.remove_space_dimensions(vars);
 
-  print_congruences(gr, "*** gr.remove_space_dimensions(vars) ***");
+    Grid known_gr(2);
 
-  return ok;
+    known_gr.add_congruence(A %= 0);
+
+    bool ok = (gr == known_gr);
+
+    print_congruences(gr, "*** gr.remove_space_dimensions(vars) ***");
+
+    return ok;
 }
 
 // The resulting grid contains a line that is all zeros.
 bool
-test08() {
-  Variable A(0);
-  Variable B(1);
-  Variable C(2);
+test08 ()
+{
+    Variable A(0);
+    Variable B(1);
+    Variable C(2);
 
-  Grid gr(3, EMPTY);
-  gr.add_grid_generator(grid_point());
-  gr.add_grid_generator(grid_point(A));
-  gr.add_grid_generator(parameter(B));
-  gr.add_grid_generator(grid_line(C));
-  print_generators(gr, "*** gr ***");
+    Grid gr(3, EMPTY);
 
-  Variables_Set vars;
-  vars.insert(C);
+    gr.add_grid_generator(grid_point());
+    gr.add_grid_generator(grid_point(A));
+    gr.add_grid_generator(parameter(B));
+    gr.add_grid_generator(grid_line(C));
+    print_generators(gr, "*** gr ***");
 
-  gr.remove_space_dimensions(vars);
+    Variables_Set vars;
 
-  Grid known_gr(2);
-  known_gr.add_congruence(A %= 0);
-  known_gr.add_congruence(B %= 0);
+    vars.insert(C);
 
-  bool ok = (gr == known_gr);
+    gr.remove_space_dimensions(vars);
 
-  print_congruences(gr, "*** gr.remove_space_dimensions(vars) ***");
+    Grid known_gr(2);
 
-  return ok;
+    known_gr.add_congruence(A %= 0);
+    known_gr.add_congruence(B %= 0);
+
+    bool ok = (gr == known_gr);
+
+    print_congruences(gr, "*** gr.remove_space_dimensions(vars) ***");
+
+    return ok;
 }
 
 // Empty variable set.
 bool
-test09() {
-  Variable A(0);
-  Variable B(1);
-  Variable C(2);
+test09 ()
+{
+    Variable A(0);
+    Variable B(1);
+    Variable C(2);
 
-  Grid gr(3, EMPTY);
-  gr.add_grid_generator(grid_point());
-  gr.add_grid_generator(grid_point(A));
-  gr.add_grid_generator(grid_point(B));
-  gr.add_grid_generator(grid_line(C));
-  print_generators(gr, "*** gr ***");
+    Grid gr(3, EMPTY);
 
-  Variables_Set vars;
+    gr.add_grid_generator(grid_point());
+    gr.add_grid_generator(grid_point(A));
+    gr.add_grid_generator(grid_point(B));
+    gr.add_grid_generator(grid_line(C));
+    print_generators(gr, "*** gr ***");
 
-  Grid known_gr = gr;
+    Variables_Set vars;
 
-  gr.remove_space_dimensions(vars);
+    Grid known_gr = gr;
 
-  bool ok = (gr == known_gr);
+    gr.remove_space_dimensions(vars);
 
-  print_congruences(gr, "*** gr.remove_space_dimensions(vars) ***");
+    bool ok = (gr == known_gr);
 
-  return ok;
+    print_congruences(gr, "*** gr.remove_space_dimensions(vars) ***");
+
+    return ok;
 }
 
 // Zero dimension universe resulting grid.
 bool
-test10() {
-  Variable A(0);
-  Variable B(1);
-  Variable C(2);
+test10 ()
+{
+    Variable A(0);
+    Variable B(1);
+    Variable C(2);
 
-  Grid gr(3, EMPTY);
-  gr.add_grid_generator(grid_point());
-  gr.add_grid_generator(grid_point(A));
-  gr.add_grid_generator(grid_point(B));
-  gr.add_grid_generator(grid_line(C));
-  print_generators(gr, "*** gr ***");
+    Grid gr(3, EMPTY);
 
-  Variables_Set vars;
-  vars.insert(A);
-  vars.insert(B);
-  vars.insert(C);
+    gr.add_grid_generator(grid_point());
+    gr.add_grid_generator(grid_point(A));
+    gr.add_grid_generator(grid_point(B));
+    gr.add_grid_generator(grid_line(C));
+    print_generators(gr, "*** gr ***");
 
-  gr.remove_space_dimensions(vars);
+    Variables_Set vars;
 
-  Grid known_gr(0);
+    vars.insert(A);
+    vars.insert(B);
+    vars.insert(C);
 
-  bool ok = (gr == known_gr);
+    gr.remove_space_dimensions(vars);
 
-  print_congruences(gr, "*** gr.remove_space_dimensions(vars) ***");
+    Grid known_gr(0);
 
-  return ok;
+    bool ok = (gr == known_gr);
+
+    print_congruences(gr, "*** gr.remove_space_dimensions(vars) ***");
+
+    return ok;
 }
 
 // Space dimension exception.
 bool
-test11() {
-  Variable B(1);
+test11 ()
+{
+    Variable B(1);
 
-  Grid gr(1, EMPTY);
-  print_congruences(gr, "*** gr ***");
+    Grid gr(1, EMPTY);
 
-  Variables_Set vars;
-  vars.insert(B);
+    print_congruences(gr, "*** gr ***");
 
-  try {
-    gr.remove_space_dimensions(vars);
-  }
-  catch (const std::invalid_argument& e) {
-    nout << "invalid_argument: " << e.what() << endl;
-    return true;
-  }
-  catch (...) {
-  }
-  return false;
+    Variables_Set vars;
+
+    vars.insert(B);
+
+    try
+    {
+        gr.remove_space_dimensions(vars);
+    }
+    catch (const std::invalid_argument & e)
+    {
+        nout << "invalid_argument: " << e.what() << endl;
+        return true;
+    }
+    catch (...)
+    {
+    }
+    return false;
 }
 
 } // namespace
 
 BEGIN_MAIN
-  DO_TEST(test01);
-  DO_TEST(test02);
-  DO_TEST(test03);
-  DO_TEST(test04);
-  DO_TEST(test05);
-  DO_TEST(test06);
-  DO_TEST(test07);
-  DO_TEST(test08);
-  DO_TEST(test09);
-  DO_TEST(test10);
-  DO_TEST(test11);
+    DO_TEST(test01);
+DO_TEST(test02);
+DO_TEST(test03);
+DO_TEST(test04);
+DO_TEST(test05);
+DO_TEST(test06);
+DO_TEST(test07);
+DO_TEST(test08);
+DO_TEST(test09);
+DO_TEST(test10);
+DO_TEST(test11);
 END_MAIN
+

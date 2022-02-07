@@ -3,495 +3,542 @@
    Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
    Copyright (C) 2010-2022 BUGSENG srl (http://bugseng.com)
 
-This file is part of the Parma Polyhedra Library (PPL).
+   This file is part of the Parma Polyhedra Library (PPL).
 
-The PPL is free software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation; either version 3 of the License, or (at your
-option) any later version.
+   The PPL is free software; you can redistribute it and/or modify it
+   under the terms of the GNU General Public License as published by the
+   Free Software Foundation; either version 3 of the License, or (at your
+   option) any later version.
 
-The PPL is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-for more details.
+   The PPL is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+   for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software Foundation,
-Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software Foundation,
+   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
 
-For the most up-to-date information see the Parma Polyhedra Library
-site: http://bugseng.com/products/ppl/ . */
+   For the most up-to-date information see the Parma Polyhedra Library
+   site: http://bugseng.com/products/ppl/ . */
 
 #include "ppl_test.hh"
 
-namespace {
+namespace
+{
 
 bool
-test01() {
-  Variable x(0);
+test01 ()
+{
+    Variable x(0);
 
-  TOctagonal_Shape oct(2, EMPTY);
+    TOctagonal_Shape oct(2, EMPTY);
 
-  print_constraints(oct, "*** oct ***");
+    print_constraints(oct, "*** oct ***");
 
-  Generator g = point(x);
+    Generator g = point(x);
 
-  print_generator(g, "*** g ***");
+    print_generator(g, "*** g ***");
 
-  Poly_Gen_Relation rel = oct.relation_with(g);
+    Poly_Gen_Relation rel = oct.relation_with(g);
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(v(A)) == " << rel << endl;
+    using namespace IO_Operators;
+    nout << "oct.relation_with(v(A)) == " << rel << endl;
 
-  Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+    Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
 
-  return rel == known_result;
+    return rel == known_result;
 }
 
 bool
-test02() {
-  TOctagonal_Shape oct;
-  print_constraints(oct, "*** oct ***");
+test02 ()
+{
+    TOctagonal_Shape oct;
 
-  Generator g = point();
+    print_constraints(oct, "*** oct ***");
 
-  print_generator(g, "*** g ***");
+    Generator g = point();
 
-  Poly_Gen_Relation rel = oct.relation_with(g);
+    print_generator(g, "*** g ***");
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(v()) == " << rel << endl;
+    Poly_Gen_Relation rel = oct.relation_with(g);
 
-  Poly_Gen_Relation known_result = Poly_Gen_Relation::subsumes();
+    using namespace IO_Operators;
+    nout << "oct.relation_with(v()) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Gen_Relation known_result = Poly_Gen_Relation::subsumes();
+
+    return rel == known_result;
 }
 
 bool
-test03() {
-  Variable A(0);
+test03 ()
+{
+    Variable A(0);
 
-  TOctagonal_Shape oct(2);
-  oct.add_constraint(A == 0);
+    TOctagonal_Shape oct(2);
 
-  print_constraints(oct, "*** oct ***");
+    oct.add_constraint(A == 0);
 
-  Poly_Gen_Relation rel = oct.relation_with(point(2*A));
+    print_constraints(oct, "*** oct ***");
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(point(2*A)) == " << rel << endl;
+    Poly_Gen_Relation rel = oct.relation_with(point(2 * A));
 
-  Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+    using namespace IO_Operators;
+    nout << "oct.relation_with(point(2*A)) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+
+    return rel == known_result;
 }
 
 bool
-test04() {
-  Variable A(0);
-  Variable B(1);
+test04 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TOctagonal_Shape oct(2);
-  oct.add_constraint(A + B >= 0);
-  oct.add_constraint(B >= 0);
+    TOctagonal_Shape oct(2);
 
-  print_constraints(oct, "*** oct ***");
+    oct.add_constraint(A + B >= 0);
+    oct.add_constraint(B >= 0);
 
-  Poly_Gen_Relation rel1 = oct.relation_with(point(B));
+    print_constraints(oct, "*** oct ***");
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(point(B)) == " << rel1 << endl;
+    Poly_Gen_Relation rel1 = oct.relation_with(point(B));
 
-  Poly_Gen_Relation rel2 = oct.relation_with(point(-B));
+    using namespace IO_Operators;
+    nout << "oct.relation_with(point(B)) == " << rel1 << endl;
 
-  nout << "oct.relation_with(point(-B)) == " << rel2 << endl;
+    Poly_Gen_Relation rel2 = oct.relation_with(point(-B));
 
-  Poly_Gen_Relation known_result1 = Poly_Gen_Relation::subsumes();
-  Poly_Gen_Relation known_result2 = Poly_Gen_Relation::nothing();
+    nout << "oct.relation_with(point(-B)) == " << rel2 << endl;
 
-  return rel1 == known_result1 && rel2 == known_result2;
+    Poly_Gen_Relation known_result1 = Poly_Gen_Relation::subsumes();
+    Poly_Gen_Relation known_result2 = Poly_Gen_Relation::nothing();
+
+    return rel1 == known_result1 && rel2 == known_result2;
 }
 
 bool
-test05() {
-  Variable A(0);
-  Variable B(1);
+test05 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TOctagonal_Shape oct(2);
-  oct.add_constraint(A >= 0);
-  oct.add_constraint(B == 1);
-  print_constraints(oct, "*** oct ***");
+    TOctagonal_Shape oct(2);
 
-  Poly_Gen_Relation rel = oct.relation_with(ray(-A));
+    oct.add_constraint(A >= 0);
+    oct.add_constraint(B == 1);
+    print_constraints(oct, "*** oct ***");
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(ray(-A)) == " << rel << endl;
+    Poly_Gen_Relation rel = oct.relation_with(ray(-A));
 
-  Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+    using namespace IO_Operators;
+    nout << "oct.relation_with(ray(-A)) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+
+    return rel == known_result;
 }
 
 bool
-test06() {
-  Variable A(0);
-  Variable B(1);
+test06 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TOctagonal_Shape oct(2);
-  oct.add_constraint(A <= 0);
-  oct.add_constraint(B == 1);
-  print_constraints(oct, "*** oct ***");
+    TOctagonal_Shape oct(2);
 
-  Poly_Gen_Relation rel = oct.relation_with(ray(-A));
+    oct.add_constraint(A <= 0);
+    oct.add_constraint(B == 1);
+    print_constraints(oct, "*** oct ***");
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(ray(-A)) == " << rel << endl;
+    Poly_Gen_Relation rel = oct.relation_with(ray(-A));
 
-  Poly_Gen_Relation known_result = Poly_Gen_Relation::subsumes();
+    using namespace IO_Operators;
+    nout << "oct.relation_with(ray(-A)) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Gen_Relation known_result = Poly_Gen_Relation::subsumes();
+
+    return rel == known_result;
 }
 
 bool
-test07() {
-  Variable A(0);
-  Variable B(1);
+test07 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TOctagonal_Shape oct(2);
-  oct.add_constraint(A >= 0);
-  oct.add_constraint(B >= -1);
+    TOctagonal_Shape oct(2);
 
-  print_constraints(oct, "*** oct ***");
+    oct.add_constraint(A >= 0);
+    oct.add_constraint(B >= -1);
 
-  Poly_Gen_Relation rel = oct.relation_with(line(A));
+    print_constraints(oct, "*** oct ***");
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(line(A)) == " << rel << endl;
+    Poly_Gen_Relation rel = oct.relation_with(line(A));
 
-  Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+    using namespace IO_Operators;
+    nout << "oct.relation_with(line(A)) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+
+    return rel == known_result;
 }
 
 bool
-test08() {
-  Variable A(0);
-  Variable B(1);
+test08 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TOctagonal_Shape oct(2);
-  oct.add_constraint(A == 0);
-  oct.add_constraint(B >= -1);
-  print_constraints(oct, "*** oct ***");
+    TOctagonal_Shape oct(2);
 
-  Poly_Gen_Relation rel = oct.relation_with(line(-A));
+    oct.add_constraint(A == 0);
+    oct.add_constraint(B >= -1);
+    print_constraints(oct, "*** oct ***");
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(line(A)) == " << rel << endl;
+    Poly_Gen_Relation rel = oct.relation_with(line(-A));
 
-  Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+    using namespace IO_Operators;
+    nout << "oct.relation_with(line(A)) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+
+    return rel == known_result;
 }
 
 bool
-test09() {
-  Variable A(0);
-  Variable B(1);
+test09 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TOctagonal_Shape oct  (2);
-  oct.add_constraint(A <= 0);
-  oct.add_constraint(B == 2);
+    TOctagonal_Shape oct(2);
 
-  print_constraints(oct , "*** oct       ***");
+    oct.add_constraint(A <= 0);
+    oct.add_constraint(B == 2);
 
-  Poly_Gen_Relation rel = oct.relation_with(closure_point(A));
+    print_constraints(oct, "*** oct       ***");
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(line(A)) == " << rel << endl;
+    Poly_Gen_Relation rel = oct.relation_with(closure_point(A));
 
-  Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+    using namespace IO_Operators;
+    nout << "oct.relation_with(line(A)) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+
+    return rel == known_result;
 }
 
 bool
-test10() {
-  Variable A(0);
-  Variable B(1);
+test10 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TOctagonal_Shape oct(2);
-  oct.add_constraint(A >= 2);
-  oct.add_constraint(A + B <= 3);
+    TOctagonal_Shape oct(2);
 
-  print_constraints(oct, "*** oct ***");
+    oct.add_constraint(A >= 2);
+    oct.add_constraint(A + B <= 3);
 
-  Poly_Gen_Relation rel = oct.relation_with(ray(A + B));
+    print_constraints(oct, "*** oct ***");
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(ray(A + B)) == " << rel << endl;
+    Poly_Gen_Relation rel = oct.relation_with(ray(A + B));
 
-  Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+    using namespace IO_Operators;
+    nout << "oct.relation_with(ray(A + B)) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+
+    return rel == known_result;
 }
 
 bool
-test11() {
-  Variable A(0);
-  Variable B(1);
+test11 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TOctagonal_Shape oct(2);
-  oct.add_constraint(A >= 2);
-  oct.add_constraint(A + B <= 3);
-  oct.add_constraint(A - B >= 0);
+    TOctagonal_Shape oct(2);
 
-  print_constraints(oct, "*** oct ***");
+    oct.add_constraint(A >= 2);
+    oct.add_constraint(A + B <= 3);
+    oct.add_constraint(A - B >= 0);
 
-  Poly_Gen_Relation rel = oct.relation_with(ray(-2*B));
+    print_constraints(oct, "*** oct ***");
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(ray(-2*B)) == " << rel << endl;
+    Poly_Gen_Relation rel = oct.relation_with(ray(-2 * B));
 
-  Poly_Gen_Relation known_result = Poly_Gen_Relation::subsumes();
+    using namespace IO_Operators;
+    nout << "oct.relation_with(ray(-2*B)) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Gen_Relation known_result = Poly_Gen_Relation::subsumes();
+
+    return rel == known_result;
 }
 
 bool
-test12() {
-  Variable A(0);
-  Variable B(1);
-  Variable C(2);
+test12 ()
+{
+    Variable A(0);
+    Variable B(1);
+    Variable C(2);
 
-  TOctagonal_Shape oc(2);
-  oc.add_constraint(A >= 1);
+    TOctagonal_Shape oc(2);
 
-  try {
-    // This is an incorrect use of method
-    // Octagon::relation_with(g):
-    // it is illegal to use a generator that is
-    // dimensional incompatible with the OS.
-    Poly_Gen_Relation rel = oc.relation_with(ray(C));
-    (void) rel;
-  }
-  catch (std::invalid_argument& e) {
-    nout << "std::invalid_argument: " << e.what() << endl;
-    return true;
-  }
-  catch (...) {
+    oc.add_constraint(A >= 1);
+
+    try
+    {
+        // This is an incorrect use of method
+        // Octagon::relation_with(g):
+        // it is illegal to use a generator that is
+        // dimensional incompatible with the OS.
+        Poly_Gen_Relation rel = oc.relation_with(ray(C));
+
+        (void) rel;
+    }
+    catch (std::invalid_argument & e)
+    {
+        nout << "std::invalid_argument: " << e.what() << endl;
+        return true;
+    }
+    catch (...)
+    {
+        return false;
+    }
     return false;
-  }
-  return false;
 }
 
 bool
-test13() {
-  Variable A(0);
-  Variable B(1);
+test13 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TOctagonal_Shape oct(2);
-  oct.add_constraint(A <= 2);
-  oct.add_constraint(A + B <= 3);
-  oct.add_constraint(A - B >= 0);
+    TOctagonal_Shape oct(2);
 
-  print_constraints(oct, "*** oct ***");
+    oct.add_constraint(A <= 2);
+    oct.add_constraint(A + B <= 3);
+    oct.add_constraint(A - B >= 0);
 
-  Poly_Gen_Relation rel = oct.relation_with(line(-2*B));
+    print_constraints(oct, "*** oct ***");
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(line(-2*B)) == " << rel << endl;
+    Poly_Gen_Relation rel = oct.relation_with(line(-2 * B));
 
-  Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+    using namespace IO_Operators;
+    nout << "oct.relation_with(line(-2*B)) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+
+    return rel == known_result;
 }
 
 bool
-test14() {
-  Variable A(0);
-  Variable B(1);
+test14 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TOctagonal_Shape oct(2);
-  oct.add_constraint(A + B == 3);
-  oct.add_constraint(A - B == 0);
+    TOctagonal_Shape oct(2);
 
-  print_constraints(oct, "*** oct ***");
+    oct.add_constraint(A + B == 3);
+    oct.add_constraint(A - B == 0);
 
-  Poly_Gen_Relation rel = oct.relation_with(line(-2*B));
+    print_constraints(oct, "*** oct ***");
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(line(-2*B)) == " << rel << endl;
+    Poly_Gen_Relation rel = oct.relation_with(line(-2 * B));
 
-  Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+    using namespace IO_Operators;
+    nout << "oct.relation_with(line(-2*B)) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+
+    return rel == known_result;
 }
 
 bool
-test15() {
-  Variable A(0);
-  Variable B(1);
+test15 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TOctagonal_Shape oct(2);
-  oct.add_constraint(A - B == 0);
+    TOctagonal_Shape oct(2);
 
-  print_constraints(oct, "*** oct ***");
+    oct.add_constraint(A - B == 0);
 
-  Poly_Gen_Relation rel = oct.relation_with(line(2*B));
+    print_constraints(oct, "*** oct ***");
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(line(2*B)) == " << rel << endl;
+    Poly_Gen_Relation rel = oct.relation_with(line(2 * B));
 
-  Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+    using namespace IO_Operators;
+    nout << "oct.relation_with(line(2*B)) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+
+    return rel == known_result;
 }
 
 bool
-test16() {
-  Variable A(0);
-  Variable B(1);
+test16 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TOctagonal_Shape oct(2);
-  oct.add_constraint(A - B <= 0);
+    TOctagonal_Shape oct(2);
 
-  print_constraints(oct, "*** oct ***");
+    oct.add_constraint(A - B <= 0);
 
-  Poly_Gen_Relation rel = oct.relation_with(point(A + 2*B));
+    print_constraints(oct, "*** oct ***");
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(point(A + 2*B)) == " << rel << endl;
+    Poly_Gen_Relation rel = oct.relation_with(point(A + 2 * B));
 
-  Poly_Gen_Relation known_result = Poly_Gen_Relation::subsumes();
+    using namespace IO_Operators;
+    nout << "oct.relation_with(point(A + 2*B)) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Gen_Relation known_result = Poly_Gen_Relation::subsumes();
+
+    return rel == known_result;
 }
 
 bool
-test17() {
-  Variable A(0);
-  Variable B(1);
+test17 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TOctagonal_Shape oct(2);
-  oct.add_constraint(B - A <= 0);
+    TOctagonal_Shape oct(2);
 
-  print_constraints(oct, "*** oct ***");
+    oct.add_constraint(B - A <= 0);
 
-  Poly_Gen_Relation rel = oct.relation_with(point(A + 2*B));
+    print_constraints(oct, "*** oct ***");
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(point(A + 2*B)) == " << rel << endl;
+    Poly_Gen_Relation rel = oct.relation_with(point(A + 2 * B));
 
-  Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+    using namespace IO_Operators;
+    nout << "oct.relation_with(point(A + 2*B)) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+
+    return rel == known_result;
 }
 
 bool
-test18() {
-  Variable A(0);
-  Variable B(1);
+test18 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TOctagonal_Shape oct(2);
-  oct.add_constraint(B - A <= 0);
+    TOctagonal_Shape oct(2);
 
-  print_constraints(oct, "*** oct ***");
+    oct.add_constraint(B - A <= 0);
 
-  Poly_Gen_Relation rel = oct.relation_with(line(B - 3*A + 5));
+    print_constraints(oct, "*** oct ***");
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(line(B - 3*A + 5)) == " << rel << endl;
+    Poly_Gen_Relation rel = oct.relation_with(line(B - 3 * A + 5));
 
-  Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+    using namespace IO_Operators;
+    nout << "oct.relation_with(line(B - 3*A + 5)) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+
+    return rel == known_result;
 }
 
 bool
-test19() {
-  Variable A(0);
-  Variable B(1);
+test19 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TOctagonal_Shape oct(2);
-  oct.add_constraint(B <= 2);
+    TOctagonal_Shape oct(2);
 
-  print_constraints(oct, "*** oct ***");
+    oct.add_constraint(B <= 2);
 
-  Poly_Gen_Relation rel = oct.relation_with(line(2*B));
+    print_constraints(oct, "*** oct ***");
 
-  using namespace IO_Operators;
-  nout << "oct.relation_with(line(-2*B)) == " << rel << endl;
+    Poly_Gen_Relation rel = oct.relation_with(line(2 * B));
 
-  Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+    using namespace IO_Operators;
+    nout << "oct.relation_with(line(-2*B)) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+
+    return rel == known_result;
 }
 
 bool
-test20() {
-  // A 1D empty shape that is not in minimal form and the point is the origin.
-  Variable A(0);
+test20 ()
+{
+    // A 1D empty shape that is not in minimal form and the point is the origin.
+    Variable A(0);
 
-  TOctagonal_Shape oct(1);
-  oct.add_constraint(A <= 0);
-  oct.add_constraint(A >= 1);
+    TOctagonal_Shape oct(1);
 
-  Generator g = point();
-  Poly_Gen_Relation rel = oct.relation_with(g);
+    oct.add_constraint(A <= 0);
+    oct.add_constraint(A >= 1);
 
-  print_constraints(oct, "*** oct ***");
-  print_generator(g, "*** g ***");
-  using namespace IO_Operators;
-  nout << "oct.relation_with(v()) == " << rel << endl;
+    Generator         g   = point();
+    Poly_Gen_Relation rel = oct.relation_with(g);
 
-  Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+    print_constraints(oct, "*** oct ***");
+    print_generator(g, "*** g ***");
+    using namespace IO_Operators;
+    nout << "oct.relation_with(v()) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+
+    return rel == known_result;
 }
 
 bool
-test21() {
-  // A single point does not subsume another (different) point.
-  Variable A(0);
+test21 ()
+{
+    // A single point does not subsume another (different) point.
+    Variable A(0);
 
-  TOctagonal_Shape oct(1);
-  oct.add_constraint(A == 1);
+    TOctagonal_Shape oct(1);
 
-  Generator g = point();
-  Poly_Gen_Relation rel = oct.relation_with(g);
+    oct.add_constraint(A == 1);
 
-  print_constraints(oct, "*** oct ***");
-  print_generator(g, "*** g ***");
-  using namespace IO_Operators;
-  nout << "oct.relation_with(v()) == " << rel << endl;
+    Generator         g   = point();
+    Poly_Gen_Relation rel = oct.relation_with(g);
 
-  Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+    print_constraints(oct, "*** oct ***");
+    print_generator(g, "*** g ***");
+    using namespace IO_Operators;
+    nout << "oct.relation_with(v()) == " << rel << endl;
 
-  return rel == known_result;
+    Poly_Gen_Relation known_result = Poly_Gen_Relation::nothing();
+
+    return rel == known_result;
 }
 
 } // namespace
 
 BEGIN_MAIN
-  DO_TEST(test01);
-  DO_TEST(test02);
-  DO_TEST(test03);
-  DO_TEST(test04);
-  DO_TEST(test05);
-  DO_TEST(test06);
-  DO_TEST(test07);
-  DO_TEST(test08);
-  DO_TEST(test09);
-  DO_TEST(test10);
-  DO_TEST(test11);
-  DO_TEST(test12);
-  DO_TEST(test13);
-  DO_TEST(test14);
-  DO_TEST(test15);
-  DO_TEST(test16);
-  DO_TEST(test17);
-  DO_TEST(test18);
-  DO_TEST(test19);
-  DO_TEST(test20);
-  DO_TEST(test21);
+    DO_TEST(test01);
+DO_TEST(test02);
+DO_TEST(test03);
+DO_TEST(test04);
+DO_TEST(test05);
+DO_TEST(test06);
+DO_TEST(test07);
+DO_TEST(test08);
+DO_TEST(test09);
+DO_TEST(test10);
+DO_TEST(test11);
+DO_TEST(test12);
+DO_TEST(test13);
+DO_TEST(test14);
+DO_TEST(test15);
+DO_TEST(test16);
+DO_TEST(test17);
+DO_TEST(test18);
+DO_TEST(test19);
+DO_TEST(test20);
+DO_TEST(test21);
 END_MAIN
+

@@ -2,24 +2,24 @@
    Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
    Copyright (C) 2010-2022 BUGSENG srl (http://bugseng.com)
 
-This file is part of the Parma Polyhedra Library (PPL).
+   This file is part of the Parma Polyhedra Library (PPL).
 
-The PPL is free software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation; either version 3 of the License, or (at your
-option) any later version.
+   The PPL is free software; you can redistribute it and/or modify it
+   under the terms of the GNU General Public License as published by the
+   Free Software Foundation; either version 3 of the License, or (at your
+   option) any later version.
 
-The PPL is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-for more details.
+   The PPL is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+   for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software Foundation,
-Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software Foundation,
+   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
 
-For the most up-to-date information see the Parma Polyhedra Library
-site: http://bugseng.com/products/ppl/ . */
+   For the most up-to-date information see the Parma Polyhedra Library
+   site: http://bugseng.com/products/ppl/ . */
 
 #ifndef PPL_ppl_ocaml_common_defs_hh
 #define PPL_ppl_ocaml_common_defs_hh 1
@@ -30,9 +30,9 @@ site: http://bugseng.com/products/ppl/ . */
 
 // Note: throw exception if the error is at the OCaml interface level.
 #define PPL_OCAML_UNEXPECTED \
-  throw std::runtime_error("PPL OCaml interface internal error")
+    throw std::runtime_error("PPL OCaml interface internal error")
 #define PPL_OCAML_UNEXPECTED_MSG(msg) \
-  throw std::runtime_error("PPL OCaml interface internal error:\n" msg)
+    throw std::runtime_error("PPL OCaml interface internal error:\n" msg)
 
 
 // OCaml include files.
@@ -49,11 +49,14 @@ extern "C" {
 
 } // extern "C"
 
-namespace Parma_Polyhedra_Library {
+namespace Parma_Polyhedra_Library
+{
 
-namespace Interfaces {
+namespace Interfaces
+{
 
-namespace OCaml {
+namespace OCaml
+{
 
 template <typename U_Int>
 U_Int value_to_unsigned(value v);
@@ -122,58 +125,64 @@ Grid_Generator_System
 build_ppl_Grid_Generator_System(value ggs);
 
 value
-build_ocaml_poly_con_relation(Poly_Con_Relation& r);
+build_ocaml_poly_con_relation(Poly_Con_Relation & r);
 
 value
-build_ocaml_poly_gen_relation(Poly_Gen_Relation& r);
+build_ocaml_poly_gen_relation(Poly_Gen_Relation & r);
 
 value
-build_ocaml_coefficient(const Coefficient& c);
+build_ocaml_coefficient(const Coefficient & c);
 
 value
-build_ocaml_constraint(const Constraint& c);
+build_ocaml_constraint(const Constraint & c);
 
 value
-build_ocaml_congruence(const Congruence& cg);
+build_ocaml_congruence(const Congruence & cg);
 
 value
-build_ocaml_generator(const Generator& g);
+build_ocaml_generator(const Generator & g);
 
 value
-build_ocaml_constraint_system(const Constraint_System& cs);
+build_ocaml_constraint_system(const Constraint_System & cs);
 
 value
-build_ocaml_congruence_system(const Congruence_System& cgs);
+build_ocaml_congruence_system(const Congruence_System & cgs);
 
 value
-build_ocaml_grid_generator(const Grid_Generator& gg);
+build_ocaml_grid_generator(const Grid_Generator & gg);
 
 value
-build_ocaml_generator_system(const Generator_System& gs);
+build_ocaml_generator_system(const Generator_System & gs);
 
 value
-build_ocaml_grid_generator_system(const Grid_Generator_System& ggs);
+build_ocaml_grid_generator_system(const Grid_Generator_System & ggs);
 
 class timeout_exception
-  : public Parma_Polyhedra_Library::Throwable {
+    : public Parma_Polyhedra_Library::Throwable
+{
 public:
-  void throw_me() const {
+void throw_me () const
+{
     throw *this;
-  }
-  int priority() const {
+}
+int priority () const
+{
     return 0;
-  }
+}
 };
 
 class deterministic_timeout_exception
-  : public Parma_Polyhedra_Library::Throwable {
+    : public Parma_Polyhedra_Library::Throwable
+{
 public:
-  void throw_me() const {
+void throw_me () const
+{
     throw *this;
-  }
-  int priority() const {
+}
+int priority () const
+{
     return 0;
-  }
+}
 };
 
 void reset_timeout();
@@ -186,49 +195,51 @@ void reset_deterministic_timeout();
 
 } // namespace Parma_Polyhedra_Library
 
-#define CATCH_ALL                                                       \
-catch(std::bad_alloc&) {                                                \
-  caml_raise_out_of_memory();                                           \
-}                                                                       \
-catch(std::invalid_argument& e) {                                       \
-  caml_invalid_argument(const_cast<char*>(e.what()));                   \
-}                                                                       \
-catch(std::overflow_error& e) {                                         \
-  caml_raise_with_string(*caml_named_value("PPL_arithmetic_overflow"),  \
-                         (const_cast<char*>(e.what())));                \
-}                                                                       \
-catch(std::domain_error& e) {                                   \
-  caml_raise_with_string(*caml_named_value("PPL_domain_error"),  \
-                         (const_cast<char*>(e.what())));                \
-}                                                                       \
-catch(std::length_error& e) {                                   \
-  caml_raise_with_string(*caml_named_value("PPL_length_error"),  \
-                         (const_cast<char*>(e.what())));                \
-}                                                                       \
-catch(std::logic_error& e) {                                            \
-  caml_raise_with_string(*caml_named_value("PPL_logic_error"),          \
-                         (const_cast<char*>(e.what())));                \
-}                                                                       \
-catch(std::runtime_error& e) {                                          \
-  caml_raise_with_string(*caml_named_value("PPL_internal_error"),       \
-                         (const_cast<char*>(e.what())));                \
-}                                                                       \
-catch(std::exception& e) {                                              \
-  caml_raise_with_string(*caml_named_value("PPL_unknown_standard_exception"), \
-                         (const_cast<char*>(e.what())));                \
-}                                                                       \
-catch(timeout_exception&) {                                             \
-  reset_timeout();                                                      \
-  caml_raise_constant(*caml_named_value("PPL_timeout_exception"));      \
-}                                                                       \
-catch(deterministic_timeout_exception&) {                               \
-  reset_deterministic_timeout();                                        \
-  caml_raise_constant(*caml_named_value("PPL_timeout_exception"));      \
-}                                                                       \
-catch(...) {                                                            \
-  caml_raise_constant(*caml_named_value("PPL_unexpected_error"));       \
-}
+#define CATCH_ALL                                                            \
+    catch (std::bad_alloc &) {                                               \
+        caml_raise_out_of_memory();                                          \
+    }                                                                        \
+    catch (std::invalid_argument & e) {                                      \
+        caml_invalid_argument(const_cast<char *>(e.what()));                 \
+    }                                                                        \
+    catch (std::overflow_error & e) {                                        \
+        caml_raise_with_string(*caml_named_value("PPL_arithmetic_overflow"), \
+                               (const_cast<char *>(e.what())));              \
+    }                                                                        \
+    catch (std::domain_error & e) {                                          \
+        caml_raise_with_string(*caml_named_value("PPL_domain_error"),        \
+                               (const_cast<char *>(e.what())));              \
+    }                                                                        \
+    catch (std::length_error & e) {                                          \
+        caml_raise_with_string(*caml_named_value("PPL_length_error"),        \
+                               (const_cast<char *>(e.what())));              \
+    }                                                                        \
+    catch (std::logic_error & e) {                                           \
+        caml_raise_with_string(*caml_named_value("PPL_logic_error"),         \
+                               (const_cast<char *>(e.what())));              \
+    }                                                                        \
+    catch (std::runtime_error & e) {                                         \
+        caml_raise_with_string(*caml_named_value("PPL_internal_error"),      \
+                               (const_cast<char *>(e.what())));              \
+    }                                                                        \
+    catch (std::exception & e) {                                             \
+        caml_raise_with_string(*caml_named_value(                            \
+                                   "PPL_unknown_standard_exception"),        \
+                               (const_cast<char *>(e.what())));              \
+    }                                                                        \
+    catch (timeout_exception &) {                                            \
+        reset_timeout();                                                     \
+        caml_raise_constant(*caml_named_value("PPL_timeout_exception"));     \
+    }                                                                        \
+    catch (deterministic_timeout_exception &) {                              \
+        reset_deterministic_timeout();                                       \
+        caml_raise_constant(*caml_named_value("PPL_timeout_exception"));     \
+    }                                                                        \
+    catch (...) {                                                            \
+        caml_raise_constant(*caml_named_value("PPL_unexpected_error"));      \
+    }
 
 #include "ppl_ocaml_common_inlines.hh"
 
 #endif // !defined(PPL_ppl_prolog_common_defs_hh)
+

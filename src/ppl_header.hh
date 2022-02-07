@@ -2,35 +2,35 @@
    Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
    Copyright (C) 2010-2022 BUGSENG srl (http://bugseng.com)
 
-This file is part of the Parma Polyhedra Library (PPL).
+   This file is part of the Parma Polyhedra Library (PPL).
 
-The PPL is free software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation; either version 3 of the License, or (at your
-option) any later version.
+   The PPL is free software; you can redistribute it and/or modify it
+   under the terms of the GNU General Public License as published by the
+   Free Software Foundation; either version 3 of the License, or (at your
+   option) any later version.
 
-The PPL is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-for more details.
+   The PPL is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+   for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software Foundation,
-Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software Foundation,
+   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
 
-For the most up-to-date information see the Parma Polyhedra Library
-site: http://bugseng.com/products/ppl/ . */
+   For the most up-to-date information see the Parma Polyhedra Library
+   site: http://bugseng.com/products/ppl/ . */
 
 #ifndef PPL_ppl_hh
 #define PPL_ppl_hh 1
 
 #ifdef NDEBUG
-# define PPL_SAVE_NDEBUG NDEBUG
-# undef NDEBUG
+#    define PPL_SAVE_NDEBUG NDEBUG
+#    undef NDEBUG
 #endif
 
 #ifdef __STDC_LIMIT_MACROS
-# define PPL_SAVE_STDC_LIMIT_MACROS __STDC_LIMIT_MACROS
+#    define PPL_SAVE_STDC_LIMIT_MACROS __STDC_LIMIT_MACROS
 #endif
 
 #include "ppl-config.h"
@@ -39,7 +39,7 @@ site: http://bugseng.com/products/ppl/ . */
 
 //! Defined to 1 if PPL::Watchdog objects are supported, to 0 otherwise.
 #define PPL_WATCHDOG_OBJECTS_ARE_SUPPORTED \
-  (PPL_HAVE_DECL_SETITIMER && PPL_HAVE_DECL_SIGACTION)
+    (PPL_HAVE_DECL_SETITIMER && PPL_HAVE_DECL_SIGACTION)
 
 #undef PPL_SPECIALIZE_ABS
 #undef PPL_SPECIALIZE_ADD
@@ -92,22 +92,22 @@ site: http://bugseng.com/products/ppl/ . */
 #undef PPL_COMPILE_TIME_CHECK_NAME
 
 #ifdef __STDC_LIMIT_MACROS
-# undef __STDC_LIMIT_MACROS
+#    undef __STDC_LIMIT_MACROS
 #endif
 #ifdef PPL_SAVE_STDC_LIMIT_MACROS
-# define __STDC_LIMIT_MACROS PPL_SAVE_STDC_LIMIT_MACROS
-# undef PPL_SAVE_STDC_LIMIT_MACROS
+#    define __STDC_LIMIT_MACROS PPL_SAVE_STDC_LIMIT_MACROS
+#    undef PPL_SAVE_STDC_LIMIT_MACROS
 #endif
 
 #ifdef PPL_SAVE_NDEBUG
-# ifndef NDEBUG
-#  define NDEBUG PPL_SAVE_NDEBUG
-# endif
-# undef PPL_SAVE_NDEBUG
+#    ifndef NDEBUG
+#        define NDEBUG PPL_SAVE_NDEBUG
+#    endif
+#    undef PPL_SAVE_NDEBUG
 #else
-# ifdef NDEBUG
-#  undef NDEBUG
-# endif
+#    ifdef NDEBUG
+#        undef NDEBUG
+#    endif
 #endif
 // Must include <cassert> again in order to make the latest changes to
 // NDEBUG effective.
@@ -115,7 +115,8 @@ site: http://bugseng.com/products/ppl/ . */
 #include "assertions.hh"
 
 #ifdef PPL_NO_AUTOMATIC_INITIALIZATION
- #undef PPL_NO_AUTOMATIC_INITIALIZATION
+#    undef PPL_NO_AUTOMATIC_INITIALIZATION
 #endif
 
 #endif // !defined(PPL_ppl_hh)
+

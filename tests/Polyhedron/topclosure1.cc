@@ -2,160 +2,176 @@
    Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
    Copyright (C) 2010-2022 BUGSENG srl (http://bugseng.com)
 
-This file is part of the Parma Polyhedra Library (PPL).
+   This file is part of the Parma Polyhedra Library (PPL).
 
-The PPL is free software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation; either version 3 of the License, or (at your
-option) any later version.
+   The PPL is free software; you can redistribute it and/or modify it
+   under the terms of the GNU General Public License as published by the
+   Free Software Foundation; either version 3 of the License, or (at your
+   option) any later version.
 
-The PPL is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-for more details.
+   The PPL is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+   for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software Foundation,
-Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software Foundation,
+   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
 
-For the most up-to-date information see the Parma Polyhedra Library
-site: http://bugseng.com/products/ppl/ . */
+   For the most up-to-date information see the Parma Polyhedra Library
+   site: http://bugseng.com/products/ppl/ . */
 
 #include "ppl_test.hh"
 
-namespace {
+namespace
+{
 
 bool
-test01() {
-  Variable A(0);
-  Variable B(1);
+test01 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  NNC_Polyhedron ph1(2);
-  ph1.add_constraint(A > 1);
-  ph1.add_constraint(A - B > 0);
-  Generator_System gs;
-  gs.insert(point(2*A));
-  gs.insert(closure_point(A + B));
-  gs.insert(ray(-B));
-  gs.insert(ray(A + B));
-  NNC_Polyhedron ph2(gs);
+    NNC_Polyhedron ph1(2);
 
-  print_constraints(ph1, "*** ph1 ***");
-  print_generators(ph2, "*** ph2 ***");
+    ph1.add_constraint(A > 1);
+    ph1.add_constraint(A - B > 0);
 
-  ph1.topological_closure_assign();
-  ph2.topological_closure_assign();
+    Generator_System gs;
 
-  bool ok = (ph1 == ph2);
+    gs.insert(point(2 * A));
+    gs.insert(closure_point(A + B));
+    gs.insert(ray(-B));
+    gs.insert(ray(A + B));
 
-  print_constraints(ph1, "*** after ph1.topological_closure_assign() ***");
-  print_generators(ph2, "*** after ph2.topological_closure_assign() ***");
+    NNC_Polyhedron ph2(gs);
 
-  return ok;
+    print_constraints(ph1, "*** ph1 ***");
+    print_generators(ph2, "*** ph2 ***");
+
+    ph1.topological_closure_assign();
+    ph2.topological_closure_assign();
+
+    bool ok = (ph1 == ph2);
+
+    print_constraints(ph1, "*** after ph1.topological_closure_assign() ***");
+    print_generators(ph2, "*** after ph2.topological_closure_assign() ***");
+
+    return ok;
 }
 
 bool
-test02() {
-  NNC_Polyhedron ph1;
-  NNC_Polyhedron ph2(2, EMPTY);
+test02 ()
+{
+    NNC_Polyhedron ph1;
+    NNC_Polyhedron ph2(2, EMPTY);
 
-  print_constraints(ph1, "*** ph1 ***");
-  print_constraints(ph2, "*** ph2 ***");
+    print_constraints(ph1, "*** ph1 ***");
+    print_constraints(ph2, "*** ph2 ***");
 
-  NNC_Polyhedron known_result1 = ph1;
-  NNC_Polyhedron known_result2 = ph2;
+    NNC_Polyhedron known_result1 = ph1;
+    NNC_Polyhedron known_result2 = ph2;
 
-  ph1.topological_closure_assign();
-  ph2.topological_closure_assign();
+    ph1.topological_closure_assign();
+    ph2.topological_closure_assign();
 
-  bool ok = (ph1 == known_result1 && ph2 == known_result2);
+    bool ok = (ph1 == known_result1 && ph2 == known_result2);
 
-  print_constraints(ph1, "*** after ph1.topological_closure_assign() ***");
-  print_constraints(ph2, "*** after ph2.topological_closure_assign() ***");
+    print_constraints(ph1, "*** after ph1.topological_closure_assign() ***");
+    print_constraints(ph2, "*** after ph2.topological_closure_assign() ***");
 
-  return ok;
+    return ok;
 }
 
 bool
-test03() {
-  Variable A(0);
-  Variable B(1);
+test03 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  C_Polyhedron ph(2);
-  ph.add_constraint(A - B == 0);
-  ph.add_constraint(A >= 0);
+    C_Polyhedron ph(2);
 
-  C_Polyhedron known_result(ph);
+    ph.add_constraint(A - B == 0);
+    ph.add_constraint(A >= 0);
 
-  print_constraints(ph, "*** ph ***");
+    C_Polyhedron known_result(ph);
 
-  ph.topological_closure_assign();
+    print_constraints(ph, "*** ph ***");
 
-  bool ok = (ph == known_result);
+    ph.topological_closure_assign();
 
-  print_constraints(ph, "*** after ph.topological_closure_assign() ***");
+    bool ok = (ph == known_result);
 
-  return ok;
+    print_constraints(ph, "*** after ph.topological_closure_assign() ***");
+
+    return ok;
 }
 
 bool
-test04() {
-  Variable A(0);
-  Variable B(1);
+test04 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  NNC_Polyhedron ph(2);
-  ph.generators();
-  ph.add_constraint(A > 0);
-  ph.add_constraint(A == B);
+    NNC_Polyhedron ph(2);
 
-  print_constraints(ph, "*** ph ***");
+    ph.generators();
+    ph.add_constraint(A > 0);
+    ph.add_constraint(A == B);
 
-  ph.topological_closure_assign();
+    print_constraints(ph, "*** ph ***");
 
-  NNC_Polyhedron known_result(2);
-  known_result.add_constraint(A >= 0);
-  known_result.add_constraint(A == B);
+    ph.topological_closure_assign();
 
-  bool ok = (ph == known_result);
+    NNC_Polyhedron known_result(2);
 
-  print_constraints(ph, "*** after ph.topological_closure_assign() ***");
+    known_result.add_constraint(A >= 0);
+    known_result.add_constraint(A == B);
 
-  return ok;
+    bool ok = (ph == known_result);
+
+    print_constraints(ph, "*** after ph.topological_closure_assign() ***");
+
+    return ok;
 }
 
 bool
-test05() {
-  Variable A(0);
-  Variable B(1);
+test05 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  NNC_Polyhedron ph(2, EMPTY);
-  ph.add_generator(point(A));
-  ph.constraints();
-  ph.add_generator(closure_point());
-  ph.add_generator(ray(A));
-  ph.add_generator(ray(B));
+    NNC_Polyhedron ph(2, EMPTY);
 
-  print_generators(ph, "*** ph ***");
+    ph.add_generator(point(A));
+    ph.constraints();
+    ph.add_generator(closure_point());
+    ph.add_generator(ray(A));
+    ph.add_generator(ray(B));
 
-  ph.topological_closure_assign();
+    print_generators(ph, "*** ph ***");
 
-  NNC_Polyhedron known_result(2);
-  known_result.add_constraint(A >= 0);
-  known_result.add_constraint(B >= 0);
+    ph.topological_closure_assign();
 
-  bool ok = (ph == known_result);
+    NNC_Polyhedron known_result(2);
 
-  print_constraints(ph, "*** after ph.topological_closure_assign() ***");
+    known_result.add_constraint(A >= 0);
+    known_result.add_constraint(B >= 0);
 
-  return ok;
+    bool ok = (ph == known_result);
+
+    print_constraints(ph, "*** after ph.topological_closure_assign() ***");
+
+    return ok;
 }
 
 } // namespace
 
 BEGIN_MAIN
-  DO_TEST(test01);
-  DO_TEST(test02);
-  DO_TEST(test03);
-  DO_TEST(test04);
-  DO_TEST(test05);
+    DO_TEST(test01);
+DO_TEST(test02);
+DO_TEST(test03);
+DO_TEST(test04);
+DO_TEST(test05);
 END_MAIN
+

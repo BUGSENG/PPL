@@ -2,24 +2,24 @@
    Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
    Copyright (C) 2010-2022 BUGSENG srl (http://bugseng.com)
 
-This file is part of the Parma Polyhedra Library (PPL).
+   This file is part of the Parma Polyhedra Library (PPL).
 
-The PPL is free software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation; either version 3 of the License, or (at your
-option) any later version.
+   The PPL is free software; you can redistribute it and/or modify it
+   under the terms of the GNU General Public License as published by the
+   Free Software Foundation; either version 3 of the License, or (at your
+   option) any later version.
 
-The PPL is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-for more details.
+   The PPL is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+   for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software Foundation,
-Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software Foundation,
+   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
 
-For the most up-to-date information see the Parma Polyhedra Library
-site: http://bugseng.com/products/ppl/ . */
+   For the most up-to-date information see the Parma Polyhedra Library
+   site: http://bugseng.com/products/ppl/ . */
 
 #include "ppl_test.hh"
 
@@ -31,217 +31,277 @@ using std::string;
 using std::fstream;
 using std::ios_base;
 
-namespace {
+namespace
+{
 
-const char* my_file = "ascii_dump_load1.dat";
+const char * my_file = "ascii_dump_load1.dat";
 
 bool
-test01() {
+test01 ()
+{
 
-  nout << "test01()" << endl;
+    nout << "test01()" << endl;
 
-  Variable A(0);
-  Variable B(1);
+    Variable A(0);
+    Variable B(1);
 
-  TBD_Shape bds1(2);
-  bds1.add_constraint(A >= 0);
-  bds1.add_constraint(B >= 0);
+    TBD_Shape bds1(2);
 
-  fstream f;
-  open(f, my_file, ios_base::out);
-  bds1.ascii_dump(f);
-  close(f);
+    bds1.add_constraint(A >= 0);
+    bds1.add_constraint(B >= 0);
 
-  open(f, my_file, ios_base::in | ios_base::out);
-  string str;
-  do
-    f >> str;
-  while (str != "-EM");
-  f.seekp(0, ios_base::cur);
-  f << " A";
-  close(f);
+    fstream f;
 
-  open(f, my_file, ios_base::in);
-  TBD_Shape bds2;
-  bool ok = !bds2.ascii_load(f);
-  close(f);
+    open(f, my_file, ios_base::out);
+    bds1.ascii_dump(f);
+    close(f);
 
-  return ok;
+    open(f, my_file, ios_base::in | ios_base::out);
+
+    string str;
+
+    do
+    {
+        f >> str;
+    }
+    while (str != "-EM");
+
+    f.seekp(0, ios_base::cur);
+    f << " A";
+    close(f);
+
+    open(f, my_file, ios_base::in);
+
+    TBD_Shape bds2;
+    bool      ok = !bds2.ascii_load(f);
+
+    close(f);
+
+    return ok;
 }
 
 bool
-test02() {
+test02 ()
+{
 
-  nout << "test02()" << endl;
+    nout << "test02()" << endl;
 
-  Variable A(0);
-  Variable B(1);
+    Variable A(0);
+    Variable B(1);
 
-  TBD_Shape bds1(2);
-  bds1.add_constraint(A >= 0);
-  bds1.add_constraint(B >= 1);
+    TBD_Shape bds1(2);
 
-  fstream f;
-  open(f, my_file, ios_base::out);
-  bds1.ascii_dump(f);
-  close(f);
+    bds1.add_constraint(A >= 0);
+    bds1.add_constraint(B >= 1);
 
-  open(f, my_file, ios_base::in | ios_base::out);
-  string str;
-  do
-    f >> str;
-  while (str != "+ZE");
-  f.seekp(0, ios_base::cur);
-  f << "A";
-  close(f);
+    fstream f;
 
-  open(f, my_file, ios_base::in);
-  TBD_Shape bds2;
-  bool ok = !bds2.ascii_load(f);
-  close(f);
+    open(f, my_file, ios_base::out);
+    bds1.ascii_dump(f);
+    close(f);
 
-  return ok;
+    open(f, my_file, ios_base::in | ios_base::out);
+
+    string str;
+
+    do
+    {
+        f >> str;
+    }
+    while (str != "+ZE");
+
+    f.seekp(0, ios_base::cur);
+    f << "A";
+    close(f);
+
+    open(f, my_file, ios_base::in);
+
+    TBD_Shape bds2;
+    bool      ok = !bds2.ascii_load(f);
+
+    close(f);
+
+    return ok;
 }
 
 bool
-test03() {
+test03 ()
+{
 
-  nout << "test03()" << endl;
+    nout << "test03()" << endl;
 
-  Variable A(0);
-  Variable B(1);
+    Variable A(0);
+    Variable B(1);
 
-  TBD_Shape bds1(2);
-  bds1.add_constraint(A >= 0);
-  bds1.add_constraint(B >= 2);
+    TBD_Shape bds1(2);
 
-  fstream f;
-  open(f, my_file, ios_base::out);
-  bds1.ascii_dump(f);
-  close(f);
+    bds1.add_constraint(A >= 0);
+    bds1.add_constraint(B >= 2);
 
-  open(f, my_file, ios_base::in | ios_base::out);
-  string str;
-  do
-    f >> str;
-  while (str != "-SPC");
-  f.seekp(0, ios_base::cur);
-  f << "A";
-  close(f);
+    fstream f;
 
-  open(f, my_file, ios_base::in);
-  TBD_Shape bds2;
-  bool ok = !bds2.ascii_load(f);
-  close(f);
+    open(f, my_file, ios_base::out);
+    bds1.ascii_dump(f);
+    close(f);
 
-  return ok;
+    open(f, my_file, ios_base::in | ios_base::out);
+
+    string str;
+
+    do
+    {
+        f >> str;
+    }
+    while (str != "-SPC");
+
+    f.seekp(0, ios_base::cur);
+    f << "A";
+    close(f);
+
+    open(f, my_file, ios_base::in);
+
+    TBD_Shape bds2;
+    bool      ok = !bds2.ascii_load(f);
+
+    close(f);
+
+    return ok;
 }
 
 bool
-test04() {
+test04 ()
+{
 
-  nout << "test04()" << endl;
+    nout << "test04()" << endl;
 
-  Variable A(0);
-  Variable B(1);
+    Variable A(0);
+    Variable B(1);
 
-  TBD_Shape bds1(2);
-  bds1.add_constraint(A >= 0);
-  bds1.add_constraint(B >= 3);
+    TBD_Shape bds1(2);
 
-  fstream f;
-  open(f, my_file, ios_base::out);
-  bds1.ascii_dump(f);
-  close(f);
+    bds1.add_constraint(A >= 0);
+    bds1.add_constraint(B >= 3);
 
-  open(f, my_file, ios_base::in | ios_base::out);
-  string str;
-  do
-    f >> str;
-  while (str != "+inf");
-  f.seekp(0, ios_base::cur);
-  f << "A";
-  close(f);
+    fstream f;
 
-  open(f, my_file, ios_base::in);
-  TBD_Shape bds2;
-  bool ok = !bds2.ascii_load(f);
-  close(f);
+    open(f, my_file, ios_base::out);
+    bds1.ascii_dump(f);
+    close(f);
 
-  return ok;
+    open(f, my_file, ios_base::in | ios_base::out);
+
+    string str;
+
+    do
+    {
+        f >> str;
+    }
+    while (str != "+inf");
+
+    f.seekp(0, ios_base::cur);
+    f << "A";
+    close(f);
+
+    open(f, my_file, ios_base::in);
+
+    TBD_Shape bds2;
+    bool      ok = !bds2.ascii_load(f);
+
+    close(f);
+
+    return ok;
 }
 
 bool
-test05() {
+test05 ()
+{
 
-  nout << "test05()" << endl;
+    nout << "test05()" << endl;
 
-  Variable A(0);
-  Variable B(1);
+    Variable A(0);
+    Variable B(1);
 
-  TBD_Shape bds1(2);
-  bds1.add_constraint(A >= 0);
-  bds1.add_constraint(B >= 3);
+    TBD_Shape bds1(2);
 
-  fstream f;
-  open(f, my_file, ios_base::out);
-  bds1.ascii_dump(f);
-  close(f);
+    bds1.add_constraint(A >= 0);
+    bds1.add_constraint(B >= 3);
 
-  open(f, my_file, ios_base::in | ios_base::out);
-  string str;
-  do
-    f >> str;
-  while (str != "+inf");
-  do
-    f >> str;
-  while (str != "+inf");
-  f.seekp(0, ios_base::cur);
-  f << " 3 ";
-  close(f);
+    fstream f;
 
-  open(f, my_file, ios_base::in);
-  TBD_Shape bds2;
-  bool ok = !bds2.ascii_load(f);
-  close(f);
+    open(f, my_file, ios_base::out);
+    bds1.ascii_dump(f);
+    close(f);
 
-  return ok;
+    open(f, my_file, ios_base::in | ios_base::out);
+
+    string str;
+
+    do
+    {
+        f >> str;
+    }
+    while (str != "+inf");
+
+    do
+    {
+        f >> str;
+    }
+    while (str != "+inf");
+
+    f.seekp(0, ios_base::cur);
+    f << " 3 ";
+    close(f);
+
+    open(f, my_file, ios_base::in);
+
+    TBD_Shape bds2;
+    bool      ok = !bds2.ascii_load(f);
+
+    close(f);
+
+    return ok;
 }
 
 bool
-test06() {
-  Variable A(0);
-  Variable B(1);
+test06 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TBD_Shape bds1(3);
-  bds1.add_constraint(A - B >= 2);
-  bds1.add_constraint(B >= 0);
+    TBD_Shape bds1(3);
 
-  fstream f;
-  open(f, my_file, ios_base::out);
-  bds1.ascii_dump(f);
-  close(f);
+    bds1.add_constraint(A - B >= 2);
+    bds1.add_constraint(B >= 0);
 
-  open(f, my_file, ios_base::in);
-  TBD_Shape bds2;
-  bds2.ascii_load(f);
-  close(f);
+    fstream f;
 
-  print_constraints(bds1, "*** bds1 ***");
-  print_constraints(bds2, "*** bds2 ***");
+    open(f, my_file, ios_base::out);
+    bds1.ascii_dump(f);
+    close(f);
 
-  bool ok = (bds1 == bds2);
+    open(f, my_file, ios_base::in);
 
-  return ok;
+    TBD_Shape bds2;
+
+    bds2.ascii_load(f);
+    close(f);
+
+    print_constraints(bds1, "*** bds1 ***");
+    print_constraints(bds2, "*** bds2 ***");
+
+    bool ok = (bds1 == bds2);
+
+    return ok;
 }
 
 } // namespace
 
 BEGIN_MAIN
-  DO_TEST(test01);
-  DO_TEST(test02);
-  DO_TEST(test03);
-  DO_TEST(test04);
-  DO_TEST(test05);
-  DO_TEST(test06);
+    DO_TEST(test01);
+DO_TEST(test02);
+DO_TEST(test03);
+DO_TEST(test04);
+DO_TEST(test05);
+DO_TEST(test06);
 END_MAIN
+

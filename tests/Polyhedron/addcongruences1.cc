@@ -2,250 +2,272 @@
    Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
    Copyright (C) 2010-2022 BUGSENG srl (http://bugseng.com)
 
-This file is part of the Parma Polyhedra Library (PPL).
+   This file is part of the Parma Polyhedra Library (PPL).
 
-The PPL is free software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation; either version 3 of the License, or (at your
-option) any later version.
+   The PPL is free software; you can redistribute it and/or modify it
+   under the terms of the GNU General Public License as published by the
+   Free Software Foundation; either version 3 of the License, or (at your
+   option) any later version.
 
-The PPL is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-for more details.
+   The PPL is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+   for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software Foundation,
-Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software Foundation,
+   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
 
-For the most up-to-date information see the Parma Polyhedra Library
-site: http://bugseng.com/products/ppl/ . */
+   For the most up-to-date information see the Parma Polyhedra Library
+   site: http://bugseng.com/products/ppl/ . */
 
 #include "ppl_test.hh"
 
-namespace {
+namespace
+{
 
 bool
-test01() {
-  Variable x(0);
-  Variable y(1);
+test01 ()
+{
+    Variable x(0);
+    Variable y(1);
 
-  Generator_System gs;
-  gs.insert(point());
-  gs.insert(ray(x));
-  gs.insert(ray(x + y));
+    Generator_System gs;
 
-  Congruence_System cgs;
-  cgs.insert(0*x %= 0);
-  cgs.insert(y == 3);
+    gs.insert(point());
+    gs.insert(ray(x));
+    gs.insert(ray(x + y));
 
-  C_Polyhedron ph(gs);
+    Congruence_System cgs;
 
-  print_generators(ph, "*** ph ***");
-  print_congruences(cgs, "*** cgs ***");
+    cgs.insert(0 * x %= 0);
+    cgs.insert(y == 3);
 
-  ph.add_congruences(cgs);
+    C_Polyhedron ph(gs);
 
-  C_Polyhedron known_result(2);
-  known_result.add_constraint(y == 3);
-  known_result.add_constraint(x - y >= 0);
+    print_generators(ph, "*** ph ***");
+    print_congruences(cgs, "*** cgs ***");
 
-  bool ok = (known_result == ph);
+    ph.add_congruences(cgs);
 
-  print_constraints(ph, "*** after add_congruences ***");
+    C_Polyhedron known_result(2);
 
-  return ok;
+    known_result.add_constraint(y == 3);
+    known_result.add_constraint(x - y >= 0);
+
+    bool ok = (known_result == ph);
+
+    print_constraints(ph, "*** after add_congruences ***");
+
+    return ok;
 }
 
 bool
-test02() {
-  Variable A(0);
-  Variable B(1);
+test02 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  C_Polyhedron ph1(2, EMPTY);
+    C_Polyhedron ph1(2, EMPTY);
 
-  Congruence_System cgs;
-  cgs.insert(Linear_Expression(0) %= 0);
-  cgs.insert(B == 7);
+    Congruence_System cgs;
 
-  print_constraints(ph1, "*** ph1 ***");
-  print_congruences(cgs, "*** cgs ***");
+    cgs.insert(Linear_Expression(0) %= 0);
+    cgs.insert(B == 7);
 
-  ph1.add_congruences(cgs);
+    print_constraints(ph1, "*** ph1 ***");
+    print_congruences(cgs, "*** cgs ***");
 
-  C_Polyhedron known_result(2, EMPTY);
+    ph1.add_congruences(cgs);
 
-  bool ok = (ph1 == known_result);
+    C_Polyhedron known_result(2, EMPTY);
 
-  print_constraints(ph1, "*** after ph1.add_congruences(cgs) ***");
+    bool ok = (ph1 == known_result);
 
-  return ok;
+    print_constraints(ph1, "*** after ph1.add_congruences(cgs) ***");
+
+    return ok;
 }
 
 bool
-test03() {
-  Variable A(0);
-  Variable B(1);
+test03 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  C_Polyhedron ph(2);
-  ph.add_constraint(A >= 0);
-  ph.add_constraint(B >= 0);
+    C_Polyhedron ph(2);
 
-  Congruence_System cgs;
+    ph.add_constraint(A >= 0);
+    ph.add_constraint(B >= 0);
 
-  print_constraints(ph, "*** ph ***");
-  print_congruences(cgs, "*** cgs ***");
+    Congruence_System cgs;
 
-  C_Polyhedron known_result(ph);
+    print_constraints(ph, "*** ph ***");
+    print_congruences(cgs, "*** cgs ***");
 
-  ph.add_congruences(cgs);
+    C_Polyhedron known_result(ph);
 
-  bool ok = (ph == known_result);
+    ph.add_congruences(cgs);
 
-  print_constraints(ph, "*** ph ***");
+    bool ok = (ph == known_result);
 
-  return ok;
+    print_constraints(ph, "*** ph ***");
+
+    return ok;
 }
 
 bool
-test04() {
-  Variable x(0);
-  Variable y(1);
+test04 ()
+{
+    Variable x(0);
+    Variable y(1);
 
-  Constraint_System cs;
-  cs.insert(x + y >= 0);
-  C_Polyhedron ph(cs);
+    Constraint_System cs;
 
-  print_constraints(ph, "*** ph ***");
+    cs.insert(x + y >= 0);
 
-  Linear_Expression e(1);
-  Congruence_System cgs;
-  cgs.insert(e == 0);
+    C_Polyhedron ph(cs);
 
-  ph.add_congruences(cgs);
+    print_constraints(ph, "*** ph ***");
 
-  C_Polyhedron known_result(2, EMPTY);
+    Linear_Expression e(1);
+    Congruence_System cgs;
 
-  bool ok = (ph == known_result);
+    cgs.insert(e == 0);
 
-  print_constraints(ph, "*** after ph.add_congruences(cgs) ***");
+    ph.add_congruences(cgs);
 
-  return ok;
+    C_Polyhedron known_result(2, EMPTY);
+
+    bool ok = (ph == known_result);
+
+    print_constraints(ph, "*** after ph.add_congruences(cgs) ***");
+
+    return ok;
 }
 
-bool test05() {
-  C_Polyhedron ph;
-  ph.add_constraint(Linear_Expression(-2) >= 0);
+bool test05 ()
+{
+    C_Polyhedron ph;
 
-  print_constraints(ph, "*** ph ***");
+    ph.add_constraint(Linear_Expression(-2) >= 0);
 
-  Congruence_System cgs;
-  cgs.insert(Linear_Expression(-1) %= 0);
+    print_constraints(ph, "*** ph ***");
 
-  print_congruences(cgs, "*** cgs ***");
+    Congruence_System cgs;
 
-  ph.add_congruences(cgs);
+    cgs.insert(Linear_Expression(-1) %= 0);
 
-  C_Polyhedron known_result(0, EMPTY);
+    print_congruences(cgs, "*** cgs ***");
 
-  bool ok = (known_result == ph);
+    ph.add_congruences(cgs);
 
-  print_constraints(ph, "*** after add_constraints ***");
+    C_Polyhedron known_result(0, EMPTY);
 
-  return ok;
-}
+    bool ok = (known_result == ph);
 
-bool
-test06() {
-  Variable A(0);
-  Variable B(1);
+    print_constraints(ph, "*** after add_constraints ***");
 
-  C_Polyhedron ph1(2);
-
-  Congruence_System cgs;
-  cgs.insert((Linear_Expression(26) %= 0) / 13);
-  cgs.insert(B == 7);
-
-  print_constraints(ph1, "*** ph1 ***");
-  print_congruences(cgs, "*** cgs ***");
-
-  ph1.add_congruences(cgs);
-
-  C_Polyhedron known_result(cgs);
-
-  bool ok = (ph1 == known_result);
-
-  print_constraints(ph1, "*** after ph1.add_congruences(cgs) ***");
-
-  return ok;
+    return ok;
 }
 
 bool
-test07() {
-  Variable A(0);
-  Variable B(1);
+test06 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  C_Polyhedron ph1(2);
+    C_Polyhedron ph1(2);
 
-  Congruence_System cgs;
-  cgs.insert(Linear_Expression(0) %= 0);
-  cgs.insert(B == 7);
+    Congruence_System cgs;
 
-  Congruence_System cgs_copy = cgs;
+    cgs.insert((Linear_Expression(26) %= 0) / 13);
+    cgs.insert(B == 7);
 
-  print_constraints(ph1, "*** ph1 ***");
-  print_congruences(cgs, "*** cgs ***");
+    print_constraints(ph1, "*** ph1 ***");
+    print_congruences(cgs, "*** cgs ***");
 
-  ph1.add_recycled_congruences(cgs);
+    ph1.add_congruences(cgs);
 
-  C_Polyhedron known_result(cgs_copy);
+    C_Polyhedron known_result(cgs);
 
-  bool ok = (ph1 == known_result);
+    bool ok = (ph1 == known_result);
 
-  print_constraints(ph1, "*** after ph1.add_congruences(cgs) ***");
+    print_constraints(ph1, "*** after ph1.add_congruences(cgs) ***");
 
-  return ok;
+    return ok;
 }
 
 bool
-test08() {
-  Variable A(0);
-  Variable B(1);
+test07 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  C_Polyhedron ph1(2);
+    C_Polyhedron ph1(2);
 
-  Congruence_System cgs;
-  cgs.insert((Linear_Expression(18) %= 3) / 5);
-  cgs.insert(A == 0);
-  cgs.insert(A + B == 7);
-  cgs.insert(B == 7);
+    Congruence_System cgs;
 
-  Congruence_System cgs_copy = cgs;
+    cgs.insert(Linear_Expression(0) %= 0);
+    cgs.insert(B == 7);
 
-  print_constraints(ph1, "*** ph1 ***");
-  print_congruences(cgs, "*** cgs ***");
+    Congruence_System cgs_copy = cgs;
 
-  ph1.add_recycled_congruences(cgs);
+    print_constraints(ph1, "*** ph1 ***");
+    print_congruences(cgs, "*** cgs ***");
 
-  C_Polyhedron known_result(cgs_copy);
+    ph1.add_recycled_congruences(cgs);
 
-  bool ok = (ph1 == known_result);
+    C_Polyhedron known_result(cgs_copy);
 
-  print_constraints(ph1, "*** after ph1.add_congruences(cgs) ***");
+    bool ok = (ph1 == known_result);
 
-  return ok;
+    print_constraints(ph1, "*** after ph1.add_congruences(cgs) ***");
+
+    return ok;
+}
+
+bool
+test08 ()
+{
+    Variable A(0);
+    Variable B(1);
+
+    C_Polyhedron ph1(2);
+
+    Congruence_System cgs;
+
+    cgs.insert((Linear_Expression(18) %= 3) / 5);
+    cgs.insert(A == 0);
+    cgs.insert(A + B == 7);
+    cgs.insert(B == 7);
+
+    Congruence_System cgs_copy = cgs;
+
+    print_constraints(ph1, "*** ph1 ***");
+    print_congruences(cgs, "*** cgs ***");
+
+    ph1.add_recycled_congruences(cgs);
+
+    C_Polyhedron known_result(cgs_copy);
+
+    bool ok = (ph1 == known_result);
+
+    print_constraints(ph1, "*** after ph1.add_congruences(cgs) ***");
+
+    return ok;
 }
 
 } // namespace
 
 BEGIN_MAIN
-  DO_TEST(test01);
-  DO_TEST(test02);
-  DO_TEST(test03);
-  DO_TEST(test04);
-  DO_TEST(test05);
-  DO_TEST(test06);
-  DO_TEST(test07);
-  DO_TEST(test08);
+    DO_TEST(test01);
+DO_TEST(test02);
+DO_TEST(test03);
+DO_TEST(test04);
+DO_TEST(test05);
+DO_TEST(test06);
+DO_TEST(test07);
+DO_TEST(test08);
 END_MAIN
 

@@ -2,24 +2,24 @@
    Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
    Copyright (C) 2010-2022 BUGSENG srl (http://bugseng.com)
 
-This file is part of the Parma Polyhedra Library (PPL).
+   This file is part of the Parma Polyhedra Library (PPL).
 
-The PPL is free software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation; either version 3 of the License, or (at your
-option) any later version.
+   The PPL is free software; you can redistribute it and/or modify it
+   under the terms of the GNU General Public License as published by the
+   Free Software Foundation; either version 3 of the License, or (at your
+   option) any later version.
 
-The PPL is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-for more details.
+   The PPL is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+   for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software Foundation,
-Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software Foundation,
+   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
 
-For the most up-to-date information see the Parma Polyhedra Library
-site: http://bugseng.com/products/ppl/ . */
+   For the most up-to-date information see the Parma Polyhedra Library
+   site: http://bugseng.com/products/ppl/ . */
 
 #ifndef PPL_Dense_Row_inlines_hh
 #define PPL_Dense_Row_inlines_hh 1
@@ -29,502 +29,597 @@ site: http://bugseng.com/products/ppl/ . */
 #include <limits>
 #include <algorithm>
 
-namespace Parma_Polyhedra_Library {
+namespace Parma_Polyhedra_Library
+{
 
 inline
-Dense_Row::Impl::Impl()
-  : size(0), capacity(0), coeff_allocator(), vec(nullptr) {
-}
-
-inline
-Dense_Row::Impl::~Impl() {
-  while (size != 0) {
-    --size;
-    vec[size].~Coefficient();
-  }
-  coeff_allocator.deallocate(vec, capacity);
-}
-
-inline dimension_type
-Dense_Row::max_size() {
-  return std::numeric_limits<size_t>::max() / sizeof(Coefficient);
-}
-
-inline dimension_type
-Dense_Row::size() const {
-  return impl.size;
-}
-
-inline dimension_type
-Dense_Row::capacity() const {
-  return impl.capacity;
+Dense_Row::Impl::Impl ()
+    : size(0), capacity(0), coeff_allocator(), vec(nullptr)
+{
 }
 
 inline
-Dense_Row::Dense_Row()
-  : impl() {
-
-  PPL_ASSERT(OK());
-}
-
-inline
-Dense_Row::Dense_Row(const dimension_type sz,
-                     const dimension_type capacity)
-  : impl() {
-
-  resize(sz, capacity);
-
-  PPL_ASSERT(size() == sz);
-  PPL_ASSERT(impl.capacity == capacity);
-  PPL_ASSERT(OK());
-}
-
-inline
-Dense_Row::Dense_Row(const dimension_type sz)
-  : impl() {
-
-  resize(sz);
-
-  PPL_ASSERT(size() == sz);
-  PPL_ASSERT(OK());
-}
-
-inline
-Dense_Row::Dense_Row(const Dense_Row& y)
-  : impl() {
-  impl.coeff_allocator = y.impl.coeff_allocator;
-  if (y.impl.vec != nullptr) {
-    impl.capacity = y.capacity();
-    impl.vec = impl.coeff_allocator.allocate(impl.capacity);
-    while (impl.size != y.size()) {
-      new(&impl.vec[impl.size]) Coefficient(y[impl.size]);
-      ++impl.size;
+Dense_Row::Impl::~Impl ()
+{
+    while (size != 0)
+    {
+        --size;
+        vec[size].~Coefficient ();
     }
-  }
-  PPL_ASSERT(size() == y.size());
-  PPL_ASSERT(capacity() == y.capacity());
-  PPL_ASSERT(OK());
+
+    coeff_allocator.deallocate(vec, capacity);
+}
+
+inline dimension_type
+Dense_Row::max_size ()
+{
+    return std::numeric_limits<size_t>::max() / sizeof(Coefficient);
+}
+
+inline dimension_type
+Dense_Row::size () const
+{
+    return impl.size;
+}
+
+inline dimension_type
+Dense_Row::capacity () const
+{
+    return impl.capacity;
 }
 
 inline
-Dense_Row::Dense_Row(const Dense_Row& y,
-                     const dimension_type capacity)
-  : impl() {
-  PPL_ASSERT(y.size() <= capacity);
-  PPL_ASSERT(capacity <= max_size());
+Dense_Row::Dense_Row ()
+    : impl()
+{
 
-  impl.capacity = capacity;
-  impl.coeff_allocator = y.impl.coeff_allocator;
-  impl.vec = impl.coeff_allocator.allocate(impl.capacity);
+    PPL_ASSERT(OK());
+}
 
-  if (y.impl.vec != nullptr) {
-    while (impl.size != y.size()) {
-      new(&impl.vec[impl.size]) Coefficient(y[impl.size]);
-      ++impl.size;
+inline
+Dense_Row::Dense_Row (const dimension_type sz,
+                      const dimension_type capacity)
+    : impl()
+{
+
+    resize(sz, capacity);
+
+    PPL_ASSERT(size() == sz);
+    PPL_ASSERT(impl.capacity == capacity);
+    PPL_ASSERT(OK());
+}
+
+inline
+Dense_Row::Dense_Row (const dimension_type sz)
+    : impl()
+{
+
+    resize(sz);
+
+    PPL_ASSERT(size() == sz);
+    PPL_ASSERT(OK());
+}
+
+inline
+Dense_Row::Dense_Row (const Dense_Row & y)
+    : impl()
+{
+    impl.coeff_allocator = y.impl.coeff_allocator;
+
+    if (y.impl.vec != nullptr)
+    {
+        impl.capacity = y.capacity();
+        impl.vec      = impl.coeff_allocator.allocate(impl.capacity);
+
+        while (impl.size != y.size())
+        {
+            new(&impl.vec[impl.size]) Coefficient(y[impl.size]);
+            ++impl.size;
+        }
     }
-  }
 
-  PPL_ASSERT(size() == y.size());
-  PPL_ASSERT(impl.capacity == capacity);
-  PPL_ASSERT(OK());
+    PPL_ASSERT(size() == y.size());
+    PPL_ASSERT(capacity() == y.capacity());
+    PPL_ASSERT(OK());
 }
 
 inline
-Dense_Row::Dense_Row(const Dense_Row& y,
-                     const dimension_type sz,
-                     const dimension_type capacity)
-  : impl() {
-  PPL_ASSERT(sz <= capacity);
-  PPL_ASSERT(capacity <= max_size());
-  PPL_ASSERT(capacity != 0);
+Dense_Row::Dense_Row (const Dense_Row    & y,
+                      const dimension_type capacity)
+    : impl()
+{
+    PPL_ASSERT(y.size() <= capacity);
+    PPL_ASSERT(capacity <= max_size());
 
-  impl.capacity = capacity;
-  impl.coeff_allocator = y.impl.coeff_allocator;
-  impl.vec = impl.coeff_allocator.allocate(impl.capacity);
+    impl.capacity        = capacity;
+    impl.coeff_allocator = y.impl.coeff_allocator;
+    impl.vec             = impl.coeff_allocator.allocate(impl.capacity);
 
-  const dimension_type n = std::min(sz, y.size());
-  while (impl.size != n) {
-    new(&impl.vec[impl.size]) Coefficient(y[impl.size]);
-    ++impl.size;
-  }
-  while (impl.size != sz) {
-    new(&impl.vec[impl.size]) Coefficient();
-    ++impl.size;
-  }
+    if (y.impl.vec != nullptr)
+    {
+        while (impl.size != y.size())
+        {
+            new(&impl.vec[impl.size]) Coefficient(y[impl.size]);
+            ++impl.size;
+        }
+    }
 
-  PPL_ASSERT(size() == sz);
-  PPL_ASSERT(impl.capacity == capacity);
-  PPL_ASSERT(OK());
+    PPL_ASSERT(size() == y.size());
+    PPL_ASSERT(impl.capacity == capacity);
+    PPL_ASSERT(OK());
 }
 
 inline
-Dense_Row::~Dense_Row() {
-  // The `impl' field will be destroyed automatically.
+Dense_Row::Dense_Row (const Dense_Row    & y,
+                      const dimension_type sz,
+                      const dimension_type capacity)
+    : impl()
+{
+    PPL_ASSERT(sz <= capacity);
+    PPL_ASSERT(capacity <= max_size());
+    PPL_ASSERT(capacity != 0);
+
+    impl.capacity        = capacity;
+    impl.coeff_allocator = y.impl.coeff_allocator;
+    impl.vec             = impl.coeff_allocator.allocate(impl.capacity);
+
+    const dimension_type n = std::min(sz, y.size());
+
+    while (impl.size != n)
+    {
+        new(&impl.vec[impl.size]) Coefficient(y[impl.size]);
+        ++impl.size;
+    }
+
+    while (impl.size != sz)
+    {
+        new(&impl.vec[impl.size]) Coefficient();
+        ++impl.size;
+    }
+
+    PPL_ASSERT(size() == sz);
+    PPL_ASSERT(impl.capacity == capacity);
+    PPL_ASSERT(OK());
+}
+
+inline
+Dense_Row::~Dense_Row ()
+{
+    // The `impl' field will be destroyed automatically.
 }
 
 inline void
-Dense_Row::destroy() {
-  resize(0);
-  impl.coeff_allocator.deallocate(impl.vec, impl.capacity);
+Dense_Row::destroy ()
+{
+    resize(0);
+    impl.coeff_allocator.deallocate(impl.vec, impl.capacity);
 }
 
 inline void
-Dense_Row::m_swap(Dense_Row& y) {
-  using std::swap;
-  swap(impl.size, y.impl.size);
-  swap(impl.capacity, y.impl.capacity);
-  swap(impl.coeff_allocator, y.impl.coeff_allocator);
-  swap(impl.vec, y.impl.vec);
-  PPL_ASSERT(OK());
-  PPL_ASSERT(y.OK());
+Dense_Row::m_swap (Dense_Row & y)
+{
+    using std::swap;
+    swap(impl.size, y.impl.size);
+    swap(impl.capacity, y.impl.capacity);
+    swap(impl.coeff_allocator, y.impl.coeff_allocator);
+    swap(impl.vec, y.impl.vec);
+    PPL_ASSERT(OK());
+    PPL_ASSERT(y.OK());
 }
 
-inline Dense_Row&
-Dense_Row::operator=(const Dense_Row& y) {
+inline Dense_Row &
+Dense_Row::operator= (const Dense_Row & y)
+{
 
-  if (this != &y && size() == y.size()) {
-    // Avoid reallocation.
+    if ((this != &y) && (size() == y.size()))
+    {
+        // Avoid reallocation.
 
-    for (dimension_type i = size(); i-- > 0; ) {
-      (*this)[i] = y[i];
+        for (dimension_type i = size(); i-- > 0; )
+        {
+            (*this)[i] = y[i];
+        }
+
+        return *this;
     }
+
+    Dense_Row x(y);
+
+    swap(*this, x);
 
     return *this;
-  }
-
-  Dense_Row x(y);
-  swap(*this, x);
-
-  return *this;
 }
 
-inline Coefficient&
-Dense_Row::operator[](const dimension_type k) {
-  PPL_ASSERT(impl.vec != 0);
-  PPL_ASSERT(k < size());
-  return impl.vec[k];
+inline Coefficient &
+Dense_Row::operator[] (const dimension_type k)
+{
+    PPL_ASSERT(impl.vec != 0);
+    PPL_ASSERT(k < size());
+    return impl.vec[k];
 }
 
 inline Coefficient_traits::const_reference
-Dense_Row::operator[](const dimension_type k) const {
-  PPL_ASSERT(impl.vec != 0);
-  PPL_ASSERT(k < size());
-  return impl.vec[k];
+Dense_Row::operator[] (const dimension_type k) const
+{
+    PPL_ASSERT(impl.vec != 0);
+    PPL_ASSERT(k < size());
+    return impl.vec[k];
 }
 
 inline void
-Dense_Row::swap_coefficients(const dimension_type i, const dimension_type j) {
-  std::swap((*this)[i], (*this)[j]);
+Dense_Row::swap_coefficients (const dimension_type i, const dimension_type j)
+{
+    std::swap((*this)[i], (*this)[j]);
 }
 
 inline void
-Dense_Row::swap_coefficients(iterator i, iterator j) {
-  std::swap(*i, *j);
+Dense_Row::swap_coefficients (iterator i, iterator j)
+{
+    std::swap(*i, *j);
 }
 
 inline void
-Dense_Row::reset(const dimension_type i) {
-  (*this)[i] = 0;
+Dense_Row::reset (const dimension_type i)
+{
+    (*this)[i] = 0;
 }
 
 inline Dense_Row::iterator
-Dense_Row::reset(iterator itr) {
-  *itr = 0;
-  ++itr;
-  return itr;
+Dense_Row::reset (iterator itr)
+{
+    *itr = 0;
+    ++itr;
+    return itr;
 }
 
 inline Dense_Row::iterator
-Dense_Row::begin() {
-  return iterator(*this, 0);
+Dense_Row::begin ()
+{
+    return iterator(*this, 0);
 }
 
 inline Dense_Row::const_iterator
-Dense_Row::begin() const {
-  return const_iterator(*this, 0);
+Dense_Row::begin () const
+{
+    return const_iterator(*this, 0);
 }
 
 inline Dense_Row::iterator
-Dense_Row::end() {
-  return iterator(*this, size());
+Dense_Row::end ()
+{
+    return iterator(*this, size());
 }
 
 inline Dense_Row::const_iterator
-Dense_Row::end() const {
-  return const_iterator(*this, size());
+Dense_Row::end () const
+{
+    return const_iterator(*this, size());
 }
 
 inline Coefficient_traits::const_reference
-Dense_Row::get(const dimension_type i) const {
-  return (*this)[i];
+Dense_Row::get (const dimension_type i) const
+{
+    return (*this)[i];
 }
 
 inline Dense_Row::iterator
-Dense_Row::find(const dimension_type i) {
-  return iterator(*this, i);
+Dense_Row::find (const dimension_type i)
+{
+    return iterator(*this, i);
 }
 
 inline Dense_Row::const_iterator
-Dense_Row::find(const dimension_type i) const {
-  return const_iterator(*this, i);
+Dense_Row::find (const dimension_type i) const
+{
+    return const_iterator(*this, i);
 }
 
 inline Dense_Row::iterator
-Dense_Row::find(iterator, const dimension_type i) {
-  return iterator(*this, i);
+Dense_Row::find (iterator, const dimension_type i)
+{
+    return iterator(*this, i);
 }
 
 inline Dense_Row::const_iterator
-Dense_Row::find(const_iterator, const dimension_type i) const {
-  return const_iterator(*this, i);
+Dense_Row::find (const_iterator, const dimension_type i) const
+{
+    return const_iterator(*this, i);
 }
 
 inline Dense_Row::iterator
-Dense_Row::lower_bound(const dimension_type i) {
-  return find(i);
+Dense_Row::lower_bound (const dimension_type i)
+{
+    return find(i);
 }
 
 inline Dense_Row::const_iterator
-Dense_Row::lower_bound(const dimension_type i) const {
-  return find(i);
+Dense_Row::lower_bound (const dimension_type i) const
+{
+    return find(i);
 }
 
 inline Dense_Row::iterator
-Dense_Row::lower_bound(const iterator itr, const dimension_type i) {
-  return find(itr, i);
+Dense_Row::lower_bound (const iterator itr, const dimension_type i)
+{
+    return find(itr, i);
 }
 
 inline Dense_Row::const_iterator
-Dense_Row::lower_bound(const const_iterator itr, const dimension_type i) const {
-  return find(itr, i);
+Dense_Row::lower_bound (const const_iterator itr, const dimension_type i) const
+{
+    return find(itr, i);
 }
 
 inline Dense_Row::iterator
-Dense_Row::insert(const dimension_type i,
-                  Coefficient_traits::const_reference x) {
-  (*this)[i] = x;
-  return find(i);
+Dense_Row::insert (const dimension_type                i,
+                   Coefficient_traits::const_reference x)
+{
+    (*this)[i] = x;
+    return find(i);
 }
 
 inline Dense_Row::iterator
-Dense_Row::insert(const dimension_type i) {
-  return find(i);
+Dense_Row::insert (const dimension_type i)
+{
+    return find(i);
 }
 
 inline Dense_Row::iterator
-Dense_Row::insert(iterator, const dimension_type i,
-                  Coefficient_traits::const_reference x) {
-  (*this)[i] = x;
-  return find(i);
+Dense_Row::insert (iterator, const dimension_type i,
+                   Coefficient_traits::const_reference x)
+{
+    (*this)[i] = x;
+    return find(i);
 }
 
 inline Dense_Row::iterator
-Dense_Row::insert(iterator, const dimension_type i) {
-  return find(i);
+Dense_Row::insert (iterator, const dimension_type i)
+{
+    return find(i);
 }
 
 inline memory_size_type
-Dense_Row::total_memory_in_bytes() const {
-  return sizeof(*this) + external_memory_in_bytes();
+Dense_Row::total_memory_in_bytes () const
+{
+    return sizeof(*this) + external_memory_in_bytes();
 }
 
 inline memory_size_type
-Dense_Row::total_memory_in_bytes(const dimension_type capacity) const {
-  return sizeof(*this) + external_memory_in_bytes(capacity);
+Dense_Row::total_memory_in_bytes (const dimension_type capacity) const
+{
+    return sizeof(*this) + external_memory_in_bytes(capacity);
 }
 
 /*! \relates Dense_Row */
 inline bool
-operator!=(const Dense_Row& x, const Dense_Row& y) {
-  return !(x == y);
+operator!= (const Dense_Row & x, const Dense_Row & y)
+{
+    return !(x == y);
 }
 
 
 inline
-Dense_Row::iterator::iterator()
-  : row(nullptr), idx(0) {
-  PPL_ASSERT(OK());
+Dense_Row::iterator::iterator ()
+    : row(nullptr), idx(0)
+{
+    PPL_ASSERT(OK());
 }
 
 inline
-Dense_Row::iterator::iterator(Dense_Row& r, const dimension_type i)
-  : row(&r), idx(i) {
-  PPL_ASSERT(OK());
+Dense_Row::iterator::iterator (Dense_Row & r, const dimension_type i)
+    : row(&r), idx(i)
+{
+    PPL_ASSERT(OK());
 }
 
-inline Coefficient&
-Dense_Row::iterator::operator*() {
-  PPL_ASSERT(idx < row->size());
-  return (*row)[idx];
+inline Coefficient &
+Dense_Row::iterator::operator* ()
+{
+    PPL_ASSERT(idx < row->size());
+    return (*row)[idx];
 }
 
 inline Coefficient_traits::const_reference
-Dense_Row::iterator::operator*() const {
-  PPL_ASSERT(idx < row->size());
-  return (*row)[idx];
+Dense_Row::iterator::operator* () const
+{
+    PPL_ASSERT(idx < row->size());
+    return (*row)[idx];
 }
 
 inline dimension_type
-Dense_Row::iterator::index() const {
-  return idx;
+Dense_Row::iterator::index () const
+{
+    return idx;
 }
 
-inline Dense_Row::iterator&
-Dense_Row::iterator::operator++() {
-  PPL_ASSERT(idx < row->size());
-  ++idx;
-  PPL_ASSERT(OK());
-  return *this;
-}
-
-inline Dense_Row::iterator
-Dense_Row::iterator::operator++(int) {
-  const iterator tmp(*this);
-  ++(*this);
-  return tmp;
-}
-
-inline Dense_Row::iterator&
-Dense_Row::iterator::operator--() {
-  PPL_ASSERT(idx > 0);
-  --idx;
-  PPL_ASSERT(OK());
-  return *this;
+inline Dense_Row::iterator &
+Dense_Row::iterator::operator++ ()
+{
+    PPL_ASSERT(idx < row->size());
+    ++idx;
+    PPL_ASSERT(OK());
+    return *this;
 }
 
 inline Dense_Row::iterator
-Dense_Row::iterator::operator--(int) {
-  const iterator tmp(*this);
-  --(*this);
-  return tmp;
+Dense_Row::iterator::operator++ (int)
+{
+    const iterator tmp(*this);
+
+    ++(*this);
+    return tmp;
+}
+
+inline Dense_Row::iterator &
+Dense_Row::iterator::operator-- ()
+{
+    PPL_ASSERT(idx > 0);
+    --idx;
+    PPL_ASSERT(OK());
+    return *this;
+}
+
+inline Dense_Row::iterator
+Dense_Row::iterator::operator-- (int)
+{
+    const iterator tmp(*this);
+
+    --(*this);
+    return tmp;
 }
 
 inline bool
-Dense_Row::iterator::operator==(const iterator& x) const {
-  return (row == x.row) && (idx == x.idx);
+Dense_Row::iterator::operator== (const iterator & x) const
+{
+    return (row == x.row) && (idx == x.idx);
 }
 
 inline bool
-Dense_Row::iterator::operator!=(const iterator& x) const {
-  return !(*this == x);
+Dense_Row::iterator::operator!= (const iterator & x) const
+{
+    return !(*this == x);
 }
 
 inline
-Dense_Row::iterator::operator const_iterator() const {
-  return const_iterator(*row, idx);
+Dense_Row::iterator::operator const_iterator () const
+{
+    return const_iterator(*row, idx);
 }
 
 inline bool
-Dense_Row::iterator::OK() const {
-  if (row == nullptr) {
-    return true;
-  }
-  // i can be equal to row.size() for past-the-end iterators
-  return (idx <= row->size());
+Dense_Row::iterator::OK () const
+{
+    if (row == nullptr)
+    {
+        return true;
+    }
+
+    // i can be equal to row.size() for past-the-end iterators
+    return (idx <= row->size());
 }
 
 
 inline
-Dense_Row::const_iterator::const_iterator()
-  : row(nullptr), idx(0) {
-  PPL_ASSERT(OK());
+Dense_Row::const_iterator::const_iterator ()
+    : row(nullptr), idx(0)
+{
+    PPL_ASSERT(OK());
 }
 
 inline
-Dense_Row::const_iterator::const_iterator(const Dense_Row& r,
-                                          const dimension_type i)
-  : row(&r), idx(i) {
-  PPL_ASSERT(OK());
+Dense_Row::const_iterator::const_iterator (const Dense_Row    & r,
+                                           const dimension_type i)
+    : row(&r), idx(i)
+{
+    PPL_ASSERT(OK());
 }
 
 inline Coefficient_traits::const_reference
-Dense_Row::const_iterator::operator*() const {
-  PPL_ASSERT(idx < row->size());
-  return (*row)[idx];
+Dense_Row::const_iterator::operator* () const
+{
+    PPL_ASSERT(idx < row->size());
+    return (*row)[idx];
 }
 
 inline dimension_type
-Dense_Row::const_iterator::index() const {
-  return idx;
+Dense_Row::const_iterator::index () const
+{
+    return idx;
 }
 
-inline Dense_Row::const_iterator&
-Dense_Row::const_iterator::operator++() {
-  PPL_ASSERT(idx < row->size());
-  ++idx;
-  PPL_ASSERT(OK());
-  return *this;
-}
-
-inline Dense_Row::const_iterator
-Dense_Row::const_iterator::operator++(int) {
-  const const_iterator tmp(*this);
-  ++(*this);
-  return tmp;
-}
-
-inline Dense_Row::const_iterator&
-Dense_Row::const_iterator::operator--() {
-  PPL_ASSERT(idx > 0);
-  --idx;
-  PPL_ASSERT(OK());
-  return *this;
+inline Dense_Row::const_iterator &
+Dense_Row::const_iterator::operator++ ()
+{
+    PPL_ASSERT(idx < row->size());
+    ++idx;
+    PPL_ASSERT(OK());
+    return *this;
 }
 
 inline Dense_Row::const_iterator
-Dense_Row::const_iterator::operator--(int) {
-  const const_iterator tmp(*this);
-  --(*this);
-  return tmp;
+Dense_Row::const_iterator::operator++ (int)
+{
+    const const_iterator tmp(*this);
+
+    ++(*this);
+    return tmp;
+}
+
+inline Dense_Row::const_iterator &
+Dense_Row::const_iterator::operator-- ()
+{
+    PPL_ASSERT(idx > 0);
+    --idx;
+    PPL_ASSERT(OK());
+    return *this;
+}
+
+inline Dense_Row::const_iterator
+Dense_Row::const_iterator::operator-- (int)
+{
+    const const_iterator tmp(*this);
+
+    --(*this);
+    return tmp;
 }
 
 inline bool
-Dense_Row::const_iterator::operator==(const const_iterator& x) const {
-  return (row == x.row) && (idx == x.idx);
+Dense_Row::const_iterator::operator== (const const_iterator & x) const
+{
+    return (row == x.row) && (idx == x.idx);
 }
 
 inline bool
-Dense_Row::const_iterator::operator!=(const const_iterator& x) const {
-  return !(*this == x);
+Dense_Row::const_iterator::operator!= (const const_iterator & x) const
+{
+    return !(*this == x);
 }
 
 inline bool
-Dense_Row::const_iterator::OK() const {
-  if (row == nullptr) {
-    return true;
-  }
-  // i can be equal to row.size() for past-the-end iterators
-  return (idx <= row->size());
+Dense_Row::const_iterator::OK () const
+{
+    if (row == nullptr)
+    {
+        return true;
+    }
+
+    // i can be equal to row.size() for past-the-end iterators
+    return (idx <= row->size());
 }
 
 inline void
-linear_combine(Dense_Row& x, const Dense_Row& y,
-               Coefficient_traits::const_reference coeff1,
-               Coefficient_traits::const_reference coeff2) {
-  x.linear_combine(y, coeff1, coeff2);
+linear_combine (Dense_Row & x, const Dense_Row & y,
+                Coefficient_traits::const_reference coeff1,
+                Coefficient_traits::const_reference coeff2)
+{
+    x.linear_combine(y, coeff1, coeff2);
 }
 
 inline void
-linear_combine(Dense_Row& x, const Dense_Row& y,
-               Coefficient_traits::const_reference c1,
-               Coefficient_traits::const_reference c2,
-               const dimension_type start, const dimension_type end) {
-  x.linear_combine(y, c1, c2, start, end);
+linear_combine (Dense_Row & x, const Dense_Row & y,
+                Coefficient_traits::const_reference c1,
+                Coefficient_traits::const_reference c2,
+                const dimension_type start, const dimension_type end)
+{
+    x.linear_combine(y, c1, c2, start, end);
 }
 
 /*! \relates Dense_Row */
 inline void
-swap(Dense_Row& x, Dense_Row& y) {
-  x.m_swap(y);
+swap (Dense_Row & x, Dense_Row & y)
+{
+    x.m_swap(y);
 }
 
 /*! \relates Dense_Row */
 inline void
-iter_swap(const std::vector<Dense_Row>::iterator x,
-          const std::vector<Dense_Row>::iterator y) {
-  swap(*x, *y);
+iter_swap (const std::vector<Dense_Row>::iterator x,
+           const std::vector<Dense_Row>::iterator y)
+{
+    swap(*x, *y);
 }
 
 } // namespace Parma_Polyhedra_Library
 
 #endif // !defined(PPL_Dense_Row_inlines_hh)
+

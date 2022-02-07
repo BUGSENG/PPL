@@ -2,305 +2,322 @@
    Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
    Copyright (C) 2010-2022 BUGSENG srl (http://bugseng.com)
 
-This file is part of the Parma Polyhedra Library (PPL).
+   This file is part of the Parma Polyhedra Library (PPL).
 
-The PPL is free software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation; either version 3 of the License, or (at your
-option) any later version.
+   The PPL is free software; you can redistribute it and/or modify it
+   under the terms of the GNU General Public License as published by the
+   Free Software Foundation; either version 3 of the License, or (at your
+   option) any later version.
 
-The PPL is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-for more details.
+   The PPL is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+   for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software Foundation,
-Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software Foundation,
+   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
 
-For the most up-to-date information see the Parma Polyhedra Library
-site: http://bugseng.com/products/ppl/ . */
+   For the most up-to-date information see the Parma Polyhedra Library
+   site: http://bugseng.com/products/ppl/ . */
 
 #include "ppl_test.hh"
 
-namespace {
+namespace
+{
 
 bool
-test01() {
-  Variable x(0);
-  Variable y(1);
+test01 ()
+{
+    Variable x(0);
+    Variable y(1);
 
-  TOctagonal_Shape oct(3);
+    TOctagonal_Shape oct(3);
 
-  oct.add_constraint(x <= 2);
-  oct.add_constraint(x - y == 3);
-  oct.add_constraint(y <= 2);
+    oct.add_constraint(x <= 2);
+    oct.add_constraint(x - y == 3);
+    oct.add_constraint(y <= 2);
 
-  print_constraints(oct, "*** oct ***");
+    print_constraints(oct, "*** oct ***");
 
-  dimension_type affine_dim = oct.affine_dimension();
+    dimension_type affine_dim = oct.affine_dimension();
 
-  nout << endl
-       << "The affine dimension of a system of `oct' is:"
-       << endl
-       << affine_dim
-       << endl;
+    nout << endl
+         << "The affine dimension of a system of `oct' is:"
+         << endl
+         << affine_dim
+         << endl;
 
-  bool ok = (affine_dim == 2);
+    bool ok = (affine_dim == 2);
 
-  return ok;
+    return ok;
 }
 
 bool
-test02() {
-  Variable A(0);
-  Variable B(1);
-  Variable C(2);
-  Variable D(3);
-  Variable E(4);
+test02 ()
+{
+    Variable A(0);
+    Variable B(1);
+    Variable C(2);
+    Variable D(3);
+    Variable E(4);
 
-  TOctagonal_Shape oct(5);
+    TOctagonal_Shape oct(5);
 
-  oct.add_constraint(A <= 5);
-  oct.add_constraint(A - B == 3);
-  oct.add_constraint(C <= 2);
-  oct.add_constraint(E - D == 2);
+    oct.add_constraint(A <= 5);
+    oct.add_constraint(A - B == 3);
+    oct.add_constraint(C <= 2);
+    oct.add_constraint(E - D == 2);
 
-  print_constraints(oct, "*** oct ***");
+    print_constraints(oct, "*** oct ***");
 
-  dimension_type affine_dim = oct.affine_dimension();
+    dimension_type affine_dim = oct.affine_dimension();
 
-  nout << endl
-       << "The affine dimension of a system of `oct' is:"
-       << endl
-       << affine_dim
-       << endl;
+    nout << endl
+         << "The affine dimension of a system of `oct' is:"
+         << endl
+         << affine_dim
+         << endl;
 
-  bool ok = (affine_dim == 3);
+    bool ok = (affine_dim == 3);
 
-  return ok;
+    return ok;
 }
 
 bool
-test03() {
-  Variable A(0);
-  Variable B(1);
-  Variable C(2);
-  Variable D(3);
-  Variable E(4);
+test03 ()
+{
+    Variable A(0);
+    Variable B(1);
+    Variable C(2);
+    Variable D(3);
+    Variable E(4);
 
-  TOctagonal_Shape oct(5);
+    TOctagonal_Shape oct(5);
 
-  oct.add_constraint(A == 5);
-  oct.add_constraint(A - B == 3);
-  oct.add_constraint(C <= 2);
-  oct.add_constraint(E - D == 2);
+    oct.add_constraint(A == 5);
+    oct.add_constraint(A - B == 3);
+    oct.add_constraint(C <= 2);
+    oct.add_constraint(E - D == 2);
 
-  print_constraints(oct, "*** oct ***");
+    print_constraints(oct, "*** oct ***");
 
-  dimension_type affine_dim = oct.affine_dimension();
+    dimension_type affine_dim = oct.affine_dimension();
 
-  nout << endl
-       << "The affine dimension of a system of `oct' is:"
-       << endl
-       << affine_dim
-       << endl;
+    nout << endl
+         << "The affine dimension of a system of `oct' is:"
+         << endl
+         << affine_dim
+         << endl;
 
-  bool ok = (affine_dim == 2);
+    bool ok = (affine_dim == 2);
 
-  return ok;
+    return ok;
 }
 
 bool
-test04() {
-  Variable A(0);
-  Variable B(1);
+test04 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TOctagonal_Shape oct(2);
-  oct.add_constraint(A <= 3);
-  oct.add_constraint(B - A <= -5);
-  oct.add_constraint(-B <= 2);
+    TOctagonal_Shape oct(2);
 
-  print_constraints(oct, "*** oct ***");
+    oct.add_constraint(A <= 3);
+    oct.add_constraint(B - A <= -5);
+    oct.add_constraint(-B <= 2);
 
-  dimension_type affine_dim = oct.affine_dimension();
+    print_constraints(oct, "*** oct ***");
 
-  nout << endl
-       << "The affine dimension of a system of `oct' is:"
-       << endl
-       << affine_dim
-       << endl;
+    dimension_type affine_dim = oct.affine_dimension();
 
-  bool ok = (affine_dim == 0);
+    nout << endl
+         << "The affine dimension of a system of `oct' is:"
+         << endl
+         << affine_dim
+         << endl;
 
-  return ok;
+    bool ok = (affine_dim == 0);
+
+    return ok;
 }
 
 bool
-test05() {
-  TOctagonal_Shape oct(2, EMPTY);
+test05 ()
+{
+    TOctagonal_Shape oct(2, EMPTY);
 
-  print_constraints(oct, "*** oct ***");
+    print_constraints(oct, "*** oct ***");
 
-  dimension_type affine_dim = oct.affine_dimension();
+    dimension_type affine_dim = oct.affine_dimension();
 
-  nout << endl
-       << "The affine dimension of a system of `oct' is:"
-       << endl
-       << affine_dim
-       << endl;
+    nout << endl
+         << "The affine dimension of a system of `oct' is:"
+         << endl
+         << affine_dim
+         << endl;
 
-  bool ok = (affine_dim == 0);
+    bool ok = (affine_dim == 0);
 
-  return ok;
+    return ok;
 }
 
 bool
-test06() {
-  TOctagonal_Shape oct(2);
+test06 ()
+{
+    TOctagonal_Shape oct(2);
 
-  print_constraints(oct, "*** oct ***");
+    print_constraints(oct, "*** oct ***");
 
-  dimension_type affine_dim = oct.affine_dimension();
+    dimension_type affine_dim = oct.affine_dimension();
 
-  nout << endl
-       << "The affine dimension of a system of `oct' is:"
-       << endl
-       << affine_dim
-       << endl;
+    nout << endl
+         << "The affine dimension of a system of `oct' is:"
+         << endl
+         << affine_dim
+         << endl;
 
-  bool ok = (affine_dim == 2);
+    bool ok = (affine_dim == 2);
 
-  return ok;
+    return ok;
 }
 
 bool
-test07() {
-  Variable A(0);
-  Variable B(1);
-  Variable D(3);
+test07 ()
+{
+    Variable A(0);
+    Variable B(1);
+    Variable D(3);
 
-  TOctagonal_Shape oct(4);
-  oct.add_constraint(A <= 1);
-  oct.add_constraint(A - D == 8);
-  oct.add_constraint(B <= 7);
+    TOctagonal_Shape oct(4);
 
-  print_constraints(oct, "*** oct ***");
+    oct.add_constraint(A <= 1);
+    oct.add_constraint(A - D == 8);
+    oct.add_constraint(B <= 7);
 
-  dimension_type affine_dim = oct.affine_dimension();
+    print_constraints(oct, "*** oct ***");
 
-  nout << endl
-       << "The affine dimension of a system of `oct' is:"
-       << endl
-       << affine_dim
-       << endl;
+    dimension_type affine_dim = oct.affine_dimension();
 
-  bool ok = (affine_dim == 3);
+    nout << endl
+         << "The affine dimension of a system of `oct' is:"
+         << endl
+         << affine_dim
+         << endl;
 
-  return ok;
+    bool ok = (affine_dim == 3);
+
+    return ok;
 }
 
 bool
-test08() {
-  Variable A(0);
-  Variable B(1);
-  Variable D(3);
-  Variable E(4);
+test08 ()
+{
+    Variable A(0);
+    Variable B(1);
+    Variable D(3);
+    Variable E(4);
 
-  TOctagonal_Shape oct(5);
-  oct.add_constraint(A == 1);
-  oct.add_constraint(E == 1);
-  oct.add_constraint(A - D == 8);
-  oct.add_constraint(B <= 7);
+    TOctagonal_Shape oct(5);
 
-  print_constraints(oct, "*** oct ***");
+    oct.add_constraint(A == 1);
+    oct.add_constraint(E == 1);
+    oct.add_constraint(A - D == 8);
+    oct.add_constraint(B <= 7);
 
-  dimension_type affine_dim = oct.affine_dimension();
+    print_constraints(oct, "*** oct ***");
 
-  nout << endl
-       << "The affine dimension of a system of `oct' is:"
-       << endl
-       << affine_dim
-       << endl;
+    dimension_type affine_dim = oct.affine_dimension();
 
-  bool ok = (affine_dim == 2);
+    nout << endl
+         << "The affine dimension of a system of `oct' is:"
+         << endl
+         << affine_dim
+         << endl;
 
-  return ok;
+    bool ok = (affine_dim == 2);
+
+    return ok;
 }
 
 bool
-test09() {
-  Variable A(0);
-  Variable B(1);
+test09 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TOctagonal_Shape oct(2);
-  oct.add_constraint(A == 0);
-  oct.add_constraint(B == 2);
+    TOctagonal_Shape oct(2);
 
-  print_constraints(oct, "*** oct ***");
+    oct.add_constraint(A == 0);
+    oct.add_constraint(B == 2);
 
-  dimension_type affine_dim = oct.affine_dimension();
+    print_constraints(oct, "*** oct ***");
 
-  nout << endl
-       << "The affine dimension of a system of `oct' is:"
-       << endl
-       << affine_dim
-       << endl;
+    dimension_type affine_dim = oct.affine_dimension();
 
-  bool ok = (affine_dim == 0);
+    nout << endl
+         << "The affine dimension of a system of `oct' is:"
+         << endl
+         << affine_dim
+         << endl;
 
-  return ok;
+    bool ok = (affine_dim == 0);
+
+    return ok;
 }
 
 bool
-test10() {
-  Variable A(0);
-  Variable B(1);
+test10 ()
+{
+    Variable A(0);
+    Variable B(1);
 
-  TOctagonal_Shape oct(7);
-  oct.add_constraint(A <= 1);
-  oct.add_constraint(B == 2);
-  oct.add_constraint(B - A <= -6);
+    TOctagonal_Shape oct(7);
 
-  print_constraints(oct, "*** oct ***");
+    oct.add_constraint(A <= 1);
+    oct.add_constraint(B == 2);
+    oct.add_constraint(B - A <= -6);
 
-  dimension_type affine_dim = oct.affine_dimension();
+    print_constraints(oct, "*** oct ***");
 
-  nout << endl
-       << "The affine dimension of a system of `oct' is:"
-       << endl
-       << affine_dim
-       << endl;
+    dimension_type affine_dim = oct.affine_dimension();
 
-   bool ok = (affine_dim == 0);
+    nout << endl
+         << "The affine dimension of a system of `oct' is:"
+         << endl
+         << affine_dim
+         << endl;
 
-  return ok;
+    bool ok = (affine_dim == 0);
+
+    return ok;
 }
 
 bool
-test11() {
-  TOctagonal_Shape oct(0, UNIVERSE);
+test11 ()
+{
+    TOctagonal_Shape oct(0, UNIVERSE);
 
-  const dimension_type affine_dim = oct.affine_dimension();
+    const dimension_type affine_dim = oct.affine_dimension();
 
-  print_constraints(oct, "*** oct ***");
+    print_constraints(oct, "*** oct ***");
 
-  return affine_dim == 0;
+    return affine_dim == 0;
 }
 
 } // namespace
 
 BEGIN_MAIN
-  DO_TEST(test01);
-  DO_TEST(test02);
-  DO_TEST(test03);
-  DO_TEST(test04);
-  DO_TEST(test05);
-  DO_TEST(test06);
-  DO_TEST(test07);
-  DO_TEST(test08);
-  DO_TEST(test09);
-  DO_TEST(test10);
-  DO_TEST(test11);
+    DO_TEST(test01);
+DO_TEST(test02);
+DO_TEST(test03);
+DO_TEST(test04);
+DO_TEST(test05);
+DO_TEST(test06);
+DO_TEST(test07);
+DO_TEST(test08);
+DO_TEST(test09);
+DO_TEST(test10);
+DO_TEST(test11);
 END_MAIN
 

@@ -2,342 +2,371 @@
    Copyright (C) 2001-2010 Roberto Bagnara <bagnara@cs.unipr.it>
    Copyright (C) 2010-2022 BUGSENG srl (http://bugseng.com)
 
-This file is part of the Parma Polyhedra Library (PPL).
+   This file is part of the Parma Polyhedra Library (PPL).
 
-The PPL is free software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation; either version 3 of the License, or (at your
-option) any later version.
+   The PPL is free software; you can redistribute it and/or modify it
+   under the terms of the GNU General Public License as published by the
+   Free Software Foundation; either version 3 of the License, or (at your
+   option) any later version.
 
-The PPL is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-for more details.
+   The PPL is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+   for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software Foundation,
-Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software Foundation,
+   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
 
-For the most up-to-date information see the Parma Polyhedra Library
-site: http://bugseng.com/products/ppl/ . */
+   For the most up-to-date information see the Parma Polyhedra Library
+   site: http://bugseng.com/products/ppl/ . */
 
 #include "ppl_test.hh"
 
-namespace {
+namespace
+{
 
 // From congruences.
 bool
-test01() {
-  Variable B(1);
-  Variable A(0);
+test01 ()
+{
+    Variable B(1);
+    Variable A(0);
 
-  Congruence_System cgs;
-  cgs.insert((A %= 0) / 2);
+    Congruence_System cgs;
 
-  Grid gr1(cgs);
+    cgs.insert((A %= 0) / 2);
 
-  print_congruences(gr1, "*** gr1 ***");
+    Grid gr1(cgs);
 
-  cgs.clear();
-  cgs.insert((A %= 1) / 2);
+    print_congruences(gr1, "*** gr1 ***");
 
-  Grid gr2(cgs);
+    cgs.clear();
+    cgs.insert((A %= 1) / 2);
 
-  print_congruences(gr2, "*** gr2 ***");
+    Grid gr2(cgs);
 
-  gr1.concatenate_assign(gr2);
+    print_congruences(gr2, "*** gr2 ***");
 
-  Congruence_System known_cgs;
-  known_cgs.insert((A %= 0) / 2);
-  known_cgs.insert((B %= 1) / 2);
+    gr1.concatenate_assign(gr2);
 
-  Grid known_gr(known_cgs);
+    Congruence_System known_cgs;
 
-  bool ok = (gr1 == known_gr);
+    known_cgs.insert((A %= 0) / 2);
+    known_cgs.insert((B %= 1) / 2);
 
-  print_congruences(gr1, "*** gr1.concatenate_assign(gr2) ***");
+    Grid known_gr(known_cgs);
 
-  return ok;
+    bool ok = (gr1 == known_gr);
+
+    print_congruences(gr1, "*** gr1.concatenate_assign(gr2) ***");
+
+    return ok;
 }
 
 // First grid empty.
 bool
-test02() {
-  Variable A(0);
-  Variable C(2);
+test02 ()
+{
+    Variable A(0);
+    Variable C(2);
 
-  Grid gr1(2, EMPTY);
+    Grid gr1(2, EMPTY);
 
-  print_congruences(gr1, "*** gr1 ***");
+    print_congruences(gr1, "*** gr1 ***");
 
-  Congruence_System cgs;
-  cgs.insert((A + 0*C %= 0) / 2);
+    Congruence_System cgs;
 
-  Grid gr2(cgs);
+    cgs.insert((A + 0 * C %= 0) / 2);
 
-  print_congruences(gr2, "*** gr2 ***");
+    Grid gr2(cgs);
 
-  gr1.concatenate_assign(gr2);
+    print_congruences(gr2, "*** gr2 ***");
 
-  Grid known_gr(5, EMPTY);
+    gr1.concatenate_assign(gr2);
 
-  bool ok = (gr1 == known_gr);
+    Grid known_gr(5, EMPTY);
 
-  print_congruences(gr1, "*** gr1.concatenate_assign(gr2) ***");
+    bool ok = (gr1 == known_gr);
 
-  return ok;
+    print_congruences(gr1, "*** gr1.concatenate_assign(gr2) ***");
+
+    return ok;
 }
 
 // Second grid empty.
 bool
-test03() {
-  Variable A(0);
-  Variable C(2);
+test03 ()
+{
+    Variable A(0);
+    Variable C(2);
 
-  Congruence_System cgs;
-  cgs.insert((A + 0*C %= 0) / 2);
+    Congruence_System cgs;
 
-  Grid gr1(cgs);
+    cgs.insert((A + 0 * C %= 0) / 2);
 
-  print_congruences(gr1, "*** gr1 ***");
+    Grid gr1(cgs);
 
-  Grid gr2(2, EMPTY);
+    print_congruences(gr1, "*** gr1 ***");
 
-  print_congruences(gr2, "*** gr2 ***");
+    Grid gr2(2, EMPTY);
 
-  gr1.concatenate_assign(gr2);
+    print_congruences(gr2, "*** gr2 ***");
 
-  Grid known_gr(5, EMPTY);
+    gr1.concatenate_assign(gr2);
 
-  bool ok = (gr1 == known_gr);
+    Grid known_gr(5, EMPTY);
 
-  print_congruences(gr1, "*** gr1.concatenate_assign(gr2) ***");
+    bool ok = (gr1 == known_gr);
 
-  return ok;
+    print_congruences(gr1, "*** gr1.concatenate_assign(gr2) ***");
+
+    return ok;
 }
 
 // First grid a universe.
 bool
-test04() {
-  Variable A(0);
-  Variable B(1);
-  Variable C(2);
-  Variable D(3);
+test04 ()
+{
+    Variable A(0);
+    Variable B(1);
+    Variable C(2);
+    Variable D(3);
 
-  Grid gr1(1, UNIVERSE);
+    Grid gr1(1, UNIVERSE);
 
-  Grid_Generator_System gs;
-  gs.insert(grid_point(A));
-  gs.insert(grid_point(A + C));
+    Grid_Generator_System gs;
 
-  print_generators(gr1, "*** gr1 ***");
+    gs.insert(grid_point(A));
+    gs.insert(grid_point(A + C));
 
-  Grid gr2(gs);
+    print_generators(gr1, "*** gr1 ***");
 
-  print_generators(gr2, "*** gr2 ***");
+    Grid gr2(gs);
 
-  gr1.concatenate_assign(gr2);
+    print_generators(gr2, "*** gr2 ***");
 
-  Grid_Generator_System known_gs;
-  known_gs.insert(grid_point(B));
-  known_gs.insert(grid_point(B + D));
-  known_gs.insert(grid_line(A));
+    gr1.concatenate_assign(gr2);
 
-  Grid known_gr(known_gs);
+    Grid_Generator_System known_gs;
 
-  bool ok = (gr1 == known_gr);
+    known_gs.insert(grid_point(B));
+    known_gs.insert(grid_point(B + D));
+    known_gs.insert(grid_line(A));
 
-  print_congruences(gr1, "*** gr1.concatenate_assign(gr2) ***");
+    Grid known_gr(known_gs);
 
-  return ok;
+    bool ok = (gr1 == known_gr);
+
+    print_congruences(gr1, "*** gr1.concatenate_assign(gr2) ***");
+
+    return ok;
 }
 
 // From generators.
 bool
-test05() {
-  Variable A(0);
-  Variable B(1);
-  Variable C(2);
-  Variable D(3);
-  Variable E(4);
+test05 ()
+{
+    Variable A(0);
+    Variable B(1);
+    Variable C(2);
+    Variable D(3);
+    Variable E(4);
 
-  Grid_Generator_System gs;
-  gs.insert(grid_point(A));
-  gs.insert(grid_point(A + C));
+    Grid_Generator_System gs;
 
-  Grid gr1(gs);
+    gs.insert(grid_point(A));
+    gs.insert(grid_point(A + C));
 
-  print_generators(gr1, "*** gr1 ***");
+    Grid gr1(gs);
 
-  gs.clear();
-  gs.insert(grid_point(0*B));
-  gs.insert(grid_point(B));
+    print_generators(gr1, "*** gr1 ***");
 
-  Grid gr2(gs);
+    gs.clear();
+    gs.insert(grid_point(0 * B));
+    gs.insert(grid_point(B));
 
-  print_generators(gr2, "*** gr2 ***");
+    Grid gr2(gs);
 
-  gr1.concatenate_assign(gr2);
+    print_generators(gr2, "*** gr2 ***");
 
-  Congruence_System known_cgs;
-  known_cgs.insert((A == 1) / 0);
-  known_cgs.insert((B == 0) / 0);
-  known_cgs.insert((C %= 0) / 1);
-  known_cgs.insert((D == 0) / 0);
-  known_cgs.insert((E %= 0) / 1);
+    gr1.concatenate_assign(gr2);
 
-  Grid known_gr(known_cgs);
+    Congruence_System known_cgs;
 
-  bool ok = (gr1 == known_gr);
+    known_cgs.insert((A == 1) / 0);
+    known_cgs.insert((B == 0) / 0);
+    known_cgs.insert((C %= 0) / 1);
+    known_cgs.insert((D == 0) / 0);
+    known_cgs.insert((E %= 0) / 1);
 
-  print_congruences(gr1, "*** gr1.concatenate_assign(gr2) ***");
+    Grid known_gr(known_cgs);
 
-  return ok;
+    bool ok = (gr1 == known_gr);
+
+    print_congruences(gr1, "*** gr1.concatenate_assign(gr2) ***");
+
+    return ok;
 }
 
 // First grid empty via the congruence system.
 bool
-test06() {
-  Variable A(0);
+test06 ()
+{
+    Variable A(0);
 
-  Grid gr1(1);
-  gr1.add_congruence((A %= 0) / 2);
-  gr1.add_congruence((A %= 1) / 2);
+    Grid gr1(1);
 
-  print_congruences(gr1, "*** gr1 ***");
+    gr1.add_congruence((A %= 0) / 2);
+    gr1.add_congruence((A %= 1) / 2);
 
-  Grid gr2(2);
+    print_congruences(gr1, "*** gr1 ***");
 
-  print_congruences(gr2, "*** gr2 ***");
+    Grid gr2(2);
 
-  gr1.concatenate_assign(gr2);
+    print_congruences(gr2, "*** gr2 ***");
 
-  Grid known_gr(3, EMPTY);
+    gr1.concatenate_assign(gr2);
 
-  bool ok = (gr1 == known_gr);
+    Grid known_gr(3, EMPTY);
 
-  print_congruences(gr1, "*** gr1.concatenate_assign(gr2) ***");
+    bool ok = (gr1 == known_gr);
 
-  return ok;
+    print_congruences(gr1, "*** gr1.concatenate_assign(gr2) ***");
+
+    return ok;
 }
 
 // Second grid empty via the congruence system.
 bool
-test07() {
-  Variable A(0);
+test07 ()
+{
+    Variable A(0);
 
-  Grid gr1(2);
+    Grid gr1(2);
 
-  print_congruences(gr1, "*** gr1 ***");
+    print_congruences(gr1, "*** gr1 ***");
 
-  Grid gr2(1);
-  gr2.add_congruence((A %= 0) / 2);
-  gr2.add_congruence((A %= 1) / 2);
+    Grid gr2(1);
 
-  print_congruences(gr2, "*** gr2 ***");
+    gr2.add_congruence((A %= 0) / 2);
+    gr2.add_congruence((A %= 1) / 2);
 
-  gr1.concatenate_assign(gr2);
+    print_congruences(gr2, "*** gr2 ***");
 
-  Grid known_gr(3, EMPTY);
+    gr1.concatenate_assign(gr2);
 
-  bool ok = (gr1 == known_gr);
+    Grid known_gr(3, EMPTY);
 
-  print_congruences(gr1, "*** gr1.concatenate_assign(gr2) ***");
+    bool ok = (gr1 == known_gr);
 
-  return ok;
+    print_congruences(gr1, "*** gr1.concatenate_assign(gr2) ***");
+
+    return ok;
 }
 
 // Zero dimension universe.
 bool
-test08() {
-  Variable A(0);
+test08 ()
+{
+    Variable A(0);
 
-  Grid gr1(0);
+    Grid gr1(0);
 
-  print_congruences(gr1, "*** gr1 ***");
+    print_congruences(gr1, "*** gr1 ***");
 
-  Grid gr2(1);
-  gr2.add_congruence((A %= 0) / 2);
+    Grid gr2(1);
 
-  print_congruences(gr2, "*** gr2 ***");
+    gr2.add_congruence((A %= 0) / 2);
 
-  gr1.concatenate_assign(gr2);
+    print_congruences(gr2, "*** gr2 ***");
 
-  Grid known_gr(1);
-  known_gr.add_congruence((A %= 0) / 2);
+    gr1.concatenate_assign(gr2);
 
-  bool ok = (gr1 == known_gr);
+    Grid known_gr(1);
 
-  print_congruences(gr1, "*** gr1.concatenate_assign(gr2) ***");
+    known_gr.add_congruence((A %= 0) / 2);
 
-  return ok;
+    bool ok = (gr1 == known_gr);
+
+    print_congruences(gr1, "*** gr1.concatenate_assign(gr2) ***");
+
+    return ok;
 }
 
 // Zero dimension empty.
 bool
-test09() {
-  Variable A(0);
+test09 ()
+{
+    Variable A(0);
 
-  Grid gr1(0, EMPTY);
+    Grid gr1(0, EMPTY);
 
-  print_congruences(gr1, "*** gr1 ***");
+    print_congruences(gr1, "*** gr1 ***");
 
-  Grid gr2(1);
-  gr2.add_congruence((A %= 0) / 2);
+    Grid gr2(1);
 
-  print_congruences(gr2, "*** gr2 ***");
+    gr2.add_congruence((A %= 0) / 2);
 
-  gr1.concatenate_assign(gr2);
+    print_congruences(gr2, "*** gr2 ***");
 
-  Grid known_gr(1, EMPTY);
+    gr1.concatenate_assign(gr2);
 
-  bool ok = (gr1 == known_gr);
+    Grid known_gr(1, EMPTY);
 
-  print_congruences(gr1, "*** gr1.concatenate_assign(gr2) ***");
+    bool ok = (gr1 == known_gr);
 
-  return ok;
+    print_congruences(gr1, "*** gr1.concatenate_assign(gr2) ***");
+
+    return ok;
 }
 
 #if 0
 // Space dimension exception.
 bool
-test11() {
-  Grid gr1(7);
+test11 ()
+{
+    Grid gr1(7);
 
-  Grid gr2(1);
-  gr2.add_congruence(Congruence::zero_dim_integrality());
-  gr2.minimized_congruences();
-  gr2.ascii_dump();
-  // This needs to allocate a lot of memory, in order to create the
-  // integrality congruence.  The presence of the integrality
-  // congruence is required by the conversion.
+    Grid gr2(1);
 
-  gr2.add_space_dimensions_and_project(Grid::max_space_dimension() - 1);
+    gr2.add_congruence(Congruence::zero_dim_integrality());
+    gr2.minimized_congruences();
+    gr2.ascii_dump();
+    // This needs to allocate a lot of memory, in order to create the
+    // integrality congruence.  The presence of the integrality
+    // congruence is required by the conversion.
 
-  try {
-    gr1.concatenate_assign(gr2);
-  }
-  catch (const std::length_error& e) {
-    nout << "max_space_dimension_exceeded: " << e.what() << endl;
-    return true;
-  }
-  catch (...) {
-  }
-  return false;
+    gr2.add_space_dimensions_and_project(Grid::max_space_dimension() - 1);
+
+    try
+    {
+        gr1.concatenate_assign(gr2);
+    }
+    catch (const std::length_error & e)
+    {
+        nout << "max_space_dimension_exceeded: " << e.what() << endl;
+        return true;
+    }
+    catch (...)
+    {
+    }
+    return false;
 }
 #endif
 
 } // namespace
 
 BEGIN_MAIN
-  DO_TEST(test01);
-  DO_TEST(test02);
-  DO_TEST(test03);
-  DO_TEST(test04);
-  DO_TEST(test05);
-  DO_TEST(test06);
-  DO_TEST(test07);
-  DO_TEST(test08);
-  DO_TEST(test09);
-  // DO_TEST(test11);
+    DO_TEST(test01);
+DO_TEST(test02);
+DO_TEST(test03);
+DO_TEST(test04);
+DO_TEST(test05);
+DO_TEST(test06);
+DO_TEST(test07);
+DO_TEST(test08);
+DO_TEST(test09);
+// DO_TEST(test11);
 END_MAIN
+
